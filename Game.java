@@ -37,7 +37,7 @@ public class Game
         
         // Room outside, theater, pub, lab, office;
         Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5, cave_area6,
-            forest_entrance, forest_field1, forest_field2, forest_field3,
+            forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3,
             road, village_entrance, marketplace,
             prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
         
@@ -55,6 +55,9 @@ public class Game
         forest_field1 = new Room("...");
         forest_field2 = new Room("...");
         forest_field3 = new Room("...");
+        tree1 = new Room("...");
+        tree2 = new Room("...");
+        tree3 = new Room("...");
         road = new Room("...");
         village_entrance = new Room("...");
         marketplace = new Room("...");
@@ -100,12 +103,21 @@ public class Game
         
         forest_field1.setExit("east", forest_entrance);
         forest_field1.setExit("south", forest_field2);
+        forest_field1.setExit("up", tree1);
         
         forest_field2.setExit("north", forest_field1);
         forest_field2.setExit("east", forest_field3);
+        forest_field2.setExit("up", tree2);
         
         forest_field3.setExit("north", forest_entrance);
         forest_field3.setExit("west", forest_field2);
+        forest_field3.setExit("up", tree3);
+        
+        tree1.setExit("down", forest_field1);
+        
+        tree2.setExit("down", forest_field2);
+        
+        tree3.setExit("down", forest_field3);
         
         road.setExit("north", village_entrance);
         road.setExit("south", crater);
@@ -133,32 +145,7 @@ public class Game
         
         cell3.setExit("north", cellblock);
         
-        currentRoom = crater;               //start game 
-        //.setExit("", );
-        // create the rooms
-        // outside = new Room("outside the main entrance of the university");
-        // theater = new Room("in a lecture theater");
-        // pub = new Room("in the campus pub");
-        // lab = new Room("in a computing lab");
-        // office = new Room("in the computing admin office");
-        
-        // initialise room exits
-        // outside.setExit("east", theater);
-        // outside.setExit("south", lab);
-        // outside.setExit("west", pub);
-
-        // theater.setExit("west", outside);
-
-        // pub.setExit("east", outside);
-
-        // lab.setExit("north", outside);
-        // lab.setExit("east", office);
-
-        // office.setExit("west", lab);
-
-        // currentRoom = outside;  // start game outside
-        
-       
+        currentRoom = crater;               //start game
         
     }
 
