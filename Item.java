@@ -8,18 +8,19 @@
  * An item represents an object of any kind. 
  * The items can be found in a room in the game.
  * 
- * @author N.Verkade, M. Kok and E. Zigterman Rustenburg
+ * @author N.Verkade
  * @version 06-01-2019
  */
 
 public class Item
 {
-    // instance variables - vervang deze door jouw variabelen
+    // instance variables
     private String description;
     private int weight;
 
     /**
-     * Constructor voor objects van class Item
+     * Constructor for class Item.
+     * Creates an Item with a weight and description.
      */
     public Item(int weight, String description)
     {
@@ -42,4 +43,5 @@ public class Item
     {
         return weight;
     }
+    
 }
