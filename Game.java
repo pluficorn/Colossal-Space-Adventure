@@ -220,6 +220,11 @@ public class Game
             case QUIT:
                 wantToQuit = quit(command);
                 break;
+                
+            case LOOK:
+                System.out.println("Debug msg for LOOK.");
+                //look();
+                break;
         }
         return wantToQuit;
     }
