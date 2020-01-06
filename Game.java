@@ -1,4 +1,4 @@
- /**
+/**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
  *  can walk around some scenery. That's all. It should really be extended 
@@ -19,7 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -34,13 +34,13 @@ public class Game
      */
     private void createRooms()
     {
-        
+
         // Room outside, theater, pub, lab, office;
         Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5, cave_area6,
-            forest_entrance, forest_field1, forest_field2, forest_field3,
-            road, village_entrance, marketplace,
-            prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
-        
+        forest_entrance, forest_field1, forest_field2, forest_field3,
+        road, village_entrance, marketplace,
+        prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
+
         // create the rooms
         crater = new Room("...");
         open_field = new Room("...");
@@ -64,75 +64,75 @@ public class Game
         cell1 = new Room("...");
         cell2 = new Room("...");
         cell3 = new Room("...");
-        
+
         //initialize room exits
         crater.setExit("north", road);
         crater.setExit("east", open_field);
         crater.setExit("south", cave_entrance);
         crater.setExit("west", forest_entrance);
-        
+
         open_field.setExit("west", crater);
-        
+
         cave_entrance.setExit("north", crater);
         cave_entrance.setExit("south", cave_area1);
-        
+
         cave_area1.setExit("north", cave_entrance);
         cave_area1.setExit("east", cave_area3);
         cave_area1.setExit("south", cave_area1);
-        
+
         cave_area2.setExit("north", cave_area1);
         //cave_area2.setExit("trap", cave_area4);
-        
+
         cave_area3.setExit("east", cave_area5);
         cave_area3.setExit("west", cave_area1);
-        
+
         cave_area4.setExit("south", cave_area5);
-        
+
         cave_area5.setExit("north", cave_area4);
         cave_area5.setExit("south", cave_area6);
         cave_area5.setExit("west", cave_area3);
-        
+
         cave_area6.setExit("north", cave_area5);
-        
+
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
         forest_entrance.setExit("west", forest_field1);
-        
+
         forest_field1.setExit("east", forest_entrance);
         forest_field1.setExit("south", forest_field2);
-        
+
         forest_field2.setExit("north", forest_field1);
         forest_field2.setExit("east", forest_field3);
-        
+
         forest_field3.setExit("north", forest_entrance);
         forest_field3.setExit("west", forest_field2);
-        
+
         road.setExit("north", village_entrance);
         road.setExit("south", crater);
-        
+
         village_entrance.setExit("east", marketplace);
         village_entrance.setExit("south", road);
         village_entrance.setExit("west", prison_entrance);
-        
+
         marketplace.setExit("west", village_entrance);
-        
+
         prison_entrance.setExit("east", village_entrance);
         prison_entrance.setExit("south", prison_cafeteria);
         prison_entrance.setExit("west", cellblock);
-        
+
         prison_cafeteria.setExit("north", prison_entrance);
-        
+
         cellblock.setExit("north", cell1);
         cellblock.setExit("east", prison_entrance);
         cellblock.setExit("south", cell3);
         cellblock.setExit("west", cell2);
-        
+
         cell1.setExit("south", cellblock);
-        
+
         cell2.setExit("east", cellblock);
-        
+
         cell3.setExit("north", cellblock);
-        
+
         currentRoom = crater;               //start game 
         //.setExit("", );
         // create the rooms
@@ -141,7 +141,7 @@ public class Game
         // pub = new Room("in the campus pub");
         // lab = new Room("in a computing lab");
         // office = new Room("in the computing admin office");
-        
+
         // initialise room exits
         // outside.setExit("east", theater);
         // outside.setExit("south", lab);
@@ -157,9 +157,7 @@ public class Game
         // office.setExit("west", lab);
 
         // currentRoom = outside;  // start game outside
-        
-       
-        
+
     }
 
     /**
@@ -171,7 +169,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -206,25 +204,25 @@ public class Game
 
         switch (commandWord) {
             case UNKNOWN:
-                System.out.println("I don't know what you mean...");
-                break;
+            System.out.println("I don't know what you mean...");
+            break;
 
             case HELP:
-                printHelp();
-                break;
+            printHelp();
+            break;
 
             case GO:
-                goRoom(command);
-                break;
+            goRoom(command);
+            break;
 
             case QUIT:
-                wantToQuit = quit(command);
-                break;
-                
+            wantToQuit = quit(command);
+            break;
+
             case LOOK:
-                System.out.println("Debug msg for LOOK.");
-                //look();
-                break;
+            System.out.println("Debug msg for LOOK.");
+            look();
+            break;
         }
         return wantToQuit;
     }
@@ -285,5 +283,13 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+
+    /**
+     * Look around the room. Get the current description
+     */
+    private void look()
+    {
+        System.out.println(currentRoom.getLongDescription());
     }
 }
