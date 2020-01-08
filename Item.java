@@ -49,7 +49,7 @@ public class Item
     /**
      * Method to get the description of an item
      */
-    public String getDescription()
+    public String getItemDescription()
     {
         return description;
     }

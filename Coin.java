@@ -33,4 +33,9 @@ public class Coin
     {
         return count;
     }
+    
+    public String getCoinDescription()
+    {
+        return "There are " + getCount() + " coins lying around";
+    }
 }
