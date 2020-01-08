@@ -300,14 +300,14 @@ public class Game
         // Areadescription and exits
         System.out.println(currentRoom.getLongDescription());
         // Items located in room
-        //if(items.getName() != "")
-        //{
-            System.out.println(item.getItemDescription());
-        //}
+        // if(items.getName() != "")
+        // {
+            // System.out.println(item.getItemDescription());
+        // }
         // Coins located in room
-        //if(coins.getCount() > 0)
-        //{
-            System.out.println(coin.getCoinDescription());
-        //}
+        // if(coins.getCount() > 0)
+        // {
+            // System.out.println(coin.getCoinDescription());
+        // }
     }
 }
