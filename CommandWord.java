@@ -16,6 +16,8 @@ public enum CommandWord
     HELP("help"), 
 
     UNKNOWN("?"), 
+    
+    BACK("back"),
 
     LOOK("look");
 

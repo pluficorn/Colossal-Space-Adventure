@@ -1,3 +1,6 @@
+import java.util.Deque;
+import java.util.Stack;
+import java.util.ArrayDeque;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -18,7 +21,11 @@
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
+    private Player player;
+    private Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5, cave_area6,
+    forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3,road, village_entrance,
+    marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
+    private Deque<Room> history;
 
     /**
      * Create the game and initialise its internal map.
@@ -27,6 +34,9 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        history = new ArrayDeque<>();
+
+        player = new Player(100, crater);
     }
 
     /**
@@ -34,19 +44,11 @@ public class Game
      */
     private void createRooms()
     {
-
-        // Room outside, theater, pub, lab, office;
-        Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5, cave_area6,
-        
-            forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3,
-            road, village_entrance, marketplace,
-            prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
-         
-        // create the rooms
-        crater = new Room("...");
-        open_field = new Room("...");
-        cave_entrance = new Room("...");
-        cave_area1 = new Room("...");
+        // Create the rooms with descriptions
+        crater = new Room("in the crater where you crashed");
+        open_field = new Room("in an open field near the ship. Nothing else in sight..");
+        cave_entrance = new Room("at the mouth of a cave. Looks dark");
+        cave_area1 = new Room("in the cave. It's dark");
         cave_area2 = new Room("...");
         cave_area3 = new Room("...");
         cave_area4 = new Room("...");
@@ -59,7 +61,7 @@ public class Game
         tree1 = new Room("...");
         tree2 = new Room("...");
         tree3 = new Room("...");
-        road = new Room("...");
+        road = new Room("near the village");
         village_entrance = new Room("...");
         marketplace = new Room("...");
         prison_entrance = new Room("...");
@@ -69,17 +71,17 @@ public class Game
         cell2 = new Room("...");
         cell3 = new Room("...");
 
-        //initialize room 
+        // Initialize room exits and add items/coins 
         crater.setExit("north", road);
         crater.setExit("east", open_field);
         crater.setExit("south", cave_entrance);
         crater.setExit("west", forest_entrance);
         crater.addCoin(new Coin(3));
-        
+
         open_field.setExit("west", crater);
         open_field.addItem(new Item(50, "Metal Shielding", "The outside part of the rocket, also used as shielding"));
         open_field.addCoin(new Coin(4));
-        
+
         cave_entrance.setExit("north", crater);
         cave_entrance.setExit("south", cave_area1);
         cave_entrance.addCoin(new Coin(3));
@@ -100,7 +102,7 @@ public class Game
         cave_area5.setExit("south", cave_area6);
         cave_area5.setExit("west", cave_area3);
         cave_area5.addCoin(new Coin(3));
-        
+
         cave_area6.setExit("north", cave_area5);
 
         forest_entrance.setExit("east", crater);
@@ -112,20 +114,20 @@ public class Game
         forest_field1.setExit("south", forest_field2);
 
         forest_field1.setExit("up", tree1);
-        
+
         forest_field2.setExit("north", forest_field1);
         forest_field2.setExit("east", forest_field3);
         forest_field2.setExit("up", tree2);
         forest_field2.addCoin(new Coin(6));
-        
+
         forest_field3.setExit("north", forest_entrance);
         forest_field3.setExit("west", forest_field2);
         forest_field3.setExit("up", tree3);
-        
+
         tree1.setExit("down", forest_field1);
-        
+
         tree2.setExit("down", forest_field2);
-        
+
         tree3.setExit("down", forest_field3);
         tree3.addCoin(new Coin(7));
 
@@ -159,14 +161,12 @@ public class Game
 
         cell3.setExit("north", cellblock);
         cell3.addCoin(new Coin(6));
-        
-        currentRoom = crater;               //start game
     }
 
     /**
-     *  Main play routine.  Loops until end of play.
+     *  Main play routine. Loops until end of play.
      */
-    public void play() 
+    public void play()
     {            
         printWelcome();
 
@@ -191,7 +191,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly awesome adventure game.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getRoom().getLongDescription());
     }
 
     /**
@@ -223,8 +223,11 @@ public class Game
             break;
 
             case LOOK:
-            System.out.println("Debug msg for LOOK.");
             look();
+            break;
+
+            case BACK:
+            back();
             break;
         }
         return wantToQuit;
@@ -240,7 +243,7 @@ public class Game
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("around on an unkonwn planet.");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
@@ -261,14 +264,21 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = player.getRoom().getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
-        else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+        else { // Room exists: proceed!
+            // First, save current room to history so we can use it later with back
+            history.push(player.getRoom());
+
+            // Then go to next room and print description
+            player.setRoom(nextRoom);
+            System.out.println(player.getRoom().getLongDescription());
+
+            // Debug, print what the previous room was
+            System.out.println("Debug: You were " + history.peek().getShortDescription());
         }
     }
 
@@ -293,6 +303,20 @@ public class Game
      */
     private void look()
     {
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getRoom().getLongDescription());
+    }
+
+    /**
+     * Go back to the previous room according to the history
+     * This also removes the room from history.
+     */
+    private void back()
+    {
+        if(!history.isEmpty()) {
+            player.setRoom(history.pop());
+            look();
+        } else {
+            System.out.println("There is nothing to go back to.");
+        }
     }
 }
