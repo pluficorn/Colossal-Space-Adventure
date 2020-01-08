@@ -17,23 +17,25 @@ public class Item
     // instance variables
     private String description;
     private int weight;
+    private String name;
 
     /**
      * Constructor for class Item.
      * Creates an Item with a weight and description.
      */
-    public Item(int weight, String description)
+    public Item(int weight, String name, String description)
     {
         this.weight = weight;
         this.description = description;
+        this.name = name;
     }
 
     /**
-     * Method to get the description of the item
+     * Method to get the Name of the item
      */
-    public String getDescription()
+    public String getName()
     {
-        return description;
+        return name;
     }
 
     /**
@@ -42,6 +44,14 @@ public class Item
     public int getWeight()
     {
         return weight;
+    }
+    
+    /**
+     * Method to get the description of an item
+     */
+    public String getDescription()
+    {
+        return description;
     }
     
 }
