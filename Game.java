@@ -69,12 +69,12 @@ public class Game
         cell2 = new Room("...");
         cell3 = new Room("...");
 
-        //initialize room exits
+        //initialize room 
         crater.setExit("north", road);
         crater.setExit("east", open_field);
         crater.setExit("south", cave_entrance);
         crater.setExit("west", forest_entrance);
-
+        
         open_field.setExit("west", crater);
         open_field.addItem(new Item(50, "Metal Shielding"));
 
