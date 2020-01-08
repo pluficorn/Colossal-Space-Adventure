@@ -78,19 +78,19 @@ public class Room
     public String getLongDescription()
     {
         // If there are both coins and items
-        if( coins >0 && items != "")
+        if( coins.isEmpty() == false && items.isEmpty() == false)
         {
-            return "You are " + description + "\n" + "There are " + coins.getCount() + " coins" + "\n" + items.getItemDescription + getExitString;
+            return "You are " + description + "\n" + "There are " + coins.getCount() + " coins" + "\n" + items.getItemDescription() + getExitString();
         }
         // If there are only items
-        else if(items != "")
+        else if(items.isEmpty() == false)
         {
-            return "You are " + description + "\n" + items.getItemDescription + "\n" + getExitString;
+            return "You are " + description + "\n" + items.getItemDescription() + "\n" + getExitString();
         }
         // If there are only coins
-        else if(coins > 0)
+        else if(coins.isEmpty() == false)
         {
-            return "You are " + description + "\n" + "There are " + coins.getCount() + " coins" + "\n" + getExitString;
+            return "You are " + description + "\n" + "There are " + coins.getCount() + " coins" + "\n" + getExitString();
         } 
         // If there are no items or coins
         else 
