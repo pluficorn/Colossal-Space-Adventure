@@ -19,8 +19,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Item items;
-    private Coin coins;
+    private Item item;
+    private Coin coin;
 
     /**
      * Create the game and initialise its internal map.
@@ -29,8 +29,8 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        items = new Item(0, "", "");
-        coins = new Coin(0);
+        item = new Item(0, "", "");
+        coin = new Coin(0);
     }
 
     /**
@@ -302,12 +302,12 @@ public class Game
         // Items located in room
         //if(items.getName() != "")
         //{
-            System.out.println(items.getItemDescription());
+            System.out.println(item.getItemDescription());
         //}
         // Coins located in room
         //if(coins.getCount() > 0)
         //{
-            System.out.println(coins.getCoinDescription());
+            System.out.println(coin.getCoinDescription());
         //}
     }
 }
