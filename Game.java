@@ -230,6 +230,12 @@ public class Game
             System.out.println("Debug msg for LOOK.");
             look();
             break;
+            
+            case TAKE:
+            break;
+            
+            case DROP:
+            break;
         }
         return wantToQuit;
     }

@@ -17,7 +17,11 @@ public enum CommandWord
 
     UNKNOWN("?"), 
 
-    LOOK("look");
+    LOOK("look"),
+    
+    TAKE("take"),
+    
+    DROP("drop");
 
     // The command string.
     private String commandString;
