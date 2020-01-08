@@ -37,11 +37,11 @@ public class Game
 
         // Room outside, theater, pub, lab, office;
         Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5, cave_area6,
-
+        
             forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3,
             road, village_entrance, marketplace,
             prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
-
+         
         // create the rooms
         crater = new Room("...");
         open_field = new Room("...");
@@ -76,6 +76,7 @@ public class Game
         crater.setExit("west", forest_entrance);
 
         open_field.setExit("west", crater);
+        open_field.addItem(new Item(50, "Metal Shielding"));
 
         cave_entrance.setExit("north", crater);
         cave_entrance.setExit("south", cave_area1);
@@ -135,6 +136,7 @@ public class Game
         prison_entrance.setExit("west", cellblock);
 
         prison_cafeteria.setExit("north", prison_entrance);
+        prison_cafeteria.addItem(new Item(1, "Key"));
 
         cellblock.setExit("north", cell1);
         cellblock.setExit("east", prison_entrance);
