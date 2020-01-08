@@ -15,27 +15,17 @@
 public class Coin
 {
     // Instance variables
-    private String description;
     private int count;
-    
+
     /**
      * Constructor for class Coin.
      * Creates coins with a count and description.
      */
-    public Coin(int count, String description)
+    public Coin(int count)
     {
         this.count = count;
-        this.description = description;
     }
-    
-    /**
-     * Method to get the description of the coins
-     */
-    public String getDescription()
-    {
-        return description;
-    }
-    
+
     /**
      * Method to get the weight of the item
      */

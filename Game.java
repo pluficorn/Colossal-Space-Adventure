@@ -74,19 +74,22 @@ public class Game
         crater.setExit("east", open_field);
         crater.setExit("south", cave_entrance);
         crater.setExit("west", forest_entrance);
+        crater.addCoin(new Coin(3));
         
         open_field.setExit("west", crater);
         open_field.addItem(new Item(50, "Metal Shielding"));
-
+        open_field.addCoin(new Coin(4));
+        
         cave_entrance.setExit("north", crater);
         cave_entrance.setExit("south", cave_area1);
+        cave_entrance.addCoin(new Coin(3));
 
         cave_area1.setExit("north", cave_entrance);
         cave_area1.setExit("east", cave_area3);
         cave_area1.setExit("south", cave_area1);
 
         cave_area2.setExit("north", cave_area1);
-        //cave_area2.setExit("trap", cave_area4);
+        cave_area2.addCoin(new Coin(4));
 
         cave_area3.setExit("east", cave_area5);
         cave_area3.setExit("west", cave_area1);
@@ -96,12 +99,14 @@ public class Game
         cave_area5.setExit("north", cave_area4);
         cave_area5.setExit("south", cave_area6);
         cave_area5.setExit("west", cave_area3);
-
+        cave_area5.addCoin(new Coin(3));
+        
         cave_area6.setExit("north", cave_area5);
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
         forest_entrance.setExit("west", forest_field1);
+        forest_entrance.addCoin(new Coin(3));
 
         forest_field1.setExit("east", forest_entrance);
         forest_field1.setExit("south", forest_field2);
@@ -111,6 +116,7 @@ public class Game
         forest_field2.setExit("north", forest_field1);
         forest_field2.setExit("east", forest_field3);
         forest_field2.setExit("up", tree2);
+        forest_field2.addCoin(new Coin(6));
         
         forest_field3.setExit("north", forest_entrance);
         forest_field3.setExit("west", forest_field2);
@@ -121,15 +127,18 @@ public class Game
         tree2.setExit("down", forest_field2);
         
         tree3.setExit("down", forest_field3);
+        tree3.addCoin(new Coin(7));
 
         road.setExit("north", village_entrance);
         road.setExit("south", crater);
+        road.addCoin(new Coin(4));
 
         village_entrance.setExit("east", marketplace);
         village_entrance.setExit("south", road);
         village_entrance.setExit("west", prison_entrance);
 
         marketplace.setExit("west", village_entrance);
+        marketplace.addCoin(new Coin(5));
 
         prison_entrance.setExit("east", village_entrance);
         prison_entrance.setExit("south", prison_cafeteria);
@@ -137,6 +146,7 @@ public class Game
 
         prison_cafeteria.setExit("north", prison_entrance);
         prison_cafeteria.addItem(new Item(1, "Key"));
+        prison_cafeteria.addCoin(new Coin(2));
 
         cellblock.setExit("north", cell1);
         cellblock.setExit("east", prison_entrance);
@@ -148,6 +158,7 @@ public class Game
         cell2.setExit("east", cellblock);
 
         cell3.setExit("north", cellblock);
+        cell3.addCoin(new Coin(6));
         
         currentRoom = crater;               //start game
     }
