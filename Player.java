@@ -14,16 +14,17 @@
 
 public class Player
 {
-    // instance variables - vervang deze door jouw variabelen
-    
+    // Instance variables 
+    private int coinPouch;
+    private String inventory;
+    private int maxWeight;
     
     /**
      * Constructor voor objects van class Player
      */
     public Player()
     {
-        // geef de instance variables een beginwaarde
-        x = 0;
+
     }
 
 }
