@@ -18,7 +18,7 @@ public class Player
     private int coinPouch;
     private String inventory;
     private int maxWeight;
-    
+
     /**
      * Constructor voor objects van class Player
      */
@@ -26,5 +26,22 @@ public class Player
     {
 
     }
+    
+    /**
+     * Method that drops a chosen item by the player
+     */
+    public void dropItem()
+    {
+        
+    }
+    
+    /**
+     * Method that picks up a chosen item by the player
+     */
+    public void pickUpItem()
+    {
+        
+    }
+
 
 }
