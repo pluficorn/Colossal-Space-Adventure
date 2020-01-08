@@ -45,6 +45,23 @@ public class Player
     {
         return this.currentRoom;
     }
+    
+    /**
+     * Method that drops a chosen item by the player
+     */
+    public void dropItem()
+    {
+        
+    }
+    
+    /**
+     * Method that picks up a chosen item by the player
+     */
+    public void pickUpItem()
+    {
+        
+    }
+
 
     /**
      * Add money from the players balance.

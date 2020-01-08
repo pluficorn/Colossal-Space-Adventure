@@ -23,6 +23,8 @@ public class Room
     private HashMap<String, Room> exits;       // stores exits of this room.
     private ArrayList<Item> items;
     private ArrayList<Coin> coins;
+    private Item item;
+    private Coin coin;
     
     /**
      * Create a room described "description". Initially, it has
@@ -75,7 +77,26 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        // If there are both coins and items
+        if( coins.isEmpty() == false && items.isEmpty() == false)
+        {
+            return "You are " + description + "\n" + "There are " + coins.getCount() + " coins" + "\n" + items.getItemDescription() + getExitString();
+        }
+        // If there are only items
+        else if(items.isEmpty() == false)
+        {
+            return "You are " + description + "\n" + items.getItemDescription() + "\n" + getExitString();
+        }
+        // If there are only coins
+        else if(coins.isEmpty() == false)
+        {
+            return "You are " + description + "\n" + "There are " + coins.getCount() + " coins" + "\n" + getExitString();
+        } 
+        // If there are no items or coins
+        else 
+        {
+           return "You are " + description + ".\n" + getExitString(); 
+        }
     }
 
     /**
