@@ -80,7 +80,7 @@ public class Game {
 		crater.setCoin(new Coin(3));
 
 		open_field.setExit("west", crater);
-		open_field.addItem(new Item(50, "Metal Shielding", "The outside part of the rocket, also used as shielding"));
+		open_field.addItem(new Item(50, "Metal Shielding", "the outside part of the rocket, also used as shielding"));
 		open_field.setCoin(new Coin(4));
 
 		cave_entrance.setExit("north", crater);
@@ -148,7 +148,7 @@ public class Game {
 		prison_entrance.setExit("west", cellblock);
 
 		prison_cafeteria.setExit("north", prison_entrance);
-		prison_cafeteria.addItem(new Item(1, "Key", "A golden key used to get in to a closed room"));
+		prison_cafeteria.addItem(new Item(1, "Key", "a golden key used to get in to a closed room"));
 		prison_cafeteria.setCoin(new Coin(2));
 
 		cellblock.setExit("north", cell1);

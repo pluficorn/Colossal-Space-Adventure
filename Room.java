@@ -85,11 +85,11 @@ public class Room
         {
             longDescription += coin.getCoinDescription() + "\n";
         }
-        // If there are only items
-        // while(items.isEmpty() == true)                 // moet nog gefixed worden
-        // {
-            // longDescription += items().getItemDescription() + "\n";
-        // }
+        //If there are only items
+        for(Item item : items)                 // moet nog gefixed worden
+        {
+             longDescription += "It looks like " + item.getItemDescription() + "\n";
+         }
         
         longDescription += getExitString();
         
