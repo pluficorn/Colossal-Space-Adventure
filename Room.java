@@ -26,7 +26,7 @@ public class Room
     // private Item item;
     private Coin coin;
     //private int coin;
-    
+
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -50,12 +50,26 @@ public class Room
     {
         exits.put(direction, neighbor);
     }
-    
+
     public void addItem(Item item)
     {
         items.add(item);
     }
     
+    public ArrayList<Item> getItems()
+    {
+        return items;
+    }
+
+    public boolean lookForItem(Item item)
+    {
+        if (items.contains(item)){
+            return true;    
+        } else {
+            return false;
+        }
+    }
+
     public void setCoin(Coin coin)
     {
         this.coin = coin;
@@ -80,7 +94,7 @@ public class Room
     {
         // If there are both coins and items
         String longDescription = "You are " + description + "\n";
-        
+
         if( coin.getCount() > 0 )
         {
             longDescription += coin.getCoinDescription() + "\n";
@@ -88,11 +102,11 @@ public class Room
         //If there are only items
         for(Item item : items)                 // moet nog gefixed worden
         {
-             longDescription += "It looks like " + item.getItemDescription() + "\n";
-         }
-        
+            longDescription += "It looks like " + item.getItemDescription() + "\n";
+        }
+
         longDescription += getExitString();
-        
+
         return longDescription;
     }
 

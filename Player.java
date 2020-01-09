@@ -15,12 +15,10 @@ import java.util.ArrayList;
 
 public class Player
 {
-    private int coinPouch;
-    //private String inventory; 
-    private ArrayList<String> inventory;
+    private int coinPouch; 
+    private ArrayList<Item> inventory;
     private int maxWeight;
     private Room currentRoom;
-    
 
     /**
      * Constructor voor objects van class Player
@@ -48,23 +46,27 @@ public class Player
     {
         return this.currentRoom;
     }
-    
+
     /**
      * Method that drops a chosen item by the player
      */
     public void dropItem()
     {
-        
+
     }
-    
+
     /**
      * Method that picks up a chosen item by the player
      */
-    public void pickUpItem()
+    public void pickUpItem(String name)
     {
-        
+        ArrayList<Item> roomItems = getRoom().getItems();
+        for (Item item : roomItems ) {
+            if (item.getName().equals(name)) {
+                inventory.add(item);
+            }
+        }
     }
-
 
     /**
      * Add money from the players balance.
