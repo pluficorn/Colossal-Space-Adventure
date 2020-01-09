@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  * Class Player -- all the information about the player, like a coin pouch and the inventory
@@ -15,9 +16,11 @@
 public class Player
 {
     private int coinPouch;
-    private String inventory;
+    //private String inventory; 
+    private ArrayList<String> inventory;
     private int maxWeight;
     private Room currentRoom;
+    
 
     /**
      * Constructor voor objects van class Player
