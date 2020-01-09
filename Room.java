@@ -22,9 +22,10 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;       // stores exits of this room.
     private ArrayList<Item> items;
-    private ArrayList<Coin> coins;
-    private Item item;
+    //private ArrayList<Coin> coins;
+    // private Item item;
     private Coin coin;
+    //private int coin;
     
     /**
      * Create a room described "description". Initially, it has
@@ -37,7 +38,7 @@ public class Room
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
-        coins = new ArrayList<>();
+        //coins = new ArrayList<>();
     }
 
     /**
@@ -55,9 +56,9 @@ public class Room
         items.add(item);
     }
     
-    public void addCoin(Coin coin)
+    public void setCoin(Coin coin)
     {
-        coins.add(coin);
+        this.coin = coin;
     }
 
     /**
@@ -78,25 +79,21 @@ public class Room
     public String getLongDescription()
     {
         // If there are both coins and items
-        if( coins.isEmpty() == false && items.isEmpty() == false)
+        String longDescription = "You are " + description + "\n";
+        
+        if( coin.getCount() > 0 )
         {
-            return "You are " + description + "\n" + "There are " + coins.getCount() + " coins" + "\n" + items.getItemDescription() + getExitString();
+            longDescription += coin.getCoinDescription() + "\n";
         }
         // If there are only items
-        else if(items.isEmpty() == false)
-        {
-            return "You are " + description + "\n" + items.getItemDescription() + "\n" + getExitString();
-        }
-        // If there are only coins
-        else if(coins.isEmpty() == false)
-        {
-            return "You are " + description + "\n" + "There are " + coins.getCount() + " coins" + "\n" + getExitString();
-        } 
-        // If there are no items or coins
-        else 
-        {
-           return "You are " + description + ".\n" + getExitString(); 
-        }
+        // while(items.isEmpty() == true)                 // moet nog gefixed worden
+        // {
+            // longDescription += items().getItemDescription() + "\n";
+        // }
+        
+        longDescription += getExitString();
+        
+        return longDescription;
     }
 
     /**
