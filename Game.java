@@ -235,6 +235,7 @@ public class Game {
             break;
 
             case DROP:
+            drop(command);
             break;
         }
         return wantToQuit;
@@ -337,9 +338,30 @@ public class Game {
         if(item instanceof Item) {
             player.pickUpItem(item);
             player.getRoom().removeItem(item);
-            System.out.println("You picked up the" + itemName);
+            System.out.println("You picked up the " + itemName);
         } else {
             System.out.println("Couldn't find specified item");
+        }
+    }
+    
+    private void drop(Command command)
+    {
+        if(!command.hasSecondWord())
+        {
+            // If there's no second word, we don't know what to drop.
+            System.out.println("Drop what?");
+            return;
+        }
+        
+        // Specifying the item
+        String itemName = command.getSecondWord();
+        Item item = player.getInventoryItemFromString(itemName);
+        
+        if( item instanceof Item)
+        {
+            player.dropItem(item);
+            player.getRoom().addItem(item);
+            System.out.println("You've dropped " + itemName);
         }
     }
 }

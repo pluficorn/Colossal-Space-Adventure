@@ -9,8 +9,8 @@ import java.util.ArrayList;
  * The inventory carries all the items of the player, which is determined by a maxiumum weight.
  * The coin pouch carries all the coins, determined by count.
  * 
- * @author N.Verkade, M.Kok
- * @version 08-01-2019
+ * @author N.Verkade, M.Kok, E.Zigterman Rustenburg
+ * @version 11-01-2019
  */
 
 public class Player
@@ -51,9 +51,24 @@ public class Player
     /**
      * Method that drops a chosen item by the player
      */
-    public void dropItem()
+    public void dropItem(Item item)
     {
+        inventory.remove(item);
+    }
+    
+    /**
+     * return the item from inventory based on index
+     */
+    public Item getInventoryItemFromString(String itemName)
+    {
+        for (Item item : inventory) {
+            if(item.getName() != null && item.getName().equals(itemName)) {
+                return item;
+            }
+        }
         
+        // If no item was found, return null
+        return null;
     }
 
     /**
