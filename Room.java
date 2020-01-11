@@ -56,18 +56,32 @@ public class Room
         items.add(item);
     }
     
+    public void removeItem(Item item)
+    {
+        items.remove(item);
+    }
+    
     public ArrayList<Item> getItems()
     {
         return items;
     }
-
-    public boolean lookForItem(Item item)
+    
+    /**
+     * Checks whether an item in the room has the specified name.
+     * It will only return the first item with the matching name.
+     * May return null if no item was found
+     * @return item
+     */
+    public Item getItemFromString(String itemName)
     {
-        if (items.contains(item)){
-            return true;    
-        } else {
-            return false;
+        for (Item item : items) {
+            if(item.getName() != null && item.getName().equals(itemName)) {
+                return item;
+            }
         }
+        
+        // If no item was found, return null
+        return null;
     }
 
     public void setCoin(Coin coin)

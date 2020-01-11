@@ -27,11 +27,12 @@ public class Player
     {
         this.maxWeight = maxWeight;
         this.currentRoom = currentRoom;
+        this.inventory = new ArrayList<>();
         //this.coinPounch = 10; // set initial money to ten
     }
 
     /**
-     * Set the room the player is currently in.
+     * Move player to specified room
      */
     public void setRoom(Room room)
     {
@@ -52,24 +53,19 @@ public class Player
      */
     public void dropItem()
     {
-
+        
     }
 
     /**
      * Method that picks up a chosen item by the player
      */
-    public void pickUpItem(String name)
+    public void pickUpItem(Item item)
     {
-        ArrayList<Item> roomItems = getRoom().getItems();
-        for (Item item : roomItems ) {
-            if (item.getName().equals(name)) {
-                inventory.add(item);
-            }
-        }
+        inventory.add(item);
     }
 
     /**
-     * Add money from the players balance.
+     * Add money to the players balance.
      */
     public void addMoney(int count)
     {
@@ -82,5 +78,21 @@ public class Player
     public void substractMoney(int count)
     {
         this.coinPouch -= count;
+    }
+    
+    /**
+     * Set maximum weight the player can carry.
+     */
+    public void setMaxWeight(int weight)
+    {
+        this.maxWeight = weight;
+    }
+    
+    /**
+     * Get the maximum weight the player can carry.
+     */
+    public int getMaxWeight()
+    {
+        return maxWeight;
     }
 }

@@ -231,6 +231,7 @@ public class Game {
             break;
 
             case TAKE:
+            take(command);
             break;
 
             case DROP:
@@ -278,9 +279,6 @@ public class Game {
             // Then go to next room and print description
             player.setRoom(nextRoom);
             System.out.println(player.getRoom().getLongDescription());
-
-            // Debug, print what the previous room was
-            System.out.println("Debug: You were " + history.peek().getShortDescription());
         }
     }
 
@@ -319,6 +317,12 @@ public class Game {
         }
     }
 
+    /**
+     * Take an item from the ground, removing it from the room and
+     * adding it to the inventory.
+     *
+     * @param command that was executed
+     */
     private void take(Command command) {
         if (!command.hasSecondWord()) {
             // if there is no second word, we don't know what to take?
@@ -326,12 +330,16 @@ public class Game {
             return;
         }
 
-        String direction = command.getSecondWord();
+        // If we reach this point, an item has been specified
+        String itemName = command.getSecondWord();
+        Item item = player.getRoom().getItemFromString(itemName);
 
-        // Try to pick up the item
-        if(player.getRoom().lookForItem(item)){
-            player.pickUpItem(command.getSecondWord());
-
+        if(item instanceof Item) {
+            player.pickUpItem(item);
+            player.getRoom().removeItem(item);
+            System.out.println("You picked up the" + itemName);
+        } else {
+            System.out.println("Couldn't find specified item");
         }
     }
 }
