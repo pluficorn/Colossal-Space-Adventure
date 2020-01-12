@@ -22,7 +22,7 @@ public class Player
 
     /**
      * Constructor voor objects van class Player
-     */
+     */ 
     public Player(int maxWeight, Room currentRoom)
     {
         this.maxWeight = maxWeight;
@@ -114,12 +114,18 @@ public class Player
     /**
      * Get the total weight the player is carrying.
      */
-    public void getTotalWeight()
+    public int getTotalWeight()
     {
         int totalWeight = 0;
         for(Item item : inventory){
-            int startWeight = totalWeight;
-            totalWeight = startWeight + item.getWeight();
+            totalWeight += item.getWeight();
         }
+        return totalWeight;
+    }
+
+    public ArrayList<Item> getInventory()
+    {
+        return inventory;
     }
 }
+

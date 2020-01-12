@@ -38,8 +38,8 @@ public class Game {
         parser = new Parser();
         history = new ArrayDeque<>();
         player = new Player(100, crater);
-        item = new Item(0, "", "");
-        coin = new Coin(0);
+        //item = new Item(0, "", "");
+        //coin = new Coin(0);
     }
 
     /**
@@ -237,6 +237,10 @@ public class Game {
             case DROP:
             drop(command);
             break;
+
+            case INVENTORY:
+            inventory();
+            break;
         }
         return wantToQuit;
     }
@@ -336,14 +340,18 @@ public class Game {
         Item item = player.getRoom().getItemFromString(itemName);
 
         if(item instanceof Item) {
-            player.pickUpItem(item);
-            player.getRoom().removeItem(item);
-            System.out.println("You picked up the " + itemName);
+            if (player.getTotalWeight() + item.getWeight() <= player.getMaxWeight()){
+                player.pickUpItem(item);
+                player.getRoom().removeItem(item);
+                System.out.println("You picked up the " + itemName);
+            }else{
+                System.out.println("You have reached the maximum weight, your backpack is full");
+            }
         } else {
             System.out.println("Couldn't find specified item");
         }
     }
-    
+
     private void drop(Command command)
     {
         if(!command.hasSecondWord())
@@ -352,16 +360,24 @@ public class Game {
             System.out.println("Drop what?");
             return;
         }
-        
+
         // Specifying the item
         String itemName = command.getSecondWord();
         Item item = player.getInventoryItemFromString(itemName);
-        
+
         if( item instanceof Item)
         {
             player.dropItem(item);
             player.getRoom().addItem(item);
             System.out.println("You've dropped " + itemName);
         }
+    }
+
+    private void inventory()
+    {
+        for (Item myItem : player.getInventory()) {
+            System.out.println("You have " + item.getName()  + "with you, with a weight of "  + item.getWeight() + "KG.");
+        }
+        System.out.println("The total weight is: " + player.getTotalWeight());
     }
 }
