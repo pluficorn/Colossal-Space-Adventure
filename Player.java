@@ -55,7 +55,7 @@ public class Player
     {
         inventory.remove(item);
     }
-    
+
     /**
      * return the item from inventory based on index
      */
@@ -66,7 +66,7 @@ public class Player
                 return item;
             }
         }
-        
+
         // If no item was found, return null
         return null;
     }
@@ -94,7 +94,7 @@ public class Player
     {
         this.coinPouch -= count;
     }
-    
+
     /**
      * Set maximum weight the player can carry.
      */
@@ -102,12 +102,24 @@ public class Player
     {
         this.maxWeight = weight;
     }
-    
+
     /**
      * Get the maximum weight the player can carry.
      */
     public int getMaxWeight()
     {
         return maxWeight;
+    }
+
+    /**
+     * Get the total weight the player is carrying.
+     */
+    public void getTotalWeight()
+    {
+        int totalWeight = 0;
+        for(Item item : inventory){
+            int startWeight = totalWeight;
+            totalWeight = startWeight + item.getWeight();
+        }
     }
 }
