@@ -47,7 +47,7 @@ public class Game {
      */
     private void createRooms() {
         // Create the rooms with descriptions
-        crater = new Room("in the crater where you crashed");
+        crater = new Room("in the crater where you crashed with your ship");
         open_field = new Room("in an open field near the ship. Nothing else in sight..");
         cave_entrance = new Room("at the mouth of a cave. Looks dark");
         cave_area1 = new Room("in the cave. It's dark");
@@ -56,13 +56,13 @@ public class Game {
         cave_area4 = new Room("...");
         cave_area5 = new Room("...");
         cave_area6 = new Room("...");
-        forest_entrance = new Room("...");
-        forest_field1 = new Room("...");
-        forest_field2 = new Room("...");
-        forest_field3 = new Room("...");
-        tree1 = new Room("...");
-        tree2 = new Room("...");
-        tree3 = new Room("...");
+        forest_entrance = new Room("at the entrance of a small forest.");
+        forest_field1 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree has a low hanging branch");
+        forest_field2 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree seems to have a small hole in it");
+        forest_field3 = new Room("You arrive at a small open area within the forest. There is a tree standing in the middle with a small nest on one of its branches");
+        tree1 = new Room("sitting on the low hanging branch branch");
+        tree2 = new Room("sitting on a branch near the small hole");
+        tree3 = new Room("sitting on a branch next to the small nest");
         road = new Room("near the village");
         village_entrance = new Room("...");
         marketplace = new Room("...");
