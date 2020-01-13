@@ -60,9 +60,9 @@ public class Game {
         forest_field1 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree has a low hanging branch");
         forest_field2 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree seems to have a small hole in it");
         forest_field3 = new Room("You arrive at a small open area within the forest. There is a tree standing in the middle with a small nest on one of its branches");
-        tree1 = new Room("sitting on the low hanging branch branch");
+        tree1 = new Room("sitting on the low hanging branch");
         tree2 = new Room("sitting on a branch near the small hole");
-        tree3 = new Room("sitting on a branch next to the small nest");
+        tree3 = new Room("sitting on a branch next to the little nest");
         road = new Room("near the village");
         village_entrance = new Room("...");
         marketplace = new Room("...");
