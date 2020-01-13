@@ -96,7 +96,15 @@ public class Player
     }
 
     /**
-     * Set maximum weight the player can carry.
+     * Get balance of the coinPouch.
+     */
+    public int getBalance()
+    {
+        return coinPouch;
+    }
+    
+    /**
+     * Set maximum weight the player can carry in grams.
      */
     public void setMaxWeight(int weight)
     {
@@ -104,7 +112,7 @@ public class Player
     }
 
     /**
-     * Get the maximum weight the player can carry.
+     * Get the maximum weight the player can carry in grams.
      */
     public int getMaxWeight()
     {
@@ -112,7 +120,7 @@ public class Player
     }
 
     /**
-     * Get the total weight the player is carrying.
+     * Get the total weight the player is carrying in grams.
      */
     public int getTotalWeight()
     {

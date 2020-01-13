@@ -37,7 +37,7 @@ public class Game {
         createRooms();
         parser = new Parser();
         history = new ArrayDeque<>();
-        player = new Player(100, crater);
+        player = new Player(50000, crater);
         //item = new Item(0, "", "");
         //coin = new Coin(0);
     }
@@ -81,7 +81,7 @@ public class Game {
         crater.setCoin(new Coin(3));
 
         open_field.setExit("west", crater);
-        open_field.addItem(new Item(50, "Metal_shielding", "the outside part of the rocket, also used as shielding"));
+        open_field.addItem(new Item(15000, "Metal_shielding", "the outside part of the rocket, also used as shielding"));
         open_field.setCoin(new Coin(4));
 
         cave_entrance.setExit("north", crater);
@@ -149,7 +149,7 @@ public class Game {
         prison_entrance.setExit("west", cellblock);
 
         prison_cafeteria.setExit("north", prison_entrance);
-        prison_cafeteria.addItem(new Item(1, "Key", "a golden key used to get in to a closed room"));
+        prison_cafeteria.addItem(new Item(300, "Key", "a golden key used to get in to a closed room"));
         prison_cafeteria.setCoin(new Coin(2));
 
         cellblock.setExit("north", cell1);
@@ -375,9 +375,14 @@ public class Game {
 
     private void inventory()
     {
-        for (Item myItem : player.getInventory()) {
-            System.out.println("You have " + item.getName()  + "with you, with a weight of "  + item.getWeight() + "KG.");
+        if (player.getInventory().isEmpty()) {
+            System.out.println("Your inventory is empty");
+        }else{ 
+            for (Item myItem : player.getInventory()) {
+                System.out.println("You have " + item.getName()  + "with you, with a weight of "  + item.getWeight() + "grams.");
+            }
+            System.out.println("The total weight is: " + player.getTotalWeight());
+            System.out.println("Coins: " + player.getBalance());
         }
-        System.out.println("The total weight is: " + player.getTotalWeight());
     }
 }
