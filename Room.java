@@ -42,6 +42,17 @@ public class Room
     }
 
     /**
+     * Return the room that is reached if we go from this room in direction
+     * "direction". If there is no room in that direction, return null.
+     * @param direction The exit's direction.
+     * @return The room in the given direction.
+     */
+    public Room getExit(String direction) 
+    {
+        return exits.get(direction);
+    }
+
+    /**
      * Define an exit from this room.
      * @param direction The direction of the exit.
      * @param neighbor  The room to which the exit leads.
@@ -55,17 +66,17 @@ public class Room
     {
         items.add(item);
     }
-    
+
     public void removeItem(Item item)
     {
         items.remove(item);
     }
-    
+
     public ArrayList<Item> getItems()
     {
         return items;
     }
-    
+
     /**
      * Checks whether an item in the room has the specified name.
      * It will only return the first item with the matching name.
@@ -79,7 +90,7 @@ public class Room
                 return item;
             }
         }
-        
+
         // If no item was found, return null
         return null;
     }
@@ -139,15 +150,5 @@ public class Room
         return returnString;
     }
 
-    /**
-     * Return the room that is reached if we go from this room in direction
-     * "direction". If there is no room in that direction, return null.
-     * @param direction The exit's direction.
-     * @return The room in the given direction.
-     */
-    public Room getExit(String direction) 
-    {
-        return exits.get(direction);
-    }
 }
 
