@@ -102,7 +102,15 @@ public class Player
     {
         return coinPouch;
     }
-    
+
+    /**
+     * Set balance of the coinPouch.
+     */
+    public void setBalance(int coinPouch)
+    {
+        this.coinPouch = coinPouch;
+    }
+
     /**
      * Set maximum weight the player can carry in grams.
      */
@@ -122,7 +130,7 @@ public class Player
     /**
      * Get the total weight the player is carrying in grams.
      */
-    public int getTotalWeight()
+    public int calculateTotalWeight()
     {
         int totalWeight = 0;
         for(Item item : inventory){
@@ -131,6 +139,9 @@ public class Player
         return totalWeight;
     }
 
+    /**
+     * Get the inventory of the player
+     */
     public ArrayList<Item> getInventory()
     {
         return inventory;

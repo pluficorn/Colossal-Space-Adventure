@@ -39,13 +39,29 @@ public class Item
     }
 
     /**
+     * Method to set the name of the item
+     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    /**
      * Method to get the weight of the item
      */
     public int getWeight()
     {
         return weight;
     }
-    
+
+    /**
+     * Method to set the weight of the item
+     */
+    public void setWeight(int weight)
+    {
+        this.weight = weight;
+    }
+
     /**
      * Method to get the description of an item
      */
@@ -53,5 +69,13 @@ public class Item
     {
         return description;
     }
-    
+
+    /**
+     * Method to set the description of an item
+     */
+    public void setItemDescription(String description)
+    {
+        this.description = description;
+    }
 }
+
