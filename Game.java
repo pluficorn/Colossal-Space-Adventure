@@ -101,12 +101,12 @@ public class Game {
         crater.addItem(new Item(3, 1, "coins", "there are some coins lying around", true));
 
         open_field.setExit("west", crater);
-        open_field.addItem(new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"));
+        open_field.addItem(new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding", true));
         open_field.addItem(new Item(4, 1, "coins", "there are some coins lying around", true));
 
         cave_entrance.setExit("north", crater);
         cave_entrance.setExit("south", cave_area1);
-        cave_entrance.addItem(new Item(3, 1, "coins", "there are some coins lying around"));
+        cave_entrance.addItem(new Item(3, 1, "coins", "there are some coins lying around", true));
 
         cave_area1.setExit("north", cave_entrance);
         cave_area1.setExit("east", cave_area3);
@@ -169,7 +169,7 @@ public class Game {
         prison_entrance.setExit("west", cellblock);
 
         prison_cafeteria.setExit("north", prison_entrance);
-        prison_cafeteria.addItem(new Item(1, 300, "key", "a golden key used to get in to a closed room"));
+        prison_cafeteria.addItem(new Item(1, 300, "key", "a golden key used to get in to a closed room", true));
         prison_cafeteria.addItem(new Item(2, 1, "coins", "there are some coins lying around", true));
 
         cellblock.setExit("north", cell1);
