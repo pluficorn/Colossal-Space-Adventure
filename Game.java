@@ -98,6 +98,7 @@ public class Game {
         crater.setExit("east", open_field);
         crater.setExit("south", cave_entrance);
         crater.setExit("west", forest_entrance);
+        crater.addItem(new Item(1, 200000, "meteorite", "it looks really fragile", false));
         crater.addItem(new Item(3, 1, "coins", "there are some coins lying around", true));
 
         open_field.setExit("west", crater);
@@ -331,7 +332,7 @@ public class Game {
      *
      * @param command that was executed
      */
-    private void take(Command command) {
+        private void take(Command command) {
         if (!command.hasSecondWord()) {
             // if there is no second word, we don't know what to take?
             System.out.println("Take what?");
@@ -343,12 +344,16 @@ public class Game {
         Item item = player.getRoom().getItemFromString(itemName);
 
         if(item instanceof Item) {
-            if (player.calculateTotalWeight() + item.getWeight() <= player.getMaxWeight()){
-                player.pickUpItem(item);
-                player.getRoom().removeItem(item);
-                System.out.println("You picked up the " + itemName);
+            if(item.canBePickedUp() == true) {
+                if (player.calculateTotalWeight() + item.getWeight() <= player.getMaxWeight()){
+                    player.pickUpItem(item);
+                    player.getRoom().removeItem(item);
+                    System.out.println("You picked up the " + itemName);
+                }else{
+                    System.out.println("You have reached the maximum weight, your backpack is full");
+                }
             }else{
-                System.out.println("You have reached the maximum weight, your backpack is full");
+                System.out.println("This item can't be picked up");
             }
         } else {
             System.out.println("Couldn't find specified item");
