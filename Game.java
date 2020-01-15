@@ -38,7 +38,30 @@ public class Game {
         history = new ArrayDeque<>();
         player = new Player(50000, crater);
     }
+    
+    public static void main(String[] args)
+    {
+        Game game = new Game();
+        game.play();
+    }
+    
+        /**
+     * Main play routine. Loops until end of play.
+     */
+    public void play() {
+        printWelcome();
 
+        // Enter the main command loop. Here we repeatedly read commands and
+        // execute them until the game is over.
+
+        boolean finished = false;
+        while (!finished) {
+            Command command = parser.getCommand();
+            finished = processCommand(command);
+        }
+        System.out.println("Thank you for playing.  Goodbye.");
+    }
+    
     /**
      * Create all the rooms and link their exits together.
      */
@@ -160,23 +183,6 @@ public class Game {
 
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", "there are some coins lying around", true));
-    }
-
-    /**
-     * Main play routine. Loops until end of play.
-     */
-    public void play() {
-        printWelcome();
-
-        // Enter the main command loop. Here we repeatedly read commands and
-        // execute them until the game is over.
-
-        boolean finished = false;
-        while (!finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        System.out.println("Thank you for playing.  Goodbye.");
     }
 
     /**
