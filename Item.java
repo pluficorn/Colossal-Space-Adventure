@@ -18,16 +18,18 @@ public class Item
     private String description;
     private int weight;
     private String name;
+    private boolean canBePickedUp;
 
     /**
      * Constructor for class Item.
      * Creates an Item with a weight and description.
      */
-    public Item(int weight, String name, String description)
+    public Item(int weight, String name, String description, boolean canBePickedUp)
     {
         this.weight = weight;
         this.description = description;
         this.name = name;
+        this.canBePickedUp = canBePickedUp;
     }
 
     /**
@@ -76,6 +78,11 @@ public class Item
     public void setItemDescription(String description)
     {
         this.description = description;
+    }
+    
+    public boolean canBePickedUp()
+    {
+        return canBePickedUp;
     }
 }
 
