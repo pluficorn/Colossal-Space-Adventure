@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.lang.Math;
 
 /**
  * Class Player -- all the information about the player, like a coin pouch and the inventory
@@ -28,7 +29,7 @@ public class Player
         this.maxWeight = maxWeight;
         this.currentRoom = currentRoom;
         this.inventory = new ArrayList<>();
-        //this.coinPounch = 10; // set initial money to ten
+        //pickupItem(new Item("Handbook"); fixthis
     }
 
     /**
@@ -36,7 +37,33 @@ public class Player
      */
     public void setRoom(Room room)
     {
-        this.currentRoom = room;
+        if (room.isTrapdoor()) {
+            this.currentRoom = room;
+            goTrapdoor();
+        } else {
+            this.currentRoom = room;
+        }
+    }
+
+    /**
+     * Teleport player to random room, saved in the randomRooms ArrayList.
+     */
+    public void goTrapdoor() {
+        // Get ArrayList of trapdoors
+        ArrayList<Room> trapdoorLocations = getRoom().getTrapdoorLocations();
+
+        // Check if that ArrayList contains at least one item
+        if (trapdoorLocations.size() > 0) {
+            int rand = (int)(Math.random() * getRoom().getTrapdoorLocations().size());
+            Room randomRoom = trapdoorLocations.get(rand);
+            System.out.println("Wow, you tripped and fell in a hole! You are all turned around.");
+
+            // Teleport player to room and clear players history
+            setRoom(randomRoom);
+            //history.clear();
+        } else {
+            System.out.println("Well, the hole ends up leading nowhere. Awkward. Maybe the game developers should add some trapdoor locations...");
+        }
     }
 
     /**
@@ -102,7 +129,7 @@ public class Player
     {
         return coinPouch;
     }
-    
+
     /**
      * Set maximum weight the player can carry in grams.
      */

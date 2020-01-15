@@ -21,24 +21,36 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;       // stores exits of this room.
-    private ArrayList<Item> items;
-    //private ArrayList<Coin> coins;
-    // private Item item;
-    private Coin coin;
-    //private int coin;
+    private boolean isTrapdoor = false;
+    private ArrayList<Room> trapdoorLocations;
 
+    // You can only store one coin object per room, because the coin class can store how many coins it has.
+    private Coin coin;
+    private ArrayList<Item> items;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
      * "an open court yard".
+     * 
+     * This is by default not a trapdoor room. See the other constructor in this class
      * @param description The room's description.
      */
     public Room(String description) 
     {
+        this(description, false);
+    }
+
+    public Room(String description, boolean isTrapdoor)
+    {
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
-        //coins = new ArrayList<>();
+        this.isTrapdoor = isTrapdoor;
+        trapdoorLocations = new ArrayList<>();
+    }
+
+    public boolean isTrapdoor() {
+        return isTrapdoor;
     }
 
     /**
@@ -51,21 +63,29 @@ public class Room
         exits.put(direction, neighbor);
     }
 
+    public void setTrapdoorLocation(Room location) {
+        trapdoorLocations.add(location);
+    }
+
+    public ArrayList<Room> getTrapdoorLocations() {
+        return trapdoorLocations;
+    }
+
     public void addItem(Item item)
     {
         items.add(item);
     }
-    
+
     public void removeItem(Item item)
     {
         items.remove(item);
     }
-    
+
     public ArrayList<Item> getItems()
     {
         return items;
     }
-    
+
     /**
      * Checks whether an item in the room has the specified name.
      * It will only return the first item with the matching name.
@@ -79,7 +99,7 @@ public class Room
                 return item;
             }
         }
-        
+
         // If no item was found, return null
         return null;
     }
@@ -109,7 +129,7 @@ public class Room
         // If there are both coins and items
         String longDescription = "You are " + description + "\n";
 
-        if( coin.getCount() > 0 )
+        if(coin != null && coin.getCount() > 0)
         {
             longDescription += coin.getCoinDescription() + "\n";
         }
