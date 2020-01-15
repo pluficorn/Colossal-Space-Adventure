@@ -9,7 +9,7 @@
  * The coins can be found in a room in the game.
  * 
  * @author N.Verkade
- * @version 08-01-2019
+ * @version 2019.01.08
  */
 
 public class Coin
