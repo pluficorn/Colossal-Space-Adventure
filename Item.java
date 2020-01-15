@@ -66,12 +66,12 @@ public class Item
     {
         this.weight = weight;
     }
-    
+
     public int getCount()
     {
         return count;
     }
-    
+
     public void setCount(int count)
     {
         this.count = count;
@@ -92,7 +92,7 @@ public class Item
     {
         this.description = description;
     }
-    
+
     public boolean canBePickedUp()
     {
         return canBePickedUp;

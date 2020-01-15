@@ -16,15 +16,15 @@ public enum CommandWord
     HELP("help"), 
 
     UNKNOWN("?"), 
-    
+
     BACK("back"),
 
     LOOK("look"),
-    
+
     TAKE("take"),
-    
+
     DROP("drop"),
-    
+
     INVENTORY("inventory");
 
     // The command string.
