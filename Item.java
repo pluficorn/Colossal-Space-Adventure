@@ -9,7 +9,7 @@
  * The items can be found in a room in the game.
  * 
  * @author N.Verkade, E. Zigterman Rustenburg
- * @version 2020.01.14
+ * @version 2020.01.15
  */
 
 public class Item
@@ -18,16 +18,18 @@ public class Item
     private String description;
     private int weight;
     private String name;
+    private int count;
 
     /**
      * Constructor for class Item.
      * Creates an Item with a weight and description.
      */
-    public Item(int weight, String name, String description)
+    public Item(int count, int weight, String name, String description)
     {
         this.weight = weight;
         this.description = description;
         this.name = name;
+        this.count = count;
     }
 
     /**
@@ -60,6 +62,16 @@ public class Item
     public void setWeight(int weight)
     {
         this.weight = weight;
+    }
+    
+    public int getCount()
+    {
+        return count;
+    }
+    
+    public void setCount(int count)
+    {
+        this.count = count;
     }
 
     /**
