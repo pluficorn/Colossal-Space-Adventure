@@ -22,10 +22,6 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;       // stores exits of this room.
     private ArrayList<Item> items;
-    //private ArrayList<Coin> coins;
-    // private Item item;
-    private Coin coin;
-    //private int coin;
 
     /**
      * Create a room described "description". Initially, it has
@@ -38,7 +34,6 @@ public class Room
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
-        //coins = new ArrayList<>();
     }
 
     /**
@@ -95,11 +90,6 @@ public class Room
         return null;
     }
 
-    public void setCoin(Coin coin)
-    {
-        this.coin = coin;
-    }
-
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).
@@ -119,12 +109,6 @@ public class Room
     {
         // If there are both coins and items
         String longDescription = "You are " + description + "\n";
-
-        if( coin.getCount() > 0 )
-        {
-            longDescription += coin.getCoinDescription() + "\n";
-        }
-        //If there are only items
         for(Item item : items)                 // moet nog gefixed worden
         {
             longDescription += "It looks like " + item.getItemDescription() + "\n";

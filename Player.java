@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class Player
 {
-    private int coinPouch; 
     private ArrayList<Item> inventory;
     private int maxWeight;
     private Room currentRoom;
@@ -76,39 +75,15 @@ public class Player
      */
     public void pickUpItem(Item item)
     {
+        // Check if is already in inventory
+        if(inventory.contains(item))
+        {
+            int itemIndex = inventory.indexOf(item);
+            //increase the count of an item with 
+            inventory.get(itemIndex).setCount((inventory.get(itemIndex).getCount())+item.getCount());
+        }
+        // If in inventory, increase amount and wheight of item
         inventory.add(item);
-    }
-
-    /**
-     * Add money to the players balance.
-     */
-    public void addMoney(int count)
-    {
-        this.coinPouch += count;
-    }
-
-    /**
-     * Remove money from the players balance.
-     */
-    public void substractMoney(int count)
-    {
-        this.coinPouch -= count;
-    }
-
-    /**
-     * Get balance of the coinPouch.
-     */
-    public int getBalance()
-    {
-        return coinPouch;
-    }
-
-    /**
-     * Set balance of the coinPouch.
-     */
-    public void setBalance(int coinPouch)
-    {
-        this.coinPouch = coinPouch;
     }
 
     /**
@@ -134,7 +109,7 @@ public class Player
     {
         int totalWeight = 0;
         for(Item item : inventory){
-            totalWeight += item.getWeight();
+            totalWeight += (item.getWeight() * item.getCount());
         }
         return totalWeight;
     }
