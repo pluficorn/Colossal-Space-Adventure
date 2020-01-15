@@ -8,8 +8,8 @@
  * An item represents an object of any kind. 
  * The items can be found in a room in the game.
  * 
- * @author N.Verkade
- * @version 06-01-2019
+ * @author N.Verkade, E. Zigterman Rustenburg
+ * @version 2020.01.14
  */
 
 public class Item

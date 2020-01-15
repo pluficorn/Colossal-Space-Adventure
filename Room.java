@@ -13,8 +13,8 @@ import java.util.ArrayList;
  * connected to other rooms via exits.  For each existing exit, the room 
  * stores a reference to the neighboring room.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Michael Kölling, David J. Barnes, N. Verkade, M. Kok, E. Zigterman Rustenburg
+ * @version 2020.01.15
  */
 
 public class Room 

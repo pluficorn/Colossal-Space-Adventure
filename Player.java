@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * The coin pouch carries all the coins, determined by count.
  * 
  * @author N.Verkade, M.Kok, E.Zigterman Rustenburg
- * @version 11-01-2019
+ * @version 2020.01.15
  */
 
 public class Player
