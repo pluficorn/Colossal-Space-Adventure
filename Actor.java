@@ -1,4 +1,6 @@
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Write a description of class Actor here.
@@ -14,6 +16,7 @@ public class Actor
     private ArrayList<Item> inventory;
     private Room currentRoom;
     private boolean canMove;
+    private HashMap<Room, String> messages;
 
     public Actor(String name, Room currentRoom, boolean canMove)
     {
@@ -34,5 +37,10 @@ public class Actor
     public void sayMessage(String message)
     {
         System.out.println(name + ": " + message);
+    }
+    
+    public void addMessage(Room room, String message)
+    {
+        messages.put(room, message);
     }
 }

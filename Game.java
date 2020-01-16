@@ -49,12 +49,6 @@ public class Game {
         System.out.println("Thank you for playing.  Goodbye.");
     }
 
-    public static void main(String[] args)
-    {
-        Game game = new Game();
-        game.play();
-    }
-
     /**
      * Create all the rooms and link their exits together.
      */
@@ -189,7 +183,10 @@ public class Game {
 
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
-
+        Actor tolk = new Actor("Tolk", cell2, true);
+        tolk.addMessage(cell2, "Message");
+        tolk.addMessage(cellblock, "Message");
+        
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", "there are some coins lying around"));  
     }
@@ -252,6 +249,10 @@ public class Game {
 
             case INVENTORY:
             inventory();
+            break;
+            
+            case TALK:
+            talk();
             break;
         }
         return wantToQuit;
@@ -400,5 +401,10 @@ public class Game {
             }
             System.out.println("The total weight is: " + player.calculateTotalWeight());
         }
+    }
+    
+    private void talk()
+    {
+
     }
 }

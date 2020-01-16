@@ -25,7 +25,9 @@ public enum CommandWord
 
     DROP("drop"),
 
-    INVENTORY("inventory");
+    INVENTORY("inventory"),
+    
+    TALK("talk");
 
     // The command string.
     private String commandString;
