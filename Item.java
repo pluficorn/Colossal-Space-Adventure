@@ -21,11 +21,19 @@ public class Item
     private boolean canBePickedUp;
     private int count;
 
+    public Item(int count, int weight, String name, String description)
+    {
+        this.weight = weight;
+        this.description = description;
+        this.name = name;
+        this.canBePickedUp = true;
+        this.count = count;
+    }
+    
     /**
      * Constructor for class Item.
      * Creates an Item with a weight and description.
      */
-
     public Item(int count, int weight, String name, String description, boolean canBePickedUp)
     {
         this.weight = weight;
