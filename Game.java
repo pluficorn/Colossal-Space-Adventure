@@ -65,10 +65,10 @@ public class Game {
         cave_entrance = new Room("at the mouth of a cave. Looks dark");
         cave_area1 = new Room("in the cave. It's dark");
         cave_area2 = new Room("moving further into the dark cave", true);
-        cave_area3 = new Room("at the end of the cave. It's still dark");
-        cave_area4 = new Room("");
-        cave_area5 = new Room("...");
-        cave_area6 = new Room("...");
+        cave_area3 = new Room("somewhere in the cave. It's still dark");
+        cave_area4 = new Room("in the cave. I can hear the flapping of batwings.");
+        cave_area5 = new Room("somewhere in the cave.");
+        cave_area6 = new Room("in the cave. I can hear rocks falling");
         forest_entrance = new Room("at the entrance of a small forest.");
         forest_field1 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree has a low hanging branch");
         forest_field2 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree seems to have a small hole in it");
