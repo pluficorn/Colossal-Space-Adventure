@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * 
  * @author Michael Kölling, David J. Barnes, N. Verkade, M. Kok, E. Zigterman
  *         Rustenburg
- * @version 2020.01.15
+ * @version 2020.01.16
  */
 
 public class Room {

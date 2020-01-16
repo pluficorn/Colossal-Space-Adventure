@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+
 /**
  * Class Item - an item in a room in an adventure game.
  *
@@ -9,7 +11,7 @@
  * The items can be found in a room in the game.
  * 
  * @author N.Verkade, E. Zigterman Rustenburg
- * @version 2020.01.15
+ * @version 2020.01.16
  */
 
 public class Item
@@ -18,9 +20,15 @@ public class Item
     private String description;
     private int weight;
     private String name;
-    private boolean canBePickedUp;
+    private boolean canBePickedUp = true;
+    private boolean randomLocation = false;
     private int count;
+    private ArrayList<Room> itemLocations;
 
+    /**
+     * Constructor for class Item.
+     * Creates an Item with a weight and description.
+     */
     public Item(int count, int weight, String name, String description)
     {
         this.weight = weight;
@@ -28,11 +36,12 @@ public class Item
         this.name = name;
         this.canBePickedUp = true;
         this.count = count;
+        this.randomLocation = false;
     }
     
     /**
      * Constructor for class Item.
-     * Creates an Item with a weight and description.
+     * use this one to define whether item can be picked up
      */
     public Item(int count, int weight, String name, String description, boolean canBePickedUp)
     {
@@ -41,6 +50,22 @@ public class Item
         this.name = name;
         this.canBePickedUp = canBePickedUp;
         this.count = count;
+        this.randomLocation = false;
+    }
+    
+    /**
+     * Constructor for class Item
+     * use this one to define whether item has random location
+     */
+    public Item(int count, int weight, String name, String description, boolean canBePickedUp, boolean randomLocation)
+    {
+        this.weight = weight;
+        this.description = description;
+        this.name = name;
+        this.canBePickedUp = canBePickedUp;
+        this.count = count;
+        this.randomLocation = randomLocation;
+        itemLocations = new ArrayList<>();
     }
 
     /**
@@ -104,6 +129,30 @@ public class Item
     public boolean canBePickedUp()
     {
         return canBePickedUp;
+    }
+    
+    public void setItemLocation(Room location)
+    {
+        itemLocations.add(location);
+    }
+    
+    public ArrayList<Room> getItemLocation()
+    {
+        return itemLocations;
+    }
+    
+    public void placeItem(Item item)
+    {
+        // Get ArrayList for Locations for Item
+        ArrayList<Room> itemLocations = item.getItemLocation();
+        
+        // Check if arraylist contains at least 1 location (item);
+        if(itemLocations.size() > 0)
+        {
+            int rand = (int) (Math.random() * item.getItemLocation().size());
+            Room randomRoom = itemLocations.get(rand);
+            randomRoom.addItem(item);
+        }
     }
 }
 

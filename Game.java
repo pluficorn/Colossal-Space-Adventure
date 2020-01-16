@@ -12,7 +12,7 @@
  * commands that the parser returns.
  * 
  * @author Michael Kölling, David J. Barnes, N.Verkade, M.Kok, E.Zigterman Rustenburg
- * @version 2020.01.15
+ * @version 2020.01.16
  */
 
 public class Game {
@@ -21,7 +21,7 @@ public class Game {
     private Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5,
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
     village_entrance, marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
-    private Item item;
+    private Item item, landing_gear;
 
     /**
      * Create the game and initialise its internal map.
@@ -152,6 +152,13 @@ public class Game {
 
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", "there are some coins lying around"));
+        
+        landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
+        landing_gear.setItemLocation(tree1);
+        landing_gear.setItemLocation(tree2);
+        landing_gear.setItemLocation(tree3);
+        landing_gear.placeItem(landing_gear);
+        
 
         road.setExit("north", village_entrance);
         road.setExit("south", crater);
