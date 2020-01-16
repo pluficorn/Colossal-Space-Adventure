@@ -119,7 +119,7 @@ public class Game {
         cave_area5.addItem(new Item(3, 1, "coins", "there are some coins lying around"));
 
         cave_area6.setExit("north", cave_area5);
-        Actor worm = new Actor("Worm", cave_area6, false);
+        Actor worm = new Actor("Worm", cave_area6);
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
@@ -183,7 +183,7 @@ public class Game {
 
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
-        Actor tolk = new Actor("Tolk", cell2, true);
+        Actor tolk = new Actor("Tolk", cell2);
         tolk.addMessage(cell2, "Message");
         tolk.addMessage(cellblock, "Message");
         

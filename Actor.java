@@ -15,14 +15,12 @@ public class Actor
     private int Health;
     private ArrayList<Item> inventory;
     private Room currentRoom;
-    private boolean canMove;
     private HashMap<Room, String> messages;
 
-    public Actor(String name, Room currentRoom, boolean canMove)
+    public Actor(String name, Room currentRoom)
     {
         this.name = name;
         this.currentRoom = currentRoom;
-        this.canMove = canMove; 
     }
     
     public void setRoom(Room room) {
