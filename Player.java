@@ -1,5 +1,12 @@
 import java.util.ArrayList;
+
+// For Math.random
 import java.lang.Math;
+
+// For Stack (history)
+import java.util.Deque;
+import java.util.Stack;
+import java.util.ArrayDeque;
 
 /**
  * Class Player -- all the information about the player, like a coin pouch and
@@ -19,6 +26,7 @@ public class Player {
     private ArrayList<Item> inventory;
     private int maxWeight;
     private Room currentRoom;
+    private Deque<Room> history;
 
     /**
      * Constructor voor objects van class Player
@@ -26,20 +34,51 @@ public class Player {
     public Player(int maxWeight, Room currentRoom) {
         this.maxWeight = maxWeight;
         this.currentRoom = currentRoom;
-        this.inventory = new ArrayList<>();
-        // pickupItem(new Item("Handbook"); fixthis
+
+        inventory = new ArrayList<>();
+        history = new ArrayDeque<>();
+
+        // pickupItem(new Item("Handbook");
     }
 
     /**
      * Move player to specified room
      */
     public void setRoom(Room room) {
+        this.currentRoom = room;
+
+        // If the room is a trapdoor, set trapdoor
         if (room.isTrapdoor()) {
-            this.currentRoom = room;
             goTrapdoor();
-        } else {
-            this.currentRoom = room;
         }
+    }
+
+    /**
+     * Get the room the player is currently in.
+     * 
+     * @return current room
+     */
+    public Room getRoom() {
+        return currentRoom;
+    }
+
+    /**
+     * Add a room to the history (used for the back command)
+     */
+    public void addHistory(Room room)
+    {
+        history.push(room);
+    }
+
+    public Deque<Room> getHistory() {
+        return history;
+    }
+
+    /**
+     * Will delete the last entry of the history and return it.
+     */
+    public Room popHistory() {
+        return history.pop();
     }
 
     /**
@@ -57,20 +96,11 @@ public class Player {
 
             // Teleport player to room and clear players history
             setRoom(randomRoom);
-            // history.clear();
+            history.clear();
         } else {
             System.out.println(
                 "Well, the hole ends up leading nowhere. Awkward. Maybe the game developers should add some trapdoor locations...");
         }
-    }
-
-    /**
-     * Get the room the player is currently in.
-     * 
-     * @return current room
-     */
-    public Room getRoom() {
-        return this.currentRoom;
     }
 
     /**

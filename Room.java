@@ -125,7 +125,7 @@ public class Room {
      */
     public String getLongDescription() {
         // If there are both coins and items
-        String longDescription = "You are " + description + "\n";
+        String longDescription = "You are " + description + ".\n";
 
         // If there are only items
         for (Item item : items)

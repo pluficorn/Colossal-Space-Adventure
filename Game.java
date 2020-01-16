@@ -1,8 +1,3 @@
-
-import java.util.Deque;
-import java.util.Stack;
-import java.util.ArrayDeque;
-
 /**
  * This class is the main class of the "World of Zuul" application. "World of
  * Zuul" is a very simple, text based adventure game. Users can walk around some
@@ -26,7 +21,6 @@ public class Game {
     private Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5,
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
     village_entrance, marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
-    private Deque<Room> history;
     private Item item;
 
     /**
@@ -35,7 +29,6 @@ public class Game {
     public Game() {
         createRooms();
         parser = new Parser();
-        history = new ArrayDeque<>();
         player = new Player(50000, crater);
     }
 
@@ -284,15 +277,29 @@ public class Game {
         // Try to leave current room.
         Room nextRoom = player.getRoom().getExit(direction);
 
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        } else { // Room exists: proceed!
+        if (nextRoom != null) {
+            // Room exists: proceed!
             // First, save current room to history so we can use it later with back
-            history.push(player.getRoom());
+            player.addHistory(player.getRoom());
 
-            // Then go to next room and print description
+            // Then go to next room and print description (the history is thus one behind, on purpose)
             player.setRoom(nextRoom);
-            System.out.println(player.getRoom().getLongDescription());
+            look();
+        } else {
+            System.out.println("Can't go there!");
+        }
+    }
+
+    /**
+     * Go back to the previous room according to the history This also removes the
+     * room from history.
+     */
+    private void back() {
+        if (!player.getHistory().isEmpty()) {
+            player.setRoom(player.popHistory());
+            look();
+        } else {
+            System.out.println("There is nothing to go back to.");
         }
     }
 
@@ -316,19 +323,6 @@ public class Game {
      */
     private void look() {
         System.out.println(player.getRoom().getLongDescription());
-    }
-
-    /**
-     * Go back to the previous room according to the history This also removes the
-     * room from history.
-     */
-    private void back() {
-        if (!history.isEmpty()) {
-            player.setRoom(history.pop());
-            look();
-        } else {
-            System.out.println("There is nothing to go back to.");
-        }
     }
 
     /**
