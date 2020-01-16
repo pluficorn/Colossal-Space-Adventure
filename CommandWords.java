@@ -38,12 +38,16 @@ public class CommandWords
      */
     public CommandWord getCommandWord(String commandWord)
     {
-        CommandWord command = validCommands.get(commandWord.toLowerCase());
-        if(command != null) {
-            return command;
-        }
-        else {
-            return CommandWord.UNKNOWN;
+        if(commandWord != null) {
+            CommandWord command = validCommands.get(commandWord.toLowerCase());
+            if(command != null) {
+                return command;
+            }
+            else {
+                return CommandWord.UNKNOWN;
+            }
+        } else {
+            return CommandWord.UNKNOWN;    
         }
     }
 
