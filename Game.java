@@ -146,13 +146,12 @@ public class Game {
 
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", "there are some coins lying around"));
-        
+
         landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
         landing_gear.setItemLocation(tree2);
         landing_gear.setItemLocation(tree3);
         landing_gear.placeItem(landing_gear);
-        
 
         road.setExit("north", village_entrance);
         road.setExit("south", crater);
@@ -184,9 +183,9 @@ public class Game {
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
         Actor tolk = new Actor("Tolk", cell2);
-        tolk.addMessage(cell2, "Message");
-        tolk.addMessage(cellblock, "Message");
-        
+        tolk.addMessage(cell2, "TEST");
+        tolk.addMessage(cellblock, "TEST2");
+
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", "there are some coins lying around"));  
     }
@@ -250,9 +249,9 @@ public class Game {
             case INVENTORY:
             inventory();
             break;
-            
+
             case TALK:
-            talk();
+            talk(command);
             break;
         }
         return wantToQuit;
@@ -402,9 +401,25 @@ public class Game {
             System.out.println("The total weight is: " + player.calculateTotalWeight());
         }
     }
-    
-    private void talk()
-    {
 
+    private void talk(Command command)
+    {
+        if(!command.hasSecondWord())
+        {
+            // If there's no second word, we don't know what to drop.
+            System.out.println("Talk to whom?");
+            return;
+        }
+        
+        // Specifying the actor
+        String actorName = command.getSecondWord();
+        Actor actor = player.getRoom().getActor(actorName);
+
+        if(actor instanceof Actor)
+        {
+            String message = actor.getMessage(player.getRoom());
+            actor.sayMessage(message);
+        }
     }
 }
+
