@@ -45,11 +45,15 @@ public class Player {
      * Move player to specified room
      */
     public void setRoom(Room room) {
-        this.currentRoom = room;
+        if (room.getRequiredKey() == null || hasRequiredKey(room)) {
+            this.currentRoom = room;
 
-        // If the room is a trapdoor, set trapdoor
-        if (room.isTrapdoor()) {
-            goTrapdoor();
+            // If the room is a trapdoor, set trapdoor
+            if (room.isTrapdoor()) {
+                goTrapdoor();
+            }
+        }else{
+            System.out.println("The room is locked, you need a " + room.getRequiredKey().getName());
         }
     }
 
@@ -169,4 +173,14 @@ public class Player {
     public ArrayList<Item> getInventory() {
         return inventory;
     }
+
+    public boolean hasRequiredKey(Room room)
+    {
+        if (inventory.contains(room.getRequiredKey())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
+

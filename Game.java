@@ -83,7 +83,7 @@ public class Game {
         prison_cafeteria = new Room("at the cafetaria in the prison, the screaming voice gets a little louder");
         cellblock = new Room("entering the cellblock, the screaming voice is really loud");
         cell1 = new Room("entered cell 1, an unknown prisoner is sitting in his cell. But does not pay any attention to you");
-        cell2 = new Room("entered cell 2. A human man is standing in the cell desperate to get your attention");
+        cell2 = new Room("entered cell 2. A human man is standing in the cell desperate to get your attention", false);
         cell3 = new Room("entered cell 3, the cell is empty");
 
         // Initialize room exits and add items/coins
@@ -168,7 +168,8 @@ public class Game {
         prison_entrance.setExit("west", cellblock);
 
         prison_cafeteria.setExit("north", prison_entrance);
-        prison_cafeteria.addItem(new Item(1, 300, "key", "a golden key used to get in to a closed room", true));
+        Item golden_key = new Item(1, 300, "golden_key", "a golden key used to get in to a closed room", true);
+        prison_cafeteria.addItem(golden_key);
         prison_cafeteria.addItem(new Item(2, 1, "coins", "there are some coins lying around", true));
 
         cellblock.setExit("north", cell1);
@@ -179,6 +180,7 @@ public class Game {
         cell1.setExit("south", cellblock);
 
         cell2.setExit("east", cellblock);
+        cell2.setRequiredKey(golden_key);
 
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", "there are some coins lying around", true));  

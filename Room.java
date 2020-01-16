@@ -24,6 +24,7 @@ public class Room {
     private boolean isTrapdoor = false;
     private ArrayList<Room> trapdoorLocations;
     private ArrayList<Item> items;
+    private Item requiredKey;
 
     /**
      * Create a room described "description". Initially, it has no exits.
@@ -34,16 +35,16 @@ public class Room {
      * 
      * @param description The room's description.
      */
-    public Room(String description) {
-        this(description, false);
-    }
-
     public Room(String description, boolean isTrapdoor) {
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
         this.isTrapdoor = isTrapdoor;
         trapdoorLocations = new ArrayList<>();
+    }
+
+    public Room(String description) {
+        this(description, false);
     }
 
     public boolean isTrapdoor() {
@@ -152,4 +153,13 @@ public class Room {
         return returnString;
     }
 
+    public Item getRequiredKey()
+    {
+        return requiredKey;
+    }
+
+    public void setRequiredKey(Item key)
+    {
+        requiredKey = key;
+    }
 }
