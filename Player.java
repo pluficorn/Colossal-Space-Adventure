@@ -26,6 +26,7 @@ public class Player {
     private ArrayList<Item> inventory;
     private int maxWeight;
     private Room currentRoom;
+    private int health;
     private Deque<Room> history;
 
     /**
@@ -181,6 +182,14 @@ public class Player {
         }else{
             return false;
         }
+    }
+    
+    public void substractHealth(int health) {
+        this.health -= health;
+    }
+    
+    public void addHealth(int health) {
+        this.health += health;
     }
 }
 

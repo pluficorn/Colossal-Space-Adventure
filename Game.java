@@ -125,6 +125,7 @@ public class Game {
         cave_area5.addItem(new Item(3, 1, "coins", "there are some coins lying around"));
 
         cave_area6.setExit("north", cave_area5);
+        Actor worm = new Actor("Worm", cave_area6, false);
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
