@@ -128,10 +128,22 @@ public class Room {
         // If there are both coins and items
         String longDescription = "You are " + description + ".\n";
 
-        // If there are only items
+        // Print any item and their descriptions
         for (Item item : items)
         {
-            longDescription += "It looks like " + item.getItemDescription() + "\n";
+            // Proper grammar for singular and plural
+            if(item.getCount() != 1) {
+                longDescription += "There are " + item.getName() + " laying around";
+            } else {
+                longDescription += "There is a(n) " + item.getName() + " laying around";
+            }
+
+            // Print description, if any
+            if(!item.getItemDescription().trim().isEmpty()) {
+                longDescription += ", " + item.getItemDescription() + ".\n";
+            } else {
+                longDescription += ".\n";
+            }
         }
 
         longDescription += getExitString();

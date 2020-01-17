@@ -86,15 +86,15 @@ public class Game {
         crater.setExit("south", cave_entrance);
         crater.setExit("west", forest_entrance);
         crater.addItem(new Item(1, 200000, "meteorite", "it looks really fragile", false));
-        crater.addItem(new Item(3, 1, "coins", "there are some coins lying around"));
+        crater.addItem(new Item(3, 1, "coins", ""));
 
         open_field.setExit("west", crater);
         open_field.addItem(new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"));
-        open_field.addItem(new Item(4, 1, "coins", "there are some coins lying around"));
+        open_field.addItem(new Item(4, 1, "coins", ""));
 
         cave_entrance.setExit("north", crater);
         cave_entrance.setExit("south", cave_area1);
-        cave_entrance.addItem(new Item(3, 1, "coins", "there are some coins lying around"));
+        cave_entrance.addItem(new Item(3, 1, "coins", ""));
 
         cave_area1.setExit("north", cave_entrance);
         cave_area1.setExit("east", cave_area3);
@@ -109,14 +109,14 @@ public class Game {
 
         cave_area3.setExit("east", cave_area5);
         cave_area3.setExit("west", cave_area1);
-        cave_area3.addItem(new Item(4, 1, "coins", "there are some coins lying around"));
+        cave_area3.addItem(new Item(4, 1, "coins", ""));
 
         cave_area4.setExit("south", cave_area5);
 
         cave_area5.setExit("north", cave_area4);
         cave_area5.setExit("south", cave_area6);
         cave_area5.setExit("west", cave_area3);
-        cave_area5.addItem(new Item(3, 1, "coins", "there are some coins lying around"));
+        cave_area5.addItem(new Item(3, 1, "coins", ""));
 
         cave_area6.setExit("north", cave_area5);
         Actor worm = new Actor("Worm", cave_area6);
@@ -124,7 +124,7 @@ public class Game {
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
         forest_entrance.setExit("west", forest_field1);
-        forest_entrance.addItem(new Item(3, 1, "coins", "there are some coins lying around"));
+        forest_entrance.addItem(new Item(3, 1, "coins", ""));
 
         forest_field1.setExit("east", forest_entrance);
         forest_field1.setExit("south", forest_field2);
@@ -134,7 +134,7 @@ public class Game {
         forest_field2.setExit("north", forest_field1);
         forest_field2.setExit("east", forest_field3);
         forest_field2.setExit("up", tree2);
-        forest_field2.addItem(new Item(6, 1, "coins", "there are some coins lying around"));
+        forest_field2.addItem(new Item(6, 1, "coins", ""));
 
         forest_field3.setExit("north", forest_entrance);
         forest_field3.setExit("west", forest_field2);
@@ -145,7 +145,7 @@ public class Game {
         tree2.setExit("down", forest_field2);
 
         tree3.setExit("down", forest_field3);
-        tree3.addItem(new Item(7, 1, "coins", "there are some coins lying around"));
+        tree3.addItem(new Item(7, 1, "coins", ""));
         
         landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
@@ -156,14 +156,14 @@ public class Game {
 
         road.setExit("north", village_entrance);
         road.setExit("south", crater);
-        road.addItem(new Item(4, 1, "coins", "there are some coins lying around"));
+        road.addItem(new Item(4, 1, "coins", ""));
 
         village_entrance.setExit("east", marketplace);
         village_entrance.setExit("south", road);
         village_entrance.setExit("west", prison_entrance);
 
         marketplace.setExit("west", village_entrance);
-        marketplace.addItem(new Item(5, 1, "coins", "there are some coins lying around"));
+        marketplace.addItem(new Item(5, 1, "coins", ""));
 
         prison_entrance.setExit("east", village_entrance);
         prison_entrance.setExit("south", prison_cafeteria);
@@ -172,7 +172,7 @@ public class Game {
         prison_cafeteria.setExit("north", prison_entrance);
         Item golden_key = new Item(1, 300, "golden_key", "a golden key used to get in to a closed room", true);
         prison_cafeteria.addItem(golden_key);
-        prison_cafeteria.addItem(new Item(2, 1, "coins", "there are some coins lying around", true));
+        prison_cafeteria.addItem(new Item(2, 1, "coins", ""));
 
         cellblock.setExit("north", cell1);
         cellblock.setExit("east", prison_entrance);
@@ -188,7 +188,7 @@ public class Game {
         tolk.addMessage(cellblock, "Message");
         
         cell3.setExit("north", cellblock);
-        cell3.addItem(new Item(6, 1, "coins", "there are some coins lying around"));  
+        cell3.addItem(new Item(6, 1, "coins", ""));  
     }
 
     /**
