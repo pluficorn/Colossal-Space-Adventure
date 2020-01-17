@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class Parser 
 {
     private CommandWords commands;  // holds all valid command words
+    private MenuWords menus;
     private Scanner reader;         // source of command input
 
     /**
@@ -53,6 +54,11 @@ public class Parser
             }
         }
 
+        if(word1.toLowerCase() == "about")
+        {
+            return new Command(commands.getCommandWord(word1), word2);
+        }
+        
         return new Command(commands.getCommandWord(word1), word2);
     }
 
