@@ -25,6 +25,7 @@ public class Room {
     private ArrayList<Room> trapdoorLocations;
     private ArrayList<Item> items;
     private Item requiredKey;
+    private HashMap<String, Actor> actorList; 
 
     /**
      * Create a room described "description". Initially, it has no exits.
@@ -41,6 +42,7 @@ public class Room {
         items = new ArrayList<>();
         this.isTrapdoor = isTrapdoor;
         trapdoorLocations = new ArrayList<>();
+        actorList = new HashMap<>();
     }
 
     public Room(String description) {
@@ -173,5 +175,10 @@ public class Room {
     public void setRequiredKey(Item key)
     {
         requiredKey = key;
+    }
+
+    public Actor getActor(String name)
+    {
+        return actorList.get(name);
     }
 }

@@ -21,12 +21,13 @@ public class Actor
     {
         this.name = name;
         this.currentRoom = currentRoom;
+        messages = new HashMap<>();
     }
-    
+
     public void setRoom(Room room) {
         currentRoom = room;
     }
-    
+
     public Room getRoom()
     {
         return currentRoom;
@@ -36,9 +37,15 @@ public class Actor
     {
         System.out.println(name + ": " + message);
     }
-    
+
     public void addMessage(Room room, String message)
     {
         messages.put(room, message);
     }
+
+    public String getMessage(Room room)
+    {
+        return messages.get(room);
+    }
+
 }
