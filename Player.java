@@ -133,14 +133,22 @@ public class Player {
      * Method that picks up a chosen item by the player
      */
     public void pickUpItem(Item item) {
-        // Check if is already in inventory
-        if (inventory.contains(item)) {
-            int itemIndex = inventory.indexOf(item);
-            // increase the count of an item with
-            inventory.get(itemIndex).setCount((inventory.get(itemIndex).getCount()) + item.getCount());
+        // Check if the item is already in the inventory
+        for(Item inventoryItem : inventory){
+            //if item in the inventory (by checking name equal to item)
+            if (inventoryItem.getName().equals(item.getName())){
+                //retrieves the index of the item in the inventory
+                int itemIndex = inventory.indexOf(inventoryItem);
+                //gets the current item count and adds the new item count
+                int newCount = inventory.get(itemIndex).getCount() + item.getCount();
+
+                // increase the count of an item with
+                inventory.get(itemIndex).setCount(newCount);  
+                return;
+            }
         }
-        // If in inventory, increase amount and wheight of item
-        inventory.add(item);
+        // If not in inventory, add item to inventory
+        inventory.add(item);   
     }
 
     /**
@@ -183,11 +191,11 @@ public class Player {
             return false;
         }
     }
-    
+
     public void substractHealth(int health) {
         this.health -= health;
     }
-    
+
     public void addHealth(int health) {
         this.health += health;
     }
