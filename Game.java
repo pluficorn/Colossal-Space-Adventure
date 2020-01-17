@@ -220,10 +220,20 @@ public class Game {
      * Print out the opening message for the player.
      */
     private void printWelcome() {
-        System.out.println();
         System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly awesome adventure game.");
+        System.out.println("It is the year 2174. You’re on your way for a mission that will guarantee freedom in the whole galaxy.");
+        System.out.println("So far, everything has been going smoothly. The traffic has been calm and nothing concerning has shown up. ");
+        System.out.println();
+        System.out.println("BANG!!");
+        System.out.println();
+        System.out.println("A shock goes through your ship. You seem to have been hit!");
+        System.out.println("On the radar you see an unknown ship, because of the damage the ship is uncontrollable");
+        System.out.println("You end up getting caught in the gravity of a nearby planet and try to make a crash-landing");
+        System.out.println("But after you hit the ground, everything went black…");
+        System.out.println();
+        System.out.println("When you wake up you are lost and the space ship is broken, walk around, find spaceship parts and fix the spaceship");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        //System.out.println("Type '" + CommandWord.HELP + "' if you need tips/tricks."); //commandword use book for tips and tricks
         System.out.println();
         System.out.println(player.getRoom().getLongDescription());
     }
@@ -287,6 +297,7 @@ public class Game {
             case MENU:
             menu(command);
             break;
+
         }
         return wantToQuit;
     }
@@ -427,13 +438,17 @@ public class Game {
         }
     }
 
-    private void inventory() {
+    private void inventory()
+    {
         if (player.getInventory().isEmpty()) {
             System.out.println("Your inventory is empty");
-        } else {
+        }else{ 
             for (Item myItem : player.getInventory()) {
-                System.out.println("You have " + myItem.getCount() + " " + myItem.getName()
-                    + " with you, with a weight of " + myItem.getWeight() + " grams per item.");
+                if(myItem.getName().equals("coins")) {
+                    System.out.println("Coins: " + myItem.getCount() + ", with a weight of " + myItem.getWeight() + " grams per coin");
+                }else{
+                    System.out.println("You have " + myItem.getCount() + " " + myItem.getName()  + " with you, with a weight of " + myItem.getWeight() + " grams per item.");
+                }
             }
             System.out.println("The total weight is: " + player.calculateTotalWeight());
         }
