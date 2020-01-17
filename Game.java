@@ -1,4 +1,4 @@
-/**
+ /**
  * This class is the main class of the "World of Zuul" application. "World of
  * Zuul" is a very simple, text based adventure game. Users can walk around some
  * scenery. That's all. It should really be extended to make it more
@@ -21,7 +21,7 @@ public class Game {
     private Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5,
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
     village_entrance, marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
-    private Item item, landing_gear;
+    private Item item, landing_gear, lasersword, book;
 
     /**
      * Create the game and initialise its internal map.
@@ -30,6 +30,7 @@ public class Game {
         createRooms();
         parser = new Parser();
         player = new Player(50000, crater);
+        createInventoryItems();
     }
 
     /**
@@ -189,6 +190,24 @@ public class Game {
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", "there are some coins lying around"));  
     }
+    
+    /**
+     * Add starter items to players' inventory
+     */
+    private void createInventoryItems()
+    {
+        //new item(count, wheight, name, description, *possible picked up *random location *possible dropped *damage *content)
+        //weapon
+        lasersword = new Item(1, 0, "lasersword", "it can be used as a weapon", true, false, false, 1);
+        player.pickUpItem(lasersword);
+        //book with tips
+        book = new Item(1, 0, "book", "a book with useful tips", true, false, false, 0, true);
+        //adding content to the book
+        book.addContent("This is a test message.");
+        book.addContent("This is also a test message");
+        
+        player.pickUpItem(book);
+    }
 
     /**
      * Print out the opening message for the player.
@@ -252,6 +271,10 @@ public class Game {
 
             case TALK:
             talk(command);
+            break;
+            
+            case USE:
+            use(command);
             break;
         }
         return wantToQuit;
@@ -384,9 +407,15 @@ public class Game {
 
         if( item instanceof Item)
         {
-            player.dropItem(item);
-            player.getRoom().addItem(item);
-            System.out.println("You've dropped " + itemName);
+            //check if item can be dropped
+            if(item.canBeDropped())
+            {
+                player.dropItem(item);
+                player.getRoom().addItem(item);
+                System.out.println("You've dropped " + itemName);
+            } else {
+                System.out.println("This item can't be dropped");
+            }
         }
     }
 
@@ -406,7 +435,7 @@ public class Game {
     {
         if(!command.hasSecondWord())
         {
-            // If there's no second word, we don't know what to drop.
+            // If there's no second word, we don't know who tot talk to.
             System.out.println("Talk to whom?");
             return;
         }
@@ -420,6 +449,42 @@ public class Game {
             String message = actor.getMessage(player.getRoom());
             actor.sayMessage(message);
         }
+    }
+    
+    /**
+     * method to use items however the item can be used
+     */
+    private void use(Command command)
+    {
+        if(!command.hasSecondWord())
+        {
+            // If there's no second word, we don't know what to use.
+            System.out.println("Use what?");
+            return;
+        }
+        
+        String itemName = command.getSecondWord();
+        Item item = player.getInventoryItemFromString(itemName);
+        
+        if(item.getDamage() > 0)
+        {
+            // Do damage with the item
+            System.out.println("needs to be expanded to work properly");
+            return;
+        }
+        
+        if(item.hasContent())
+        {
+            // read the content of the item
+            for (Object content : item.getContent())
+            {
+                System.out.println(content);
+            }
+            return;
+        }
+        
+        //if none of the use options are applicable
+        System.out.println("We can't use this item here");
     }
 }
 

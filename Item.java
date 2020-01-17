@@ -22,8 +22,12 @@ public class Item
     private String name;
     private boolean canBePickedUp = true;
     private boolean randomLocation = false;
+    private boolean canBeDropped = true;
     private int count;
     private ArrayList<Room> itemLocations;
+    private int damage = 0;
+    private ArrayList<String> content;
+    private boolean hasContent = false;
 
     /**
      * Constructor for class Item.
@@ -34,9 +38,7 @@ public class Item
         this.weight = weight;
         this.description = description;
         this.name = name;
-        this.canBePickedUp = true;
         this.count = count;
-        this.randomLocation = false;
     }
     
     /**
@@ -50,7 +52,6 @@ public class Item
         this.name = name;
         this.canBePickedUp = canBePickedUp;
         this.count = count;
-        this.randomLocation = false;
     }
     
     /**
@@ -65,7 +66,59 @@ public class Item
         this.canBePickedUp = canBePickedUp;
         this.count = count;
         this.randomLocation = randomLocation;
-        itemLocations = new ArrayList<>();
+        if(randomLocation) { itemLocations = new ArrayList<>(); }
+    }
+    
+    /**
+     * Constructor for class Item
+     * use this one to define wheither item can be dropped
+     */
+    public Item(int count, int weight, String name, String description, boolean canBePickedUp, boolean randomLocation, boolean canBeDropped)
+    {
+        this.weight = weight;
+        this.description = description;
+        this.name = name;
+        this.canBePickedUp = canBePickedUp;
+        this.count = count;
+        this.randomLocation = randomLocation;
+        if(randomLocation) { itemLocations = new ArrayList<>(); }
+        this.canBeDropped = canBeDropped;
+    }
+    
+    /**
+     * Constructor for class Item
+     * use this one to define the damage an item can do
+     */
+    public Item(int count, int weight, String name, String description, boolean canBePickedUp, boolean randomLocation, boolean canBeDropped, int damage)
+    {
+        this.weight = weight;
+        this.description = description;
+        this.name = name;
+        this.canBePickedUp = canBePickedUp;
+        this.count = count;
+        this.randomLocation = randomLocation;
+        if(randomLocation) { itemLocations = new ArrayList<>(); }
+        this.canBeDropped = canBeDropped;
+        this.damage = damage;
+    }
+    
+    /**
+     * Constructor for class Item
+     * use this one to define the damage an item can do
+     */
+    public Item(int count, int weight, String name, String description, boolean canBePickedUp, boolean randomLocation, boolean canBeDropped, int damage, boolean hasContent)
+    {
+        this.weight = weight;
+        this.description = description;
+        this.name = name;
+        this.canBePickedUp = canBePickedUp;
+        this.count = count;
+        this.randomLocation = randomLocation;
+        if(randomLocation) { itemLocations = new ArrayList<>(); }
+        this.canBeDropped = canBeDropped;
+        this.damage = damage;
+        this.hasContent = hasContent;
+        content = new ArrayList<>();
     }
 
     /**
@@ -131,6 +184,11 @@ public class Item
         return canBePickedUp;
     }
     
+    public boolean hasRandomLocation()
+    {
+        return randomLocation;
+    }
+    
     public void setItemLocation(Room location)
     {
         itemLocations.add(location);
@@ -141,6 +199,30 @@ public class Item
         return itemLocations;
     }
     
+    public boolean canBeDropped()
+    {
+        return canBeDropped;
+    }
+    
+    public int getDamage()
+    {
+        return damage;
+    }
+    
+    public void setDamage(int damage)
+    {
+        this.damage = damage;
+    }
+    
+    public boolean hasContent()
+    {
+        return hasContent;
+    }
+    
+    /**
+     * method to place an item in a room.
+     * this method is for randomly placing an item in a room from an arraylist with item locations
+     */
     public void placeItem(Item item)
     {
         // Get ArrayList for Locations for Item
@@ -153,6 +235,22 @@ public class Item
             Room randomRoom = itemLocations.get(rand);
             randomRoom.addItem(item);
         }
+    }
+    
+    /**
+     * method to add new content to an item
+     */
+    public void addContent(String newContent)
+    {
+        content.add(newContent);
+    }
+    
+    /**
+     * return a list of the content of the item
+     */
+    public ArrayList getContent()
+    {
+        return content;
     }
 }
 

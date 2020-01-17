@@ -27,7 +27,9 @@ public enum CommandWord
 
     INVENTORY("inventory"),
     
-    TALK("talk");
+    TALK("talk"),
+    
+    USE("use");
 
     // The command string.
     private String commandString;
