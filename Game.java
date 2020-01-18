@@ -297,7 +297,7 @@ public class Game {
             break;
 
             case MENU:
-            menu(command);
+            wantToQuit = menu(command);
             break;
 
         }
@@ -519,6 +519,7 @@ public class Game {
     /**
      * Method used to use the menu Command. Second word selects the command available within the menu.
      * @param command that was executed
+     * @return true, false if the game should stop
      */
     private boolean menu(Command command)
     {
@@ -530,17 +531,17 @@ public class Game {
             return wantToQuit;
         }
         String secondWord = command.getSecondWord();
-        
+
         //System.out.println(secondWord);
-        
+
         CommandWord commandWord = new CommandWords().getCommandWord(secondWord);
-        
+
         //System.out.println(commandWord);
-        
+
         Command newCommand = new Command(commandWord, null);
-        
+
         //System.out.println(newCommand.getCommandWord() + " " + newCommand.hasSecondWord());
-        
+
         MenuWord menuWord = new MenuWords().getMenuWord(secondWord);
 
         switch (menuWord) {
@@ -553,10 +554,7 @@ public class Game {
             break;
 
             case QUIT:
-            // Needs fixing quiting doesn't work when going through the menu
-            processCommand(newCommand);
-            //wantToQuit = quit(newCommand);
-            //System.out.println(newCommand);
+            wantToQuit = quit(newCommand);
             break;
 
             case HELP:
