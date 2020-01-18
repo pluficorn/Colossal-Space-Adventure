@@ -1,9 +1,9 @@
 /**
  * Representations for all the valid command words for the game
- * along with a string in a particular language.
+ * along with a string and a description in a particular language.
  * 
- * @author  Michael Kölling, David J. Barnes, M. Kok, N. Verkade
- * @version 2020.01.13
+ * @author  Michael Kölling, David J. Barnes, M. Kok, N. Verkade, E. Zigterman Rustenburg
+ * @version 2020.01.18
  */
 
 public enum CommandWord
@@ -30,7 +30,9 @@ public enum CommandWord
 
     TALK("talk", "speak to a person or alien" ),
 
-    USE("use", "Used to use a specified item like the sword or the book" );
+    USE("use", "Used to use a specified item like the sword or the book" ),
+
+    MENU("menu", "");
 
     // The command string.
     private String commandString;
