@@ -13,8 +13,8 @@ import java.util.Scanner;
  * the known commands, and if the input is not one of the known commands, it
  * returns a command object that is marked as an unknown command.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Michael Kölling, David J. Barnes, E. Zigterman Rustenburg
+ * @version 2020.01.18
  */
 public class Parser 
 {
@@ -28,6 +28,7 @@ public class Parser
     public Parser() 
     {
         commands = new CommandWords();
+        menus = new MenuWords();
         reader = new Scanner(System.in);
     }
 
@@ -54,11 +55,6 @@ public class Parser
             }
         }
 
-        if(word1.toLowerCase() == "about")
-        {
-            return new Command(commands.getCommandWord(word1), word2);
-        }
-        
         return new Command(commands.getCommandWord(word1), word2);
     }
 
@@ -68,5 +64,32 @@ public class Parser
     public void showCommands()
     {
         commands.showAll();
+    }
+
+    /**
+     * @return the next menu command from the player.
+     */
+    public Menu getMenuWord()
+    {
+        String inputLine;   // will hold the full input line
+        String word1 = null;
+        String word2 = null;
+
+        System.out.print("> ");     // print prompt
+
+        inputLine = reader.nextLine();
+
+        // Find up to two words on the line.
+        Scanner tokenizer = new Scanner(inputLine);
+
+        return new Menu(menus.getMenuWord(word2));
+    }
+
+    /**
+     * Print out a list of all menu options / items
+     */
+    public void showMenuItems()
+    {
+        menus.showAll();
     }
 }

@@ -13,11 +13,13 @@
  * 
  * @author Michael Kölling, David J. Barnes, N.Verkade, M.Kok, E.Zigterman
  *         Rustenburg
- * @version 2020.01.16
+ * @version 2020.01.18
  */
 
 public class Game {
     private Parser parser;
+    private MenuWords menus;
+    private CommandWord commandWord;
     private Player player;
     private Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5,
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
@@ -415,6 +417,10 @@ public class Game {
         }
     }
 
+    /**
+     * Method used to drop an item from the players' inventory.
+     * @param command that was executed
+     */
     private void drop(Command command) {
         if (!command.hasSecondWord()) {
             // If there's no second word, we don't know what to drop.
@@ -438,6 +444,9 @@ public class Game {
         }
     }
 
+    /**
+     * method for the player to see what he has in his inventory
+     */
     private void inventory()
     {
         if (player.getInventory().isEmpty()) {
@@ -454,6 +463,10 @@ public class Game {
         }
     }
 
+    /**
+     * Method used to talk to actors in the game.
+     * @param command that was executed
+     */
     private void talk(Command command) {
         if (!command.hasSecondWord()) {
             // If there's no second word, we don't know who tot talk to.
@@ -473,6 +486,7 @@ public class Game {
 
     /**
      * method to use items however the item can be used
+     * @param command that was executed
      */
     private void use(Command command) {
         if (!command.hasSecondWord()) {
@@ -501,26 +515,56 @@ public class Game {
         // if none of the use options are applicable
         System.out.println("We can't use this item here");
     }
-    
-    private void menu(Command command)
+
+    /**
+     * Method used to use the menu Command. Second word selects the command available within the menu.
+     * @param command that was executed
+     */
+    private boolean menu(Command command)
     {
+        boolean wantToQuit = false;
+
         if (!command.hasSecondWord()) {
-            // TO DO print all possible second words
-            return;
+            // Print all possible second words
+            parser.showMenuItems();
+            return wantToQuit;
         }
+        String secondWord = command.getSecondWord();
         
-        MenuWord menuWord = command.getMenuWord();
+        //System.out.println(secondWord);
         
-        System.out.print(menuWord);
+        CommandWord commandWord = new CommandWords().getCommandWord(secondWord);
         
-        // switch (menuWord) {
-            // case ABOUT:
-            // System.out.println("it gave about");
-            // break;
-            
-            // case MENU:
-            // System.out.println("it gave menu");
-            
-        // }
+        //System.out.println(commandWord);
+        
+        Command newCommand = new Command(commandWord, null);
+        
+        //System.out.println(newCommand.getCommandWord() + " " + newCommand.hasSecondWord());
+        
+        MenuWord menuWord = new MenuWords().getMenuWord(secondWord);
+
+        switch (menuWord) {
+            case UNKNOWN:
+            System.out.println("I don't know what you want...");
+            break;
+
+            case ABOUT:
+            System.out.println("it gave about");
+            break;
+
+            case QUIT:
+            // Needs fixing quiting doesn't work when going through the menu
+            processCommand(newCommand);
+            //wantToQuit = quit(newCommand);
+            //System.out.println(newCommand);
+            break;
+
+            case HELP:
+            printHelp();
+            break;
+
+        }
+
+        return wantToQuit;
     }
 }

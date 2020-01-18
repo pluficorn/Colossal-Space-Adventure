@@ -1,35 +1,46 @@
 
 /**
- * Enumeration class MenuWord - geef hier een beschrijving van de enum class
+ * Enumeration class MenuWord - Representations of all valid Menu commands along with a string and a description in a particular language.
  *
- * @author (jouw naam)
- * @version (versie nummer of datum)
+ * @author E. Zigterman Rustenburg
+ * @version 2020.01.18
  */
 public enum MenuWord
 {
-    QUIT("quit"), 
+    QUIT("quit", ""), 
 
-    HELP("help"),
-    
-    UNKNOWN("?"),
-    
-    MENU("menu"),
-    
-    ABOUT("about");
-    
+    HELP("help", ""),
+
+    UNKNOWN("?", ""),
+
+    ABOUT("about", "" );
+
     private String menuString;
-    
+    private String menuContent;
+
     /**
      * Initialise with the corresponding command string.
      * @param commandString The command string.
      */
-    MenuWord(String menuString)
+    MenuWord(String menuString, String menuContent)
     {
         this.menuString = menuString;
+        this.menuContent = menuContent;
     }
-    
+
+    /**
+     * @return The command word as a string.
+     */
     public String toString()
     {
         return menuString;
+    }
+
+    /**
+     * @return The command description as a string.
+     */
+    public String toDescription()
+    {
+        return menuContent;
     }
 }

@@ -1,59 +1,50 @@
 
 /**
- * class Menu - geef hier een beschrijving van deze class
+ * class Menu - This class holds information about a menu Item that was issued by the user.
+ * it uses the second word of the command Menu if there is one.
  *
- * @author (jouw naam)
- * @version (versie nummer of datum)
+ * @author E. Zigterman Rustenburg
+ * @version 2020.01.18
  */
 public class Menu
 {
-    private CommandWord commandWord;
     private MenuWord menuWord;
-    private String secondWord;
 
     /**
-     * Create a command object. First and second words must be supplied, but
-     * the second may be null.
-     * @param commandWord The CommandWord. UNKNOWN if the command word
-     *                  was not recognised.
-     * @param secondWord The second word of the command. May be null.
+     * Create a menu object. First word must be supplied.
+     * 
+     * @param menuWord the menuWord. UNKNOWN if the command word was not recognised
      */
-    public Menu(Menuword commandWord, String secondWord)
+    public Menu(MenuWord menuWord)
     {
-        this.commandWord = commandWord;
-        this.secondWord = secondWord;
-        //this.menuWord = secondWord;
+        this.menuWord = menuWord;
+
     }
 
     /**
-     * Return the command word (the first word) of this command.
-     * @return The command word.
+     * Returns the menu word
+     * @return the MenuWord
      */
-    public CommandWord getCommandWord()
-    {
-        return commandWord;
-    }
-
-    /**
-     * @return The second word of this command. Returns null if there was no
-     * second word.
-     */
-    public String getSecondWord()
-    {
-        return secondWord.toLowerCase();
-    }
-    
     public MenuWord getMenuWord()
     {
         return menuWord;
     }
 
     /**
+     * Returns the Description of the menu Item as a String
+     * @return menuWord description
+     */
+    public String getMenuDescription()
+    {
+        return menuWord.toDescription();
+    }
+
+    /**
      * @return true if this command was not understood.
      */
-    public boolean isUnknown()
+    public boolean isMenuUnknown()
     {
-        return (commandWord == CommandWord.UNKNOWN);
+        return (menuWord == MenuWord.UNKNOWN);
     }
 
     /**
@@ -61,6 +52,6 @@ public class Menu
      */
     public boolean hasSecondWord()
     {
-        return (secondWord != null);
+        return (menuWord != null);
     }
 }

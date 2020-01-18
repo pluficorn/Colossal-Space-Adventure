@@ -20,7 +20,6 @@
 public class Command
 {
     private CommandWord commandWord;
-    private MenuWord menuWord;
     private String secondWord;
 
     /**
@@ -34,7 +33,6 @@ public class Command
     {
         this.commandWord = commandWord;
         this.secondWord = secondWord;
-        //this.menuWord = secondWord;
     }
 
     /**
@@ -53,11 +51,6 @@ public class Command
     public String getSecondWord()
     {
         return secondWord.toLowerCase();
-    }
-    
-    public MenuWord getMenuWord()
-    {
-        return menuWord;
     }
 
     /**
