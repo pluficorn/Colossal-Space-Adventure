@@ -310,12 +310,16 @@ public class Game {
      * Print out some help information. Here we print some stupid, cryptic message
      * and a list of the command words.
      */
-    private void printHelp() {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around on an unkonwn planet.");
-        System.out.println();
-        System.out.println("Your command words are:");
-        parser.showCommands();
+    private void printHelp(Command command) {
+        if (!command.hasSecondWord()) {
+            System.out.println("You are lost. You are alone. You wander");
+            System.out.println("around on an unkonwn planet.");
+            System.out.println();
+            System.out.println("Your command words are:");
+            parser.showCommands();
+        }else{
+            
+        }
     }
 
     /**
