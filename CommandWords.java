@@ -66,8 +66,22 @@ public class CommandWords
     public void showAll() 
     {
         for(String command : validCommands.keySet()) {
+            //String description = validCommands.get(command).toDescription();
             System.out.print(command + "  ");
         }
         System.out.println();
     }
+    
+    /**
+     * Print all valid commands to System.out.
+     */
+    public void showDescriptions() 
+    {
+        for(String command : validCommands.keySet()) {
+            String description = validCommands.get(command).toDescription();
+            System.out.println(command + ": " + description);
+        }
+        System.out.println();
+    }
+
 }

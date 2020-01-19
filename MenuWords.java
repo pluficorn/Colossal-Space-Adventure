@@ -61,7 +61,8 @@ public class MenuWords
     public void showAll() 
     {
         for(String command : validMenuItems.keySet()) {
-            System.out.println(command + ": " + "needs to get the desctriptions still");
+            String description = validMenuItems.get(command).toDescription();
+            System.out.println(command + ": " + description);
         }
         System.out.println();
     }

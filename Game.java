@@ -212,8 +212,8 @@ public class Game {
         // book with tips
         book = new Item(1, 0, "book", "a book with useful tips", true, false, false, 0, true);
         // adding content to the book
-        book.addContent("This is a test message.");
-        book.addContent("This is also a test message");
+        book.addContent("When arriving on an new planet, it's best to always check your environment. You never know what you might find.");
+        book.addContent("It is always good to find a way to communicate with the locals.");
 
         player.pickUpItem(book);
     }
@@ -556,19 +556,44 @@ public class Game {
             break;
 
             case ABOUT:
-            System.out.println("it gave about");
+            about();
             break;
 
             case QUIT:
             wantToQuit = quit(newCommand);
             break;
+            
+            case COMMANDS:
+            printCommands();
+            break;
 
             case HELP:
-            printHelp(command);
+            printHelp(newCommand);
             break;
 
         }
 
         return wantToQuit;
     }
+    
+    private void about()
+    {
+        System.out.println("The World of Zuul is produced by the following programmers:");
+        System.out.println("Naomi Verkade");
+        System.out.println();
+        System.out.println("Marijn Kok");
+        System.out.println();
+        System.out.println("Esther Zigterman Rustenburg");
+        System.out.println();
+    }
+    
+    /**
+     * shows a list of all the commands in the game with description
+     */
+    private void printCommands()
+    {
+        System.out.println("Your command words are:");
+        parser.showDescriptions();
+    }
+
 }

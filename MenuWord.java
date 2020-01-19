@@ -7,13 +7,15 @@
  */
 public enum MenuWord
 {
-    QUIT("quit", ""), 
+    QUIT("quit", "leave the game"),
 
-    HELP("help", ""),
+    HELP("help", "get all the commands you can use in the game"),
 
     UNKNOWN("?", ""),
+    
+    COMMANDS("commands", "get a list of all the commands in the game with a description."),
 
-    ABOUT("about", "" );
+    ABOUT("about", "info about the producers of The World of Zuul" );
 
     private String menuString;
     private String menuContent;

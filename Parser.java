@@ -92,4 +92,13 @@ public class Parser
     {
         menus.showAll();
     }
+    
+    /**
+     * shows the descriptions of the commands
+     */
+    public void showDescriptions()
+    {
+        commands.showDescriptions();
+    }
+
 }
