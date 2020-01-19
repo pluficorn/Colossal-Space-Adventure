@@ -257,7 +257,7 @@ public class Game {
             break;
 
             case HELP:
-            printHelp();
+            printHelp(command);
             break;
 
             case GO:
@@ -318,7 +318,7 @@ public class Game {
             System.out.println("Your command words are:");
             parser.showCommands();
         }else{
-            
+
         }
     }
 
@@ -501,23 +501,25 @@ public class Game {
 
         String itemName = command.getSecondWord();
         Item item = player.getInventoryItemFromString(itemName);
-
-        if (item.getDamage() > 0) {
-            // Do damage with the item
-            System.out.println("needs to be expanded to work properly");
-            return;
-        }
-
-        if (item.hasContent()) {
-            // read the content of the item
-            for (Object content : item.getContent()) {
-                System.out.println(content);
+        if(item != null) {
+            if (item.getDamage() > 0) {
+                // Do damage with the item
+                System.out.println("needs to be expanded to work properly");
+                return;
             }
-            return;
-        }
 
+            if (item.hasContent()) {
+                // read the content of the item
+                for (Object content : item.getContent()) {
+                    System.out.println(content);
+                }
+                return;
+            }
+        } else {
+            System.out.println("The item is not in your inventory. Use " + commandWord.TAKE + " to pick up an item.");
+        }
         // if none of the use options are applicable
-        System.out.println("We can't use this item here");
+        //System.out.println("We can't use this item here");
     }
 
     /**
@@ -562,7 +564,7 @@ public class Game {
             break;
 
             case HELP:
-            printHelp();
+            printHelp(command);
             break;
 
         }
