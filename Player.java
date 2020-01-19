@@ -54,7 +54,7 @@ public class Player {
                 goTrapdoor();
             }
         }else{
-            System.out.println("The room is locked, you need a " + room.getRequiredKey().getName());
+            System.out.println("The room is locked, you need a(n) " + room.getRequiredKey().getName());
         }
     }
 
