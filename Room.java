@@ -135,9 +135,9 @@ public class Room {
         {
             // Proper grammar for singular and plural
             if(item.getCount() != 1) {
-                longDescription += "There are " + item.getName() + " laying around";
+                longDescription += "There are " + item.getName() + " laying around.";
             } else {
-                longDescription += "There is a(n) " + item.getName() + " laying around";
+                longDescription += "There is a(n) " + item.getName() + " laying around.";
             }
 
             // Print description, if any

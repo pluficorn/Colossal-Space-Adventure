@@ -50,7 +50,7 @@ public class Game {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Goodbye.");
+        System.out.println("Thank you for playing. Goodbye.");
     }
 
     /**
@@ -64,28 +64,23 @@ public class Game {
         cave_area1 = new Room("in the cave. It's dark");
         cave_area2 = new Room("moving further into the dark cave", true);
         cave_area3 = new Room("somewhere in the cave. It's still dark");
-        cave_area4 = new Room("in the cave. I can hear the flapping of batwings.");
+        cave_area4 = new Room("in the cave. I can hear the flapping of batwings");
         cave_area5 = new Room("somewhere in the cave.");
         cave_area6 = new Room("in the cave. I can hear rocks falling");
-        forest_entrance = new Room("at the entrance of a small forest.");
-        forest_field1 = new Room(
-            "at a small open area within the forest with a tree in the centre of the area. The tree has a low hanging branch");
-        forest_field2 = new Room(
-            "at a small open area within the forest with a tree in the centre of the area. The tree seems to have a small hole in it");
-        forest_field3 = new Room(
-            "You arrive at a small open area within the forest. There is a tree standing in the middle with a small nest on one of its branches");
+        forest_entrance = new Room("at the entrance of a small forest");
+        forest_field1 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree has a low hanging branch");
+        forest_field2 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree seems to have a small hole in it");
+        forest_field3 = new Room("You arrive at a small open area within the forest. There is a tree standing in the middle with a small nest on one of its branches");
         tree1 = new Room("sitting on the low hanging branch branch");
         tree2 = new Room("sitting on a branch near the small hole");
         tree3 = new Room("sitting on a branch next to the small nest");
         road = new Room("near the village");
         village_entrance = new Room("entering an alien village with weird looking architecture");
         marketplace = new Room("at the marketplace in the alien village, there is a salesman to who you can talk");
-        prison_entrance = new Room(
-            "at the prison, watch out for criminals! You hear a really soft voice screaming for help");
+        prison_entrance = new Room("at the prison, watch out for criminals! You hear a really soft voice screaming for help");
         prison_cafeteria = new Room("at the cafetaria in the prison, the screaming voice gets a little louder");
         cellblock = new Room("entering the cellblock, the screaming voice is really loud");
-        cell1 = new Room(
-            "entered cell 1, an unknown prisoner is sitting in his cell. But does not pay any attention to you");
+        cell1 = new Room("entered cell 1, an unknown prisoner is sitting in his cell. But does not pay any attention to you");
         cell2 = new Room("entered cell 2. A human man is standing in the cell desperate to get your attention", false);
         cell3 = new Room("entered cell 3, the cell is empty");
 
@@ -98,8 +93,7 @@ public class Game {
         crater.addItem(new Item(3, 1, "coins", ""));
 
         open_field.setExit("west", crater);
-        open_field.addItem(
-            new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"));
+        open_field.addItem(new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"));
         open_field.addItem(new Item(4, 1, "coins", ""));
 
         cave_entrance.setExit("north", crater);
@@ -224,20 +218,24 @@ public class Game {
     private void printWelcome() {
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("It is the year 2174. You’re on your way for a mission that will guarantee freedom in the whole galaxy.");
-        System.out.println("So far, everything has been going smoothly. The traffic has been calm and nothing concerning has shown up. ");
+        System.out.println("So far, everything has been going smoothly. The traffic has been calm and nothing concerning has shown up.");
+        //Thread.sleep(4000);
         System.out.println();
-        System.out.println("BANG!!");
+        System.out.println("BANG!!!");
+        //Thread.sleep(4000);
         System.out.println();
         System.out.println("A shock goes through your ship. You seem to have been hit!");
-        System.out.println("On the radar you see an unknown ship, because of the damage the ship is uncontrollable");
-        System.out.println("You end up getting caught in the gravity of a nearby planet and try to make a crash-landing");
-        System.out.println("But after you hit the ground, everything went black…");
+        System.out.println("On the radar you see an unknown ship, because of the damage the ship is uncontrollable.");
+        System.out.println("You end up getting caught in the gravity of a nearby planet and try to make a crash-landing.");
+        System.out.println("But after you hit the ground, everything went black...");
+        //Thread.sleep(4000);
+
         System.out.println();
-        System.out.println("When you wake up you are lost and the space ship is broken, walk around, find spaceship parts and fix the spaceship");
+        System.out.println("You wake up. You are lost and your space ship is broken. You must try to find all missing spaceship parts to fix it.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
-        //System.out.println("Type '" + CommandWord.HELP + "' if you need tips/tricks."); //commandword use book for tips and tricks
+        System.out.println("Type '" + CommandWord.USE + " book' if you need tips/tricks.");
         System.out.println();
-        System.out.println(player.getRoom().getLongDescription());
+        look();
     }
 
     /**
@@ -313,7 +311,7 @@ public class Game {
     private void printHelp(Command command) {
         if (!command.hasSecondWord()) {
             System.out.println("You are lost. You are alone. You wander");
-            System.out.println("around on an unkonwn planet.");
+            System.out.println("around on an unknown planet.");
             System.out.println();
             System.out.println("Your command words are:");
             parser.showCommands();
