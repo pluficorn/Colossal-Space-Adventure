@@ -1,6 +1,4 @@
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Write a description of class Actor here.
@@ -12,40 +10,31 @@ public class Actor
 {
     private String name;
     private String description; // voor bij look()
-    private int Health;
+    private int health;
     private ArrayList<Item> inventory;
-    private Room currentRoom;
-    private HashMap<Room, String> messages;
+    //private Room currentRoom; Locatie wordt opgeslagen in Room!!!
+    private ArrayList<String> phaseMessages;
 
-    public Actor(String name, Room currentRoom)
+    public Actor(String name)
     {
         this.name = name;
-        this.currentRoom = currentRoom;
-        messages = new HashMap<>();
+        this.health = 5;
+        phaseMessages = new ArrayList<>();
     }
 
-    public void setRoom(Room room) {
-        currentRoom = room;
-    }
-
-    public Room getRoom()
-    {
-        return currentRoom;
-    }
-
-    public void sayMessage(String message)
+    public void talk(String message)
     {
         System.out.println(name + ": " + message);
     }
 
     public void addMessage(Room room, String message)
     {
-        messages.put(room, message);
+        phaseMessages.add(message);
     }
 
-    public String getMessage(Room room)
+    public String getMessage(int index)
     {
-        return messages.get(room);
+        return phaseMessages.get(index);
     }
 
 }

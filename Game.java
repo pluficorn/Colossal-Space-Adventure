@@ -123,7 +123,7 @@ public class Game {
         cave_area5.addItem(new Item(3, 1, "coins", ""));
 
         cave_area6.setExit("north", cave_area5);
-        Actor worm = new Actor("Worm", cave_area6);
+        Actor worm = new Actor("Worm");
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
@@ -186,7 +186,7 @@ public class Game {
 
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
-        Actor tolk = new Actor("Tolk", cell2);
+        Actor tolk = new Actor("Tolk");
         tolk.addMessage(cell2, "Message");
         tolk.addMessage(cellblock, "Message");
 
@@ -260,10 +260,6 @@ public class Game {
 
             case GO:
             goRoom(command);
-            break;
-
-            case QUIT:
-            wantToQuit = quit(command);
             break;
 
             case LOOK:
@@ -481,8 +477,9 @@ public class Game {
         Actor actor = player.getRoom().getActor(actorName);
 
         if (actor instanceof Actor) {
-            String message = actor.getMessage(player.getRoom());
-            actor.sayMessage(message);
+            //String message = actor.getMessage(player.getPhase());
+            //actor.talk(message);
+            System.out.println("TODO");
         }
     }
 
