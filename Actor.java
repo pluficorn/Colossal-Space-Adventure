@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Write a description of class Actor here.
  *
@@ -10,16 +8,22 @@ public class Actor
 {
     private String name;
     private String description; // voor bij look()
-    private int health;
-    private ArrayList<Item> inventory;
     //private Room currentRoom; Locatie wordt opgeslagen in Room!!!
-    private ArrayList<String> phaseMessages;
 
-    public Actor(String name)
+    public Actor(String name, String description)
     {
         this.name = name;
-        this.health = 5;
-        phaseMessages = new ArrayList<>();
+        this.description = description;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+    
+    public String getDescription()
+    {
+        return description;
     }
 
     public void talk(String message)
@@ -27,14 +31,6 @@ public class Actor
         System.out.println(name + ": " + message);
     }
 
-    public void addMessage(Room room, String message)
-    {
-        phaseMessages.add(message);
-    }
 
-    public String getMessage(int index)
-    {
-        return phaseMessages.get(index);
-    }
 
 }
