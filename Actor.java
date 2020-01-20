@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * Write a description of class Actor here.
+ * Class to create actors
  *
  * @author M. Kok, N. Verkade
  * @version 2020.16.01
@@ -22,16 +22,27 @@ public class Actor
         phaseMessages = new ArrayList<>();
     }
 
+    /**
+     * method to print the message of the actor
+     * @param message that will be printed for the actor
+     */
     public void talk(String message)
     {
         System.out.println(name + ": " + message);
     }
 
+    /**
+     * 
+     */
     public void addMessage(Room room, String message)
     {
         phaseMessages.add(message);
     }
 
+    /**
+     * @param index index value of the message to be returned
+     * @return message based on index value
+     */
     public String getMessage(int index)
     {
         return phaseMessages.get(index);

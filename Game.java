@@ -1,11 +1,11 @@
 /**
  * This class is the main class of the "World of Zuul" application. "World of
- * Zuul" is a very simple, text based adventure game. Users can walk around some
- * scenery. That's all. It should really be extended to make it more
- * interesting!
+ * Zuul" is a very simple, text based adventure game. Users can explore the World of Zuul and 
+ * can talk to actors and explor all the rooms.
+ * Players will come across different challenges on their path to complete their mission.
  * 
  * To play this game, create an instance of this class and call the "play"
- * method.
+ * method. Or via the GameMain Class.
  * 
  * This main class creates and initialises all the others: it creates all rooms,
  * creates the parser and starts the game. It also evaluates and executes the
@@ -13,7 +13,7 @@
  * 
  * @author Michael Kölling, David J. Barnes, N.Verkade, M.Kok, E.Zigterman
  *         Rustenburg
- * @version 2020.01.18
+ * @version 2020.01.20
  */
 
 public class Game {
@@ -568,6 +568,9 @@ public class Game {
         return wantToQuit;
     }
 
+    /**
+     * method that gives the about information
+     */
     private void about()
     {
         System.out.println("The World of Zuul is produced by the following programmers:");
@@ -577,5 +580,6 @@ public class Game {
         System.out.println();
         System.out.println("Esther Zigterman Rustenburg");
         System.out.println();
+        System.out.println("copyrights 2020");
     }
 }

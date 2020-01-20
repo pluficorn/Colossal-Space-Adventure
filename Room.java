@@ -35,6 +35,7 @@ public class Room {
      * class
      * 
      * @param description The room's description.
+     * @param isTrapdoor true if room has trapdoor
      */
     public Room(String description, boolean isTrapdoor) {
         this.description = description;
@@ -45,10 +46,17 @@ public class Room {
         actorList = new HashMap<>();
     }
 
+    /**
+     * creates room with a description
+     * @param description The room's description.
+     */
     public Room(String description) {
         this(description, false);
     }
 
+    /**
+     * @return true if room is a trapdoor
+     */
     public boolean isTrapdoor() {
         return isTrapdoor;
     }
@@ -74,22 +82,40 @@ public class Room {
         exits.put(direction, neighbor);
     }
 
+    /**
+     * adds a location that the trapdoor may lead to
+     * @param location that trapdoor may lead to
+     */
     public void setTrapdoorLocation(Room location) {
         trapdoorLocations.add(location);
     }
 
+    /**
+     * @returns ArrayList of rooms the trapdoor room may send the player to
+     */
     public ArrayList<Room> getTrapdoorLocations() {
         return trapdoorLocations;
     }
 
+    /**
+     * Adds an item to a room
+     * @param item that is added to the room
+     */
     public void addItem(Item item) {
         items.add(item);
     }
 
+    /**
+     * removes item from the room
+     * @param item that is removed from the room
+     */
     public void removeItem(Item item) {
         items.remove(item);
     }
 
+    /**
+     * @returns ArrayList of items in the room
+     */
     public ArrayList<Item> getItems() {
         return items;
     }
@@ -167,16 +193,26 @@ public class Room {
         return returnString;
     }
 
+    /**
+     * @returns a required item that is needed to go into a room
+     */
     public Item getRequiredKey()
     {
         return requiredKey;
     }
 
+    /**
+     * sets the required item for a room
+     * @param key item that is required to enter room
+     */
     public void setRequiredKey(Item key)
     {
         requiredKey = key;
     }
 
+    /**
+     * @returns actors in the room
+     */
     public Actor getActor(String name)
     {
         return actorList.get(name);

@@ -43,7 +43,7 @@ public class Player {
     }
 
     /**
-     * Move player to specified room
+     * Moves player to specified room
      */
     public void setRoom(Room room) {
         if (room.getRequiredKey() == null || hasRequiredKey(room)) {
@@ -75,12 +75,17 @@ public class Player {
         history.push(room);
     }
 
+    /**
+     * returns the room history of a player
+     * @return room history of player
+     */
     public Deque<Room> getHistory() {
         return history;
     }
 
     /**
      * Will delete the last entry of the history and return it.
+     * @return returns last entry of the room (and deletes it from the history)
      */
     public Room popHistory() {
         return history.pop();
@@ -109,7 +114,7 @@ public class Player {
     }
 
     /**
-     * Method that drops a chosen item by the player
+     * Method that removes an item from the inventory
      */
     public void dropItem(Item item) {
         inventory.remove(item);
@@ -117,6 +122,7 @@ public class Player {
 
     /**
      * return the item from inventory based on index
+     * @return item from inventory that was requested
      */
     public Item getInventoryItemFromString(String itemName) {
         for (Item item : inventory) {
@@ -130,7 +136,7 @@ public class Player {
     }
 
     /**
-     * Method that picks up a chosen item by the player
+     * Method that adds an item to the inventory of the player
      */
     public void pickUpItem(Item item) {
         // Check if the item is already in the inventory
@@ -160,6 +166,7 @@ public class Player {
 
     /**
      * Get the maximum weight the player can carry in grams.
+     * @return the max wheight
      */
     public int getMaxWeight() {
         return maxWeight;
@@ -167,6 +174,7 @@ public class Player {
 
     /**
      * Get the total weight the player is carrying in grams.
+     * @returns total inventory wheight 
      */
     public int calculateTotalWeight() {
         int totalWeight = 0;
@@ -178,11 +186,16 @@ public class Player {
 
     /**
      * Get the inventory of the player
+     * @return inventory items
      */
     public ArrayList<Item> getInventory() {
         return inventory;
     }
 
+    /**
+     * Checks if player has required key to enter a room
+     * @return boolean. True if player has required item
+     */
     public boolean hasRequiredKey(Room room)
     {
         if (inventory.contains(room.getRequiredKey())){
@@ -192,10 +205,18 @@ public class Player {
         }
     }
 
+    /**
+     * removes health from the player
+     * @param health amount substracted from health player
+     */
     public void substractHealth(int health) {
         this.health -= health;
     }
 
+    /**
+     * increases the health of a player
+     * @param health amount added to health player
+     */
     public void addHealth(int health) {
         this.health += health;
     }

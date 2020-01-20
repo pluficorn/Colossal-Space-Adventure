@@ -123,6 +123,7 @@ public class Item
 
     /**
      * Method to get the Name of the item
+     * @return name of an item
      */
     public String getName()
     {
@@ -131,6 +132,7 @@ public class Item
 
     /**
      * Method to set the name of the item
+     * @param name sets the name of an item
      */
     public void setName(String name)
     {
@@ -139,6 +141,7 @@ public class Item
 
     /**
      * Method to get the weight of the item
+     * @return wheight of an item
      */
     public int getWeight()
     {
@@ -147,17 +150,26 @@ public class Item
 
     /**
      * Method to set the weight of the item
+     * @param wheight sets wheight of an item
      */
     public void setWeight(int weight)
     {
         this.weight = weight;
     }
 
+    /**
+     * Method to get the the amount or count
+     * @return count of an item
+     */
     public int getCount()
     {
         return count;
     }
 
+    /**
+     * Method to set the count of the item
+     * @param count sets count of an item
+     */
     public void setCount(int count)
     {
         this.count = count;
@@ -165,6 +177,7 @@ public class Item
 
     /**
      * Method to get the description of an item
+     * @return the description of an item
      */
     public String getItemDescription()
     {
@@ -173,47 +186,97 @@ public class Item
 
     /**
      * Method to set the description of an item
+     * @param description sets description of an item
      */
     public void setItemDescription(String description)
     {
         this.description = description;
     }
 
+    /**
+     * method to get true or false wheither an item can be picked up
+     * @return true or false weither it can be picked up
+     */
     public boolean canBePickedUp()
     {
         return canBePickedUp;
     }
     
+    /**
+     * Method to set the canBePickedUp boolean of an item
+     * @param canBePickedUp sets boolean canBePickedUp of an item
+     */
+    public void setCanBePickedUp(boolean canBePickedUp)
+    {
+        this.canBePickedUp = canBePickedUp; 
+    }
+    
+    /**
+     * method to get true or false wheither an item can be picked up
+     * @return true or false weither it has a random location
+     */
     public boolean hasRandomLocation()
     {
         return randomLocation;
     }
     
+    /**
+     * method to set the boolean for random location
+     * @param hasRandomLocation boolean has random location
+     */
+    public void setHasRandomLocation(boolean hasRandomLocation)
+    {
+        this.randomLocation = hasRandomLocation;
+    }
+    
+    /**
+     * Method to set the room location boolean of an item
+     * @param canBePickedUp sets boolean canBePickedUp of an item
+     */
     public void setItemLocation(Room location)
     {
         itemLocations.add(location);
     }
     
+    /**
+     * method that returns item locations
+     * @return Arraylist of possible item locations
+     */
     public ArrayList<Room> getItemLocation()
     {
         return itemLocations;
     }
     
+    /**
+     * returns boolean item can be dropped. 
+     * True if the item can be dropped
+     * @return true if item can be dropped
+     */
     public boolean canBeDropped()
     {
         return canBeDropped;
     }
     
+    /**
+     * @return damage an item can do
+     */
     public int getDamage()
     {
         return damage;
     }
     
+    /**
+     * method to set the damage an item can do
+     * @param damage int value for amount of damage
+     */
     public void setDamage(int damage)
     {
         this.damage = damage;
     }
     
+    /**
+     * @return true if item has content
+     */
     public boolean hasContent()
     {
         return hasContent;
