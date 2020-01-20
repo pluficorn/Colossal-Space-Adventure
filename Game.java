@@ -310,11 +310,16 @@ public class Game {
             System.out.println("You are lost. You are alone. You wander");
             System.out.println("around on an unknown planet.");
             System.out.println();
-            System.out.println("Your command words are:");
+            System.out.println("Type help commandword for information about the commandwords. Your command words are:");
             parser.showCommands();
-        }else{
-
+            return;
         }
+
+        String commandHelp = command.getSecondWord();
+
+        CommandWord commandword = new CommandWords().getCommandWord(commandHelp);
+        System.out.println(commandword.toDescription());
+
     }
 
     /**
@@ -529,6 +534,7 @@ public class Game {
 
         if (!command.hasSecondWord()) {
             // Print all possible second words
+            System.out.println("To quit or look in about type: menu quit or menu about");
             parser.showMenuItems();
             return wantToQuit;
         }
@@ -558,20 +564,11 @@ public class Game {
             case QUIT:
             wantToQuit = quit(newCommand);
             break;
-            
-            case COMMANDS:
-            printCommands();
-            break;
-
-            case HELP:
-            printHelp(newCommand);
-            break;
-
         }
 
         return wantToQuit;
     }
-    
+
     private void about()
     {
         System.out.println("The World of Zuul is produced by the following programmers:");
@@ -582,14 +579,4 @@ public class Game {
         System.out.println("Esther Zigterman Rustenburg");
         System.out.println();
     }
-    
-    /**
-     * shows a list of all the commands in the game with description
-     */
-    private void printCommands()
-    {
-        System.out.println("Your command words are:");
-        parser.showDescriptions();
-    }
-
 }

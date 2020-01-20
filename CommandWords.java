@@ -71,7 +71,7 @@ public class CommandWords
         }
         System.out.println();
     }
-    
+
     /**
      * Print all valid commands to System.out.
      */
@@ -83,5 +83,5 @@ public class CommandWords
         }
         System.out.println();
     }
-
 }
+
