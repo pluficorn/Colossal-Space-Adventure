@@ -28,6 +28,7 @@ public class Player {
     private Room currentRoom;
     private int health;
     private Deque<Room> history;
+    private int phase;
 
     /**
      * Constructor voor objects van class Player
@@ -39,7 +40,7 @@ public class Player {
         inventory = new ArrayList<>();
         history = new ArrayDeque<>();
 
-        // pickupItem(new Item("Handbook");
+        this.phase = 0; // start at phase 0
     }
 
     /**

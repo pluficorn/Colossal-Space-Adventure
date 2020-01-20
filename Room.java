@@ -173,6 +173,16 @@ public class Room {
                 longDescription += ".\n";
             }
         }
+        
+        // Print actors, if any
+        for (Actor actor : actorList.values()) {
+            longDescription += "A " + actor.getName() + " is in the room. ";
+            if(actor.getDescription() != null) {
+                longDescription += actor.getDescription() + "\n";
+            } else {
+                longDescription += "\n";
+            }
+        }
 
         longDescription += getExitString();
 
@@ -208,6 +218,16 @@ public class Room {
     public void setRequiredKey(Item key)
     {
         requiredKey = key;
+    }
+    
+    /**
+     * Add actor to the current room.
+     * 
+     * @param what actor to add
+     */
+    public void setActor(Actor actor)
+    {
+        actorList.put(actor.getName(), actor);
     }
 
     /**

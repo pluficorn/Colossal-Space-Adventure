@@ -123,7 +123,7 @@ public class Game {
         cave_area5.addItem(new Item(3, 1, "coins", ""));
 
         cave_area6.setExit("north", cave_area5);
-        Actor worm = new Actor("Worm");
+        Enemy worm = new Enemy("Worm", "A massive worm. He seems angry");
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
@@ -183,12 +183,13 @@ public class Game {
         cellblock.setExit("west", cell2);
 
         cell1.setExit("south", cellblock);
-
+        
+        Ally tolk = new Ally("Tolk", "He is desperate to talk to you.");
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
-        Actor tolk = new Actor("Tolk");
-        tolk.addMessage(cell2, "Message");
-        tolk.addMessage(cellblock, "Message");
+        cell2.setActor(tolk);
+        tolk.setMessage(0, "Hello there! Thank you for freeing me. It's dangerous to go alone... without a translator. Take this.");
+        tolk.setMessage(1, "You will be able to talk to the merchant with it.");
 
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", ""));
