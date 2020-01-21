@@ -73,7 +73,7 @@ public class CommandWords
     }
 
     /**
-     * Print all valid commands to System.out.
+     * Print all valid command descriptions to System.out.
      */
     public void showDescriptions() 
     {
