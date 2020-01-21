@@ -524,7 +524,13 @@ public class Game {
         }
         // Specifying the actor
         String actorName = command.getSecondWord();
-
+        if(player.getRoom().getActor(command.getSecondWord()) instanceof Ally)
+        {
+            
+        } else {
+            System.out.println("It doesn't seem to want to talk");
+            return;
+        }
         Ally actor = (Ally) player.getRoom().getActor(actorName);
 
         if (actor != null) {
