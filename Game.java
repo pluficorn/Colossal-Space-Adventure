@@ -124,6 +124,9 @@ public class Game {
 
         cave_area6.setExit("north", cave_area5);
         Enemy worm = new Enemy("Worm", "A massive worm. He seems angry");
+        cave_area6.setActor(worm);
+        Item hyperdrive = new Item(1, 10000, "hyperdrive", "Crucial part of the ship engine");
+        worm.addItem(hyperdrive);
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
@@ -168,9 +171,12 @@ public class Game {
         marketplace.setExit("west", village_entrance);
         marketplace.addItem(new Item(5, 1, "coins", ""));
         Ally merchant = new Ally("Merchant", "He can trade coins for usefull items");
+        marketplace.setActor(merchant);
         merchant.setMessage(0, "Uryyb gurer! V'z gur zrepunag naq lbh pna genqr lbhe fuval pbvaf sbe orngvshy vgrzf. Evtug abj V bssre n fcnprfuvc zbgbe sbe 50 pbvaf! Vs lbh jnag gb genqr, glcr tvir zrepunag pbvaf.");
         merchant.setMessage(1, "Hello there! I'm the merchant and you can trade your shiny coins for beatiful items. Right now I offer a spaceship motor for 50 coins! If you want to trade, type give merchant coins.");
         merchant.setMessage(2, "Right now I don't have anything to trade, come back later!");
+        Item motor = new Item(1, 10000, "motor", "Engines the spaceship");
+        merchant.addItem(motor);
         
         prison_entrance.setExit("east", village_entrance);
         prison_entrance.setExit("south", prison_cafeteria);
@@ -194,6 +200,8 @@ public class Game {
         cell2.setActor(tolk);
         tolk.setMessage(0, "Hello there! Thank you for freeing me. It's dangerous to go alone... without a translator. Take this.");
         tolk.setMessage(1, "You will be able to talk to the merchant with it.");
+        Item translator = new Item(1, 2000, "translator", "Translates alien languages");
+        tolk.addItem(translator);
 
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", ""));
