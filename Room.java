@@ -173,7 +173,7 @@ public class Room {
                 longDescription += ".\n";
             }
         }
-        
+
         // Print actors, if any
         for (Actor actor : actorList.values()) {
             longDescription += "A " + actor.getName() + " is in the room. ";
@@ -219,7 +219,7 @@ public class Room {
     {
         requiredKey = key;
     }
-    
+
     /**
      * Add actor to the current room.
      * 
@@ -231,10 +231,30 @@ public class Room {
     }
 
     /**
-     * @returns actors in the room
+     * Search for an actor in the room. Will return a null if not found.
+     * 
+     * @return actors in the room
      */
     public Actor getActor(String name)
     {
         return actorList.get(name);
+    }
+
+    /**
+     * Move the specified actor to the specified room. Will not move the actor if the actor wasn't found in the room
+     * 
+     * @param actorName the name of the actor
+     * @param room The room to move to
+     */
+    public void moveActor(String actorName, Room room)
+    {
+        // Get actor by name
+        Actor actor = actorList.get(actorName);
+        
+        // Check if actor exists
+        if(actor instanceof Actor) {
+            actorList.remove(actor);
+            room.setActor(actor);
+        }
     }
 }

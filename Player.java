@@ -210,7 +210,7 @@ public class Player {
      * removes health from the player
      * @param health amount substracted from health player
      */
-    public void substractHealth(int health) {
+    public void removeHealth(int health) {
         this.health -= health;
     }
 
@@ -220,6 +220,22 @@ public class Player {
      */
     public void addHealth(int health) {
         this.health += health;
+    }
+    
+    /**
+     * move the phase up,incrementing it with 1
+     */
+    public void incrementPhase()
+    {
+        phase += 1;
+    }
+    
+    /**
+     * @return current phase
+     */
+    public int getPhase()
+    {
+        return phase;
     }
 }
 
