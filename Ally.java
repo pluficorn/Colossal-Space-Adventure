@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Ally extends Actor
 {
     private ArrayList<String> phaseMessages;
-    private ArrayList<Item> inventory;
 
     /**
      * Constructor for objects of class Ally
@@ -16,7 +15,6 @@ public class Ally extends Actor
     public Ally(String name, String description)
     {
         super(name, description);
-        phaseMessages = new ArrayList<>();
     }
 
     public void setMessage(int phase, String message)
