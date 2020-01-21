@@ -167,7 +167,11 @@ public class Game {
 
         marketplace.setExit("west", village_entrance);
         marketplace.addItem(new Item(5, 1, "coins", ""));
-
+        Ally merchant = new Ally("Merchant", "He can trade coins for usefull items");
+        merchant.setMessage(0, "Uryyb gurer! V'z gur zrepunag naq lbh pna genqr lbhe fuval pbvaf sbe orngvshy vgrzf. Evtug abj V bssre n fcnprfuvc zbgbe sbe 50 pbvaf! Vs lbh jnag gb genqr, glcr tvir zrepunag pbvaf.");
+        merchant.setMessage(1, "Hello there! I'm the merchant and you can trade your shiny coins for beatiful items. Right now I offer a spaceship motor for 50 coins! If you want to trade, type give merchant coins.");
+        merchant.setMessage(2, "Right now I don't have anything to trade, come back later!");
+        
         prison_entrance.setExit("east", village_entrance);
         prison_entrance.setExit("south", prison_cafeteria);
         prison_entrance.setExit("west", cellblock);

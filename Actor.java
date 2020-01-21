@@ -8,7 +8,6 @@ public class Actor
 {
     private String name;
     private String description; // voor bij look()
-    //private Room currentRoom; Locatie wordt opgeslagen in Room!!!
 
     public Actor(String name, String description)
     {
@@ -41,7 +40,4 @@ public class Actor
     {
         System.out.println(name + ": " + message);
     }
-
-
-
 }
