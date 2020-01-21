@@ -28,6 +28,20 @@ public class Ally extends Actor
     {
         phaseMessages.add(phase, message);
     }
+    
+    /**
+     * method to check if actor has message
+     * @return true if actor has message(s)
+     */
+    public boolean hasMessage()
+    {
+        if(phaseMessages.size() > 0)
+        {
+            return true;
+        }
+        
+        return false;
+    }
 
     /**
      * returns the message based on the phase
