@@ -25,7 +25,8 @@ public class Game {
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
     village_entrance, marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
     private Item item, landing_gear, lasersword, book, hyperdrive, motor, metal_shielding;
-
+    private Ally merchant, tolk;
+    private Enemy worm;
     /**
      * Create the game and initialise its internal map.
      */
@@ -34,6 +35,9 @@ public class Game {
         metal_shielding = new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"); 
         landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
         motor = new Item(1, 10000, "motor", "Engines the spaceship");
+        merchant = new Ally("merchant", "He can trade coins for usefull items");
+        worm = new Enemy("worm", "A massive worm. He seems angry", 5, 2, 1);
+        tolk = new Ally("tolk", "He is desperate to talk to you.");
 
         createRooms();
         parser = new Parser();
@@ -129,10 +133,8 @@ public class Game {
         cave_area5.setExit("west", cave_area3);
         cave_area5.addItem(new Item(3, 1, "coins", ""));
         cave_area6.setExit("north", cave_area5);
-        Enemy worm = new Enemy("worm", "A massive worm. He seems angry", 5, 2, 1);
         cave_area6.setActor(worm);
         worm.addItem(hyperdrive);
-
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
@@ -160,7 +162,6 @@ public class Game {
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", ""));
 
-
         landing_gear = new Item(1, 5000, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
         landing_gear.setItemLocation(tree2);
@@ -177,7 +178,6 @@ public class Game {
 
         marketplace.setExit("west", village_entrance);
         marketplace.addItem(new Item(5, 1, "coins", ""));
-        Ally merchant = new Ally("merchant", "He can trade coins for usefull items");
         marketplace.setActor(merchant);
         merchant.setMessage(0, "Uryyb gurer! V'z gur zrepunag naq lbh pna genqr lbhe fuval pbvaf sbe orngvshy vgrzf. Evtug abj V bssre n fcnprfuvc zbgbe sbe 50 pbvaf! Vs lbh jnag gb genqr, glcr tvir zrepunag pbvaf.");
         merchant.setMessage(1, "Hello there! I'm the merchant and you can trade your shiny coins for beatiful items. Right now I offer a spaceship motor for 50 coins! If you want to trade, type give merchant coins.");
@@ -199,7 +199,6 @@ public class Game {
         cellblock.setExit("west", cell2);
 
         cell1.setExit("south", cellblock);
-        Ally tolk = new Ally("tolk", "He is desperate to talk to you.");
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
         cell2.setActor(tolk);
@@ -311,7 +310,7 @@ public class Game {
             case MENU:
             wantToQuit = menu(command);
             break;
-            
+
             case GIVE:
             break;
 
@@ -486,11 +485,11 @@ public class Game {
         System.out.println("You set off into the galaxy to save the universe, everythins will be fine!");
         System.out.println();
         System.out.println("Thanks for playing!");
-        
+
         CommandWord commandWord = new CommandWords().getCommandWord("quit");
 
         Command newCommand = new Command(commandWord, null, null);
-        
+
         quit(newCommand);
     }
 
@@ -525,17 +524,17 @@ public class Game {
         }
         // Specifying the actor
         String actorName = command.getSecondWord();
-        
+
         Ally actor = (Ally) player.getRoom().getActor(actorName);
 
         if (actor != null) {
-            
+
             String message = actor.getMessage(player.getPhase());
-            
+
             actor.talk(message);
             return;
         }
-        
+
         System.out.println("That person is not in this room.");
     }
 
@@ -596,7 +595,7 @@ public class Game {
 
         //System.out.println(commandWord);
 
-        Command newCommand = new Command(commandWord, null,null);
+        Command newCommand = new Command(commandWord, null, null);
 
         //System.out.println(newCommand.getCommandWord() + " " + newCommand.hasSecondWord());
 
@@ -631,6 +630,42 @@ public class Game {
         System.out.println();
         System.out.println("Esther Zigterman Rustenburg");
         System.out.println();
-        System.out.println("copyrights 2020");
+        System.out.println("Copyrights 2020");
+    }
+
+    private void give(Command command)
+    {
+        if (!command.hasSecondWord() || !command.hasThirdWord()) {
+            System.out.println("Give what to whom?");
+            return;
+        }
+
+        String secondWord = command.getSecondWord();
+        String thirdWord = command.getThirdWord();
+
+        CommandWord secondCommandWord = new CommandWords().getCommandWord(secondWord);
+        CommandWord thirdCommandWord = new CommandWords().getCommandWord(thirdWord);
+
+        if (player.getRoom().getActor(command.getSecondWord()) instanceof Ally) {
+            Ally target = (Ally) player.getRoom().getActor(command.getSecondWord());
+            if(target != merchant){
+                System.out.println("Merchant not found.");
+                return;
+            }
+        }else{
+            System.out.println("Ally not found.");
+            return;
+        }
+
+        Item specifiedItem = player.getInventoryItemFromString(command.getThirdWord());
+        if(specifiedItem == null && !specifiedItem.getName().equals("coins")){
+            System.out.println("Item does not exist" );
+            return;
+        }
+
+        if(player.getPhase() == 1 && player.getInventoryItemFromString("coins").getCount() == 50) {
+            Item coin = player.getInventoryItemFromString("coins");
+            player.dropItem(coin, 50);
+        }
     }
 }
