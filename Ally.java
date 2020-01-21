@@ -3,14 +3,14 @@ import java.util.ArrayList;
  * Write a description of class Ally here.
  *
  * @author M. Kok
- * @version 2020.01.20
+ * @version 2020.01.21
  */
 public class Ally extends Actor
 {
     private ArrayList<String> phaseMessages;
 
     /**
-     * Constructor for objects of class Ally
+     * Constructor for objects of class Ally.
      */
     public Ally(String name, String description)
     {
@@ -19,10 +19,10 @@ public class Ally extends Actor
     }
 
     /**
-     * method to set a message for an ally, based on the phase a player is in
+     * Method to set a message for an ally, based on the phase a player is in.
      *
-     * @param phase value that states the phase of the message
-     * @param message that is stored for the given phase
+     * @param phase Value that states the phase of the message.
+     * @param message Message that is stored for the given phase.
      */
     public void setMessage(int phase, String message)
     {
@@ -30,8 +30,8 @@ public class Ally extends Actor
     }
         
     /**
-     * method to check if actor has message
-     * @return true if actor has message(s)
+     * Method to check if actor has message.
+     * @return true if actor has message(s).
      */
     public boolean hasMessage()
     {
@@ -44,11 +44,11 @@ public class Ally extends Actor
     }
 
     /**
-     * returns the message based on the phase
+     * Returns the message based on the phase.
      * 
-     * @param index phase connecte to the message
+     * @param index phase connected to the message.
      * 
-     * @return returns the message
+     * @return returns the message.
      */
     public String getMessage(int index)
     {
