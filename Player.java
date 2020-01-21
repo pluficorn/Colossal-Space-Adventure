@@ -210,7 +210,7 @@ public class Player {
      * removes health from the player
      * @param health amount substracted from health player
      */
-    public void substractHealth(int health) {
+    public void removeHealth(int health) {
         this.health -= health;
     }
 
