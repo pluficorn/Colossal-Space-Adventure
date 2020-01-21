@@ -493,17 +493,13 @@ public class Game {
         // Specifying the actor
         String actorName = command.getSecondWord();
         
-        System.out.println(actorName);
-        
         Ally actor = (Ally) player.getRoom().getActor(actorName);
-
-        System.out.println(actor);
 
         if (actor != null) {
             
             String message = actor.getMessage(player.getPhase());
             
-            System.out.println(message);
+            actor.talk(message);
             return;
         }
         
