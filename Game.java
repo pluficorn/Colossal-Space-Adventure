@@ -128,7 +128,6 @@ public class Game {
         Item hyperdrive = new Item(1, 10000, "hyperdrive", "Crucial part of the ship engine");
         worm.addItem(hyperdrive);
 
-
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
         forest_entrance.setExit("west", forest_field1);
@@ -178,7 +177,7 @@ public class Game {
         merchant.setMessage(2, "Right now I don't have anything to trade, come back later!");
         Item motor = new Item(1, 10000, "motor", "Engines the spaceship");
         merchant.addItem(motor);
-        
+
         prison_entrance.setExit("east", village_entrance);
         prison_entrance.setExit("south", prison_cafeteria);
         prison_entrance.setExit("west", cellblock);
@@ -194,13 +193,13 @@ public class Game {
         cellblock.setExit("west", cell2);
 
         cell1.setExit("south", cellblock);
-        
+
         Ally tolk = new Ally("tolk", "He is desperate to talk to you.");
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
         cell2.setActor(tolk);
         tolk.setMessage(0, "Hello there! Thank you for freeing me. It's dangerous to go alone... without a translator. Take this.");
-        tolk.setMessage(1, "You will be able to talk to the merchant with it.");
+        tolk.setMessage(1, "You will be able to talk to the merchant with the translator.");
         Item translator = new Item(1, 2000, "translator", "Translates alien languages");
         tolk.addItem(translator);
 
@@ -492,17 +491,49 @@ public class Game {
         }
         // Specifying the actor
         String actorName = command.getSecondWord();
-        
+
         Ally actor = (Ally) player.getRoom().getActor(actorName);
 
         if (actor != null) {
-            
+
             String message = actor.getMessage(player.getPhase());
-            
+
+            //print the message of the actor
             actor.talk(message);
+
+            if(!actor.getInventory().isEmpty())
+
+            {
+                // If the actor has an item. it will give it to you. this will put the player in the next phase
+                while(actor.getInventory().size() > 0)
+                {
+                    Item item  = actor.getInventory().get(0);
+                    actor.removeItem(item);
+                    player.pickUpItem(item);
+
+                    System.out.println( "The " + actor.getName() + " gave you " + item.getCount() + " " + item.getName());
+                }
+
+                // Moving player to next phase
+                player.incrementPhase();
+
+                if(actor.getName() == "tolk")
+                {
+                    player.getRoom().moveActor(actor.getName(), cellblock);
+
+                    // Updating the descriptions for the story
+                    actor.setDescription("The tolk is hanging around here. He seems quite relaxed now.");
+                    cell2.setDescription("in cell 2. It's empty now that you've freed the tolk");
+                    cellblock.setDescription("entering the cellblock.");
+                    prison_entrance.setDescription("at the prison, watch out for criminals!");
+                    prison_cafeteria.setDescription("at the cafetaria in the prison");
+
+                }
+
+            }
             return;
         }
-        
+
         System.out.println("That person is not in this room.");
     }
 
