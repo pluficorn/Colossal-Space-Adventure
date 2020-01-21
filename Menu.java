@@ -13,7 +13,7 @@ public class Menu
     /**
      * Create a menu object. First word must be supplied.
      * 
-     * @param menuWord the menuWord. UNKNOWN if the command word was not recognised
+     * @param menuWord The menuWord. UNKNOWN if the command word was not recognised.
      */
     public Menu(MenuWord menuWord)
     {
@@ -22,8 +22,7 @@ public class Menu
     }
 
     /**
-     * Returns the menu word
-     * @return the MenuWord
+     * @return Returns the MenuWord.
      */
     public MenuWord getMenuWord()
     {
@@ -31,8 +30,7 @@ public class Menu
     }
 
     /**
-     * Returns the Description of the menu Item as a String
-     * @return menuWord description
+     * @return Description of menuword.
      */
     public String getMenuDescription()
     {
@@ -40,7 +38,7 @@ public class Menu
     }
 
     /**
-     * @return true if this command was not understood.
+     * @return True if this command was not understood.
      */
     public boolean isMenuUnknown()
     {

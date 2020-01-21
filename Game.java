@@ -13,7 +13,7 @@
  * 
  * @author Michael Kölling, David J. Barnes, N.Verkade, M.Kok, E.Zigterman
  *         Rustenburg
- * @version 2020.01.20
+ * @version 2020.01.21
  */
 
 public class Game {
@@ -25,7 +25,8 @@ public class Game {
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
     village_entrance, marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
     private Item item, landing_gear, lasersword, book, hyperdrive, motor, metal_shielding;
-
+    private Ally merchant, tolk;
+    private Enemy worm;
     /**
      * Create the game and initialise its internal map.
      */
@@ -34,6 +35,9 @@ public class Game {
         metal_shielding = new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"); 
         landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
         motor = new Item(1, 10000, "motor", "Engines the spaceship");
+        merchant = new Ally("merchant", "He can trade coins for usefull items");
+        worm = new Enemy("worm", "A massive worm. He seems angry", 5, 2, 1);
+        tolk = new Ally("tolk", "He is desperate to talk to you.");
 
         createRooms();
         parser = new Parser();
@@ -129,7 +133,6 @@ public class Game {
         cave_area5.setExit("west", cave_area3);
         cave_area5.addItem(new Item(3, 1, "coins", ""));
         cave_area6.setExit("north", cave_area5);
-        Enemy worm = new Enemy("worm", "A massive worm. He seems angry", 5, 2, 1);
         cave_area6.setActor(worm);
         worm.addItem(hyperdrive);
 
@@ -159,7 +162,6 @@ public class Game {
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", ""));
 
-        landing_gear = new Item(1, 5000, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
         landing_gear.setItemLocation(tree2);
         landing_gear.setItemLocation(tree3);
@@ -175,7 +177,6 @@ public class Game {
 
         marketplace.setExit("west", village_entrance);
         marketplace.addItem(new Item(5, 1, "coins", ""));
-        Ally merchant = new Ally("merchant", "He can trade coins for usefull items");
         marketplace.setActor(merchant);
         merchant.setMessage(0, "Uryyb gurer! V'z gur zrepunag naq lbh pna genqr lbhe fuval pbvaf sbe orngvshy vgrzf. Evtug abj V bssre n fcnprfuvc zbgbe sbe 50 pbvaf! Vs lbh jnag gb genqr, glcr tvir zrepunag pbvaf.");
         merchant.setMessage(1, "Hello there! I'm the merchant and you can trade your shiny coins for beatiful items. Right now I offer a spaceship motor for 50 coins! If you want to trade, type give merchant coins.");
@@ -197,21 +198,20 @@ public class Game {
         cellblock.setExit("west", cell2);
 
         cell1.setExit("south", cellblock);
-        Ally tolk = new Ally("tolk", "He is desperate to talk to you.");
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
         cell2.setActor(tolk);
         tolk.setMessage(0, "Hello there! Thank you for freeing me. It's dangerous to go alone... without a translator. Take this.");
-        tolk.setMessage(1, "You will be able to talk to the merchant with it.");
+        tolk.setMessage(1, "You will be able to talk to the merchant with the translator.");
         Item translator = new Item(1, 2000, "translator", "Translates alien languages");
         tolk.addItem(translator);
-
+        
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", ""));
     }
 
     /**
-     * Add starter items to players' inventory
+     * Add starter items to players' inventory.
      */
     private void createInventoryItems() {
         // new item(count, wheight, name, description, *possible picked up *random
@@ -314,6 +314,9 @@ public class Game {
             wantToQuit = menu(command);
             break;
 
+            case GIVE:
+            break;
+
         }
         return wantToQuit;
     }
@@ -343,7 +346,7 @@ public class Game {
     // implementations of user commands:
 
     /**
-     * Print out some help information. Here we print some stupid, cryptic message
+     * Print out some help information. Here we print some stupid, cryptic message.
      * and a list of the command words.
      */
     private void printHelp(Command command) {
@@ -422,7 +425,7 @@ public class Game {
     }
 
     /**
-     * Look around the room. Get the current description
+     * Look around the room. Get the current description.
      */
     private void look() {
         System.out.println(player.getRoom().getLongDescription());
@@ -432,7 +435,7 @@ public class Game {
      * Take an item from the ground, removing it from the room and adding it to the
      * inventory.
      *
-     * @param command that was executed
+     * @param command that was executed.
      */
     private void take(Command command) {
         if (!command.hasSecondWord()) {
@@ -464,7 +467,7 @@ public class Game {
 
     /**
      * Method used to drop an item from the players' inventory.
-     * @param command that was executed
+     * @param command that was executed.
      */
     private void drop(Command command) {
         if (!command.hasSecondWord()) {
@@ -480,7 +483,7 @@ public class Game {
         if (item instanceof Item) {
             // check if item can be dropped
             if (item.canBeDropped()) {
-                player.dropItem(item);
+                player.dropItem(item, 1);
                 player.getRoom().addItem(item);
                 System.out.println("You've dropped " + itemName);
             } else {
@@ -496,7 +499,7 @@ public class Game {
     }
 
     /**
-     * method that starts the outro of the game and after this quits the game, the payer has won
+     * method that starts the outro of the game and after this quits the game, the payer has won.
      */
     private void win()
     {
@@ -510,13 +513,13 @@ public class Game {
 
         CommandWord commandWord = new CommandWords().getCommandWord("quit");
 
-        Command newCommand = new Command(commandWord, null);
+        Command newCommand = new Command(commandWord, null, null);
 
         quit(newCommand);
     }
 
     /**
-     * method for the player to see what he has in his inventory
+     * method for the player to see what he has in his inventory.
      */
     private void inventory()
     {
@@ -536,7 +539,7 @@ public class Game {
 
     /**
      * Method used to talk to actors in the game.
-     * @param command that was executed
+     * @param command that was executed.
      */
     private void talk(Command command) {
         if (!command.hasSecondWord()) {
@@ -546,14 +549,57 @@ public class Game {
         }
         // Specifying the actor
         String actorName = command.getSecondWord();
-
+        if(player.getRoom().getActor(command.getSecondWord()) instanceof Ally)
+        {
+            
+        } else {
+            System.out.println("It doesn't seem to want to talk");
+            return;
+        }
         Ally actor = (Ally) player.getRoom().getActor(actorName);
 
         if (actor != null) {
+            
+            //check if actor has anything to say
+            if(actor.hasMessage())
+            {
+                String message = actor.getMessage(player.getPhase());
 
-            String message = actor.getMessage(player.getPhase());
+                //print the message of the actor
+                actor.talk(message);
 
-            actor.talk(message);
+                if(!actor.getInventory().isEmpty())
+
+                {
+                    // If the actor has an item. it will give it to you. this will put the player in the next phase
+                    while(actor.getInventory().size() > 0)
+                    {
+                        Item item  = actor.getInventory().get(0);
+                        actor.removeItem(item);
+                        player.pickUpItem(item);
+
+                        System.out.println( "The " + actor.getName() + " gave you " + item.getCount() + " " + item.getName());
+                    }
+
+                    // Moving player to next phase
+                    player.incrementPhase();
+
+                    if(actor.getName() == "tolk")
+                    {
+                        player.getRoom().moveActor(actor.getName(), cellblock);
+
+                        // Updating the descriptions for the story
+                        actor.setDescription("The tolk is hanging around here. He seems quite relaxed now.");
+                        cell2.setDescription("in cell 2. It's empty now that you've freed the tolk");
+                        cellblock.setDescription("entering the cellblock.");
+                        prison_entrance.setDescription("at the prison, watch out for criminals!");
+                        prison_cafeteria.setDescription("at the cafetaria in the prison");
+
+                    }
+                }
+                return;
+            }
+            System.out.println("He doesn't seem to want to talk to you.");
             return;
         }
 
@@ -561,8 +607,8 @@ public class Game {
     }
 
     /**
-     * method to use items however the item can be used
-     * @param command that was executed
+     * method to use items however the item can be used.
+     * @param command that was executed.
      */
     private void use(Command command) {
         if (!command.hasSecondWord()) {
@@ -596,8 +642,8 @@ public class Game {
 
     /**
      * Method used to use the menu Command. Second word selects the command available within the menu.
-     * @param command that was executed
-     * @return true, false if the game should stop
+     * @param command that was executed.
+     * @return true, false if the game should stop.
      */
     private boolean menu(Command command)
     {
@@ -617,7 +663,7 @@ public class Game {
 
         //System.out.println(commandWord);
 
-        Command newCommand = new Command(commandWord, null);
+        Command newCommand = new Command(commandWord, null, null);
 
         //System.out.println(newCommand.getCommandWord() + " " + newCommand.hasSecondWord());
 
@@ -641,7 +687,7 @@ public class Game {
     }
 
     /**
-     * method that gives the about information
+     * method that gives the about information.
      */
     private void about()
     {
@@ -652,9 +698,52 @@ public class Game {
         System.out.println();
         System.out.println("Esther Zigterman Rustenburg");
         System.out.println();
-        System.out.println("copyrights 2020");
+        System.out.println("Copyrights 2020");
     }
 
+    /**
+     * method that makes it possbile to give/trade with actors in the game.
+     */
+    private void give(Command command)
+    {
+        if (!command.hasSecondWord() || !command.hasThirdWord()) {
+            System.out.println("Give what to whom?");
+            return;
+        }
+
+        String secondWord = command.getSecondWord();
+        String thirdWord = command.getThirdWord();
+
+        CommandWord secondCommandWord = new CommandWords().getCommandWord(secondWord);
+        CommandWord thirdCommandWord = new CommandWords().getCommandWord(thirdWord);
+
+        if (player.getRoom().getActor(command.getSecondWord()) instanceof Ally) {
+            Ally target = (Ally) player.getRoom().getActor(command.getSecondWord());
+            if(target != merchant){
+                System.out.println("Merchant not found.");
+                return;
+            }
+        }else{
+            System.out.println("Ally not found.");
+            return;
+        }
+
+        Item specifiedItem = player.getInventoryItemFromString(command.getThirdWord());
+        
+        if(specifiedItem == null && !specifiedItem.getName().equals("coins")){
+            System.out.println("Item does not exist" );
+            return;
+        }
+
+        if(player.getPhase() == 1 && player.getInventoryItemFromString("coins").getCount() == 50) {
+            Item coin = player.getInventoryItemFromString("coins");
+            player.dropItem(coin, 50);
+            merchant.addItem(new Item(50, 1, "coins", ""));
+            merchant.removeItem(motor);
+            player.pickUpItem(motor);
+            player.incrementPhase();
+        }
+    }
     private void attack(Command command)
     {
         if (!command.hasSecondWord()) {

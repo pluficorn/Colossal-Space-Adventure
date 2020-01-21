@@ -1,6 +1,6 @@
 
 /**
- * class GameMain - initializes the game
+ * class GameMain - initializes the game.
  *
  * @author N. Verkade
  * @version 2020.01.16

@@ -151,8 +151,21 @@ public class Player {
     /**
      * Method that removes an item from the inventory
      */
-    public void dropItem(Item item) {
-        inventory.remove(item);
+    public void dropItem(Item item, int amount) {
+
+        if(inventory.contains(item))
+        {
+            int index = inventory.indexOf(item);
+            int count = inventory.get(index).getCount();
+            inventory.get(index).setCount(count - amount);
+
+            if(inventory.get(index).getCount() <= 0)
+            {
+                inventory.remove(item);
+            }
+
+        }
+        
     }
 
     /**

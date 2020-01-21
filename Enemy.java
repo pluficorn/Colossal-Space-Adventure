@@ -1,10 +1,10 @@
 import java.lang.Math;
 
 /**
- * Write a description of class Ally here.
+ * Extention Class of Actors for all enemy actors
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author M. Kok,
+ * @version 2020.01.21
  */
 public class Enemy extends Actor
 {
@@ -12,7 +12,12 @@ public class Enemy extends Actor
     private int attackDamage, attackModifier;
 
     /**
-     * Constructor for objects of class Ally
+     * Constructor for objects of class Enemy.
+     * @param name Name of the creature
+     * @param description desc
+     * @param health
+     * @param attackDamage
+     * @param randomPlusMinDmg
      */
     public Enemy(String name, String description, int health, int attackDamage, int attackModifier)
     {
@@ -22,7 +27,11 @@ public class Enemy extends Actor
         this.attackDamage = attackDamage;
         this.attackModifier = attackModifier;
     }
-
+    
+    /**
+     * Method to remove health from enemy actor.
+     * @param damage the amount the health will decrease with.
+     */
     public void removeHealth(int damage)
     {
         health -= damage;
@@ -44,6 +53,6 @@ public class Enemy extends Actor
     }
     public void terminate()
     {
-    
+        // felt WIP, might delete later
     }
 }

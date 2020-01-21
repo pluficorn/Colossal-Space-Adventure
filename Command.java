@@ -11,16 +11,18 @@
  * command words. If the user entered an invalid command (a word that is not
  * known) then the CommandWord is UNKNOWN.
  *
- * If the command had only one word, then the second word is <null>.
+ * If the command had only one word, then the second word is <null> and the third word is <null>.
+ * If the command only has two words, then the third word is <null>.
  * 
- * @author  Michael Kölling, David J. Barnes, E. Zigterman Rustenburg
- * @version 2020.01.13
+ * @author  Michael Kölling, David J. Barnes, E. Zigterman Rustenburg, N. Verkade
+ * @version 2020.01.21
  */
 
 public class Command
 {
     private CommandWord commandWord;
     private String secondWord;
+    private String thirdWord;
 
     /**
      * Create a command object. First and second words must be supplied, but
@@ -29,10 +31,11 @@ public class Command
      *                  was not recognised.
      * @param secondWord The second word of the command. May be null.
      */
-    public Command(CommandWord commandWord, String secondWord)
+    public Command(CommandWord commandWord, String secondWord, String thirdWord)
     {
         this.commandWord = commandWord;
         this.secondWord = secondWord;
+        this.thirdWord = thirdWord;
     }
 
     /**
@@ -54,6 +57,15 @@ public class Command
     }
 
     /**
+     * @return The third word of this command. Returns null if there was no
+     * third word.
+     */
+    public String getThirdWord()
+    {
+        return thirdWord.toLowerCase();
+    }
+
+    /**
      * @return true if this command was not understood.
      */
     public boolean isUnknown()
@@ -68,5 +80,12 @@ public class Command
     {
         return (secondWord != null);
     }
-}
 
+    /**
+     * @return true if the command has a third word.
+     */
+    public boolean hasThirdWord()
+    {
+        return (thirdWord != null);
+    }
+}

@@ -1,6 +1,4 @@
-
 import java.util.ArrayList;
-
 /**
  * Class Item - an item in a room in an adventure game.
  *
@@ -43,7 +41,7 @@ public class Item
     
     /**
      * Constructor for class Item.
-     * use this one to define whether item can be picked up
+     * use this one to define whether item can be picked up.
      */
     public Item(int count, int weight, String name, String description, boolean canBePickedUp)
     {
@@ -55,8 +53,8 @@ public class Item
     }
     
     /**
-     * Constructor for class Item
-     * use this one to define whether item has random location
+     * Constructor for class Item.
+     * use this one to define whether item has random location.
      */
     public Item(int count, int weight, String name, String description, boolean canBePickedUp, boolean randomLocation)
     {
@@ -70,8 +68,8 @@ public class Item
     }
     
     /**
-     * Constructor for class Item
-     * use this one to define wheither item can be dropped
+     * Constructor for class Item.
+     * use this one to define wheither item can be dropped.
      */
     public Item(int count, int weight, String name, String description, boolean canBePickedUp, boolean randomLocation, boolean canBeDropped)
     {
@@ -86,8 +84,8 @@ public class Item
     }
     
     /**
-     * Constructor for class Item
-     * use this one to define the damage an item can do
+     * Constructor for class Item.
+     * use this one to define the damage an item can do.
      */
     public Item(int count, int weight, String name, String description, boolean canBePickedUp, boolean randomLocation, boolean canBeDropped, int damage)
     {
@@ -103,8 +101,8 @@ public class Item
     }
     
     /**
-     * Constructor for class Item
-     * use this one to define the damage an item can do
+     * Constructor for class Item.
+     * use this one to define the damage an item can do.
      */
     public Item(int count, int weight, String name, String description, boolean canBePickedUp, boolean randomLocation, boolean canBeDropped, int damage, boolean hasContent)
     {
@@ -122,8 +120,8 @@ public class Item
     }
 
     /**
-     * Method to get the Name of the item
-     * @return name of an item
+     * Method to get the Name of the item.
+     * @return name of an item.
      */
     public String getName()
     {
@@ -131,8 +129,8 @@ public class Item
     }
 
     /**
-     * Method to set the name of the item
-     * @param name sets the name of an item
+     * Method to set the name of the item.
+     * @param name sets the name of an item.
      */
     public void setName(String name)
     {
@@ -140,8 +138,8 @@ public class Item
     }
 
     /**
-     * Method to get the weight of the item
-     * @return wheight of an item
+     * Method to get the weight of the item.
+     * @return wheight of an item.
      */
     public int getWeight()
     {
@@ -149,8 +147,8 @@ public class Item
     }
 
     /**
-     * Method to set the weight of the item
-     * @param wheight sets wheight of an item
+     * Method to set the weight of the item.
+     * @param wheight sets wheight of an item.
      */
     public void setWeight(int weight)
     {
@@ -158,8 +156,8 @@ public class Item
     }
 
     /**
-     * Method to get the the amount or count
-     * @return count of an item
+     * Method to get the the amount or count.
+     * @return count of an item.
      */
     public int getCount()
     {
@@ -167,8 +165,8 @@ public class Item
     }
 
     /**
-     * Method to set the count of the item
-     * @param count sets count of an item
+     * Method to set the count of the item.
+     * @param count sets count of an item.
      */
     public void setCount(int count)
     {
@@ -176,8 +174,8 @@ public class Item
     }
 
     /**
-     * Method to get the description of an item
-     * @return the description of an item
+     * Method to get the description of an item.
+     * @return the description of an item.
      */
     public String getItemDescription()
     {
@@ -185,8 +183,8 @@ public class Item
     }
 
     /**
-     * Method to set the description of an item
-     * @param description sets description of an item
+     * Method to set the description of an item.
+     * @param description sets description of an item.
      */
     public void setItemDescription(String description)
     {
@@ -194,8 +192,8 @@ public class Item
     }
 
     /**
-     * method to get true or false wheither an item can be picked up
-     * @return true or false weither it can be picked up
+     * method to get true or false wheither an item can be picked up.
+     * @return true or false weither it can be picked up.
      */
     public boolean canBePickedUp()
     {
@@ -203,8 +201,8 @@ public class Item
     }
     
     /**
-     * Method to set the canBePickedUp boolean of an item
-     * @param canBePickedUp sets boolean canBePickedUp of an item
+     * Method to set the canBePickedUp boolean of an item.
+     * @param canBePickedUp sets boolean canBePickedUp of an item.
      */
     public void setCanBePickedUp(boolean canBePickedUp)
     {
@@ -212,8 +210,8 @@ public class Item
     }
     
     /**
-     * method to get true or false wheither an item can be picked up
-     * @return true or false weither it has a random location
+     * method to get true or false wheither an item can be picked up.
+     * @return true or false weither it has a random location.
      */
     public boolean hasRandomLocation()
     {
@@ -221,8 +219,8 @@ public class Item
     }
     
     /**
-     * method to set the boolean for random location
-     * @param hasRandomLocation boolean has random location
+     * method to set the boolean for random location.
+     * @param hasRandomLocation boolean has random location.
      */
     public void setHasRandomLocation(boolean hasRandomLocation)
     {
@@ -230,8 +228,8 @@ public class Item
     }
     
     /**
-     * Method to set the room location boolean of an item
-     * @param canBePickedUp sets boolean canBePickedUp of an item
+     * Method to set the room location boolean of an item.
+     * @param canBePickedUp sets boolean canBePickedUp of an item.
      */
     public void setItemLocation(Room location)
     {
@@ -239,8 +237,8 @@ public class Item
     }
     
     /**
-     * method that returns item locations
-     * @return Arraylist of possible item locations
+     * method that returns item locations.
+     * @return Arraylist of possible item locations.
      */
     public ArrayList<Room> getItemLocation()
     {
@@ -249,8 +247,8 @@ public class Item
     
     /**
      * returns boolean item can be dropped. 
-     * True if the item can be dropped
-     * @return true if item can be dropped
+     * True if the item can be dropped.
+     * @return true if item can be dropped.
      */
     public boolean canBeDropped()
     {
@@ -258,7 +256,7 @@ public class Item
     }
     
     /**
-     * @return damage an item can do
+     * @return damage an item can do.
      */
     public int getDamage()
     {
@@ -266,8 +264,8 @@ public class Item
     }
     
     /**
-     * method to set the damage an item can do
-     * @param damage int value for amount of damage
+     * method to set the damage an item can do.
+     * @param damage int value for amount of damage.
      */
     public void setDamage(int damage)
     {
@@ -275,7 +273,7 @@ public class Item
     }
     
     /**
-     * @return true if item has content
+     * @return true if item has content.
      */
     public boolean hasContent()
     {
@@ -284,7 +282,7 @@ public class Item
     
     /**
      * method to place an item in a room.
-     * this method is for randomly placing an item in a room from an arraylist with item locations
+     * this method is for randomly placing an item in a room from an arraylist with item locations.
      */
     public void placeItem(Item item)
     {
@@ -301,7 +299,7 @@ public class Item
     }
     
     /**
-     * method to add new content to an item
+     * method to add new content to an item.
      */
     public void addContent(String newContent)
     {
@@ -309,11 +307,10 @@ public class Item
     }
     
     /**
-     * return a list of the content of the item
+     * return a list of the content of the item.
      */
     public ArrayList getContent()
     {
         return content;
     }
 }
-

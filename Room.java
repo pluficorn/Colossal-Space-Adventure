@@ -55,7 +55,7 @@ public class Room {
     }
 
     /**
-     * @return true if room is a trapdoor
+     * @return true if room is a trapdoor.
      */
     public boolean isTrapdoor() {
         return isTrapdoor;
@@ -83,38 +83,38 @@ public class Room {
     }
 
     /**
-     * adds a location that the trapdoor may lead to
-     * @param location that trapdoor may lead to
+     * adds a location that the trapdoor may lead to.
+     * @param location that trapdoor may lead to.
      */
     public void setTrapdoorLocation(Room location) {
         trapdoorLocations.add(location);
     }
 
     /**
-     * @returns ArrayList of rooms the trapdoor room may send the player to
+     * @returns ArrayList of rooms the trapdoor room may send the player to.
      */
     public ArrayList<Room> getTrapdoorLocations() {
         return trapdoorLocations;
     }
 
     /**
-     * Adds an item to a room
-     * @param item that is added to the room
+     * Adds an item to a room.
+     * @param item that is added to the room.
      */
     public void addItem(Item item) {
         items.add(item);
     }
 
     /**
-     * removes item from the room
-     * @param item that is removed from the room
+     * removes item from the room.
+     * @param item that is removed from the room.
      */
     public void removeItem(Item item) {
         items.remove(item);
     }
 
     /**
-     * @returns ArrayList of items in the room
+     * @returns ArrayList of items in the room.
      */
     public ArrayList<Item> getItems() {
         return items;
@@ -123,7 +123,7 @@ public class Room {
     /**
      * Checks whether an item in the room has the specified name. It will only
      * return the first item with the matching name. May return null if no item was
-     * found
+     * found.
      * 
      * @return item
      */
@@ -147,10 +147,19 @@ public class Room {
     }
 
     /**
+     * method to set a descripion of a room
+     * @param description the description to be set.
+     */
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    /**
      * Return a description of the room in the form: You are in the kitchen. Exits:
-     * north west
+     * north west.
      * 
-     * @return A long description of this room
+     * @return A long description of this room.
      */
     public String getLongDescription() {
         // If there are both coins and items
@@ -204,7 +213,7 @@ public class Room {
     }
 
     /**
-     * @returns a required item that is needed to go into a room
+     * @returns a required item that is needed to go into a room.
      */
     public Item getRequiredKey()
     {
@@ -212,8 +221,8 @@ public class Room {
     }
 
     /**
-     * sets the required item for a room
-     * @param key item that is required to enter room
+     * sets the required item for a room.
+     * @param key item that is required to enter room.
      */
     public void setRequiredKey(Item key)
     {
@@ -223,7 +232,7 @@ public class Room {
     /**
      * Add actor to the current room.
      * 
-     * @param what actor to add
+     * @param what actor to add.
      */
     public void setActor(Actor actor)
     {
@@ -233,7 +242,7 @@ public class Room {
     /**
      * Search for an actor in the room. Will return a null if not found.
      * 
-     * @return actors in the room
+     * @return actors in the room.
      */
     public Actor getActor(String name)
     {
@@ -241,19 +250,19 @@ public class Room {
     }
 
     /**
-     * Move the specified actor to the specified room. Will not move the actor if the actor wasn't found in the room
+     * Move the specified actor to the specified room. Will not move the actor if the actor wasn't found in the room.
      * 
-     * @param actorName the name of the actor
-     * @param room The room to move to
+     * @param actorName the name of the actor.
+     * @param room The room to move to.
      */
     public void moveActor(String actorName, Room room)
     {
         // Get actor by name
         Actor actor = actorList.get(actorName);
-        
+
         // Check if actor exists
         if(actor instanceof Actor) {
-            actorList.remove(actor);
+            actorList.remove(actor.getName());
             room.setActor(actor);
         }
     }
