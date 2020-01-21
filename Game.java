@@ -128,9 +128,11 @@ public class Game {
         cave_area5.setExit("south", cave_area6);
         cave_area5.setExit("west", cave_area3);
         cave_area5.addItem(new Item(3, 1, "coins", ""));
-        Enemy worm = new Enemy("worm", "a massive worm, he seems angry", 5, 2, 1);
+        cave_area6.setExit("north", cave_area5);
+        Enemy worm = new Enemy("worm", "A massive worm. He seems angry", 5, 2, 1);
         cave_area6.setActor(worm);
         worm.addItem(hyperdrive);
+
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
@@ -158,6 +160,8 @@ public class Game {
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", ""));
 
+
+        landing_gear = new Item(1, 5000, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
         landing_gear.setItemLocation(tree2);
         landing_gear.setItemLocation(tree3);
@@ -195,7 +199,6 @@ public class Game {
         cellblock.setExit("west", cell2);
 
         cell1.setExit("south", cellblock);
-
         Ally tolk = new Ally("tolk", "He is desperate to talk to you.");
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
@@ -517,16 +520,20 @@ public class Game {
             System.out.println("Talk to whom?");
             return;
         }
-
         // Specifying the actor
         String actorName = command.getSecondWord();
-        Actor actor = player.getRoom().getActor(actorName);
+        
+        Ally actor = (Ally) player.getRoom().getActor(actorName);
 
-        if (actor instanceof Actor) {
-            //String message = actor.getMessage(player.getPhase());
-            //actor.talk(message);
-            System.out.println("TODO");
+        if (actor != null) {
+            
+            String message = actor.getMessage(player.getPhase());
+            
+            actor.talk(message);
+            return;
         }
+        
+        System.out.println("That person is not in this room.");
     }
 
     /**
