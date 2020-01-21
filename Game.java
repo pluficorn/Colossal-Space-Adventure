@@ -133,7 +133,6 @@ public class Game {
         cave_area6.setActor(worm);
         worm.addItem(hyperdrive);
 
-
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
         forest_entrance.setExit("west", forest_field1);
@@ -159,7 +158,6 @@ public class Game {
 
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", ""));
-
 
         landing_gear = new Item(1, 5000, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
@@ -308,12 +306,38 @@ public class Game {
             use(command);
             break;
 
+            case ATTACK:
+            attack(command);
+            break;
+
             case MENU:
             wantToQuit = menu(command);
             break;
 
         }
         return wantToQuit;
+    }
+
+    /**
+     * Returns an int between the given range (inclusive)
+     * 
+     * @param low first value
+     * @param high second value
+     * @return int between the range of low and high
+     */
+    private int randomRange(int value1, int value2)
+    {
+        // Make sure value1 is always the lower number
+        if(value1 > value2)
+        {
+            // Swap value1 and value2
+            int tempHigh = value1;
+            value1 = value2;
+            value2 = tempHigh;
+        }
+
+        // Calculate a random number between the range
+        return (int)(Math.random()*(value2-value1)+value1);
     }
 
     // implementations of user commands:
@@ -483,11 +507,11 @@ public class Game {
         System.out.println("You set off into the galaxy to save the universe, everythins will be fine!");
         System.out.println();
         System.out.println("Thanks for playing!");
-        
+
         CommandWord commandWord = new CommandWords().getCommandWord("quit");
 
         Command newCommand = new Command(commandWord, null);
-        
+
         quit(newCommand);
     }
 
@@ -522,17 +546,17 @@ public class Game {
         }
         // Specifying the actor
         String actorName = command.getSecondWord();
-        
+
         Ally actor = (Ally) player.getRoom().getActor(actorName);
 
         if (actor != null) {
-            
+
             String message = actor.getMessage(player.getPhase());
-            
+
             actor.talk(message);
             return;
         }
-        
+
         System.out.println("That person is not in this room.");
     }
 
@@ -629,5 +653,45 @@ public class Game {
         System.out.println("Esther Zigterman Rustenburg");
         System.out.println();
         System.out.println("copyrights 2020");
+    }
+
+    private void attack(Command command)
+    {
+        if (!command.hasSecondWord()) {
+            System.out.println("Attack whom?");
+            return;
+        }
+
+        // check if the actor from the second commandword (a String) is an enemy
+        if (player.getRoom().getActor(command.getSecondWord()) instanceof Enemy) {
+            // We know it's an enemy from the previous if-statement, so cast and save it as such
+            Enemy target = (Enemy) player.getRoom().getActor(command.getSecondWord());
+
+            // Set attack damage for attack from the player.
+            int playerAttackDamage = player.getAttackDamage() + randomRange(player.getAttackModifier(), -1*player.getAttackModifier());
+            int enemyAttackDamage = target.getAttackDamage() + randomRange(target.getAttackModifier(), -1*target.getAttackModifier());
+
+            // Exchange damages; target loses health, player loses health
+            // If the target or players health dips below or is equal to zero, kill or respawn them respectivelyz
+            if(target.getHealth() - playerAttackDamage <= 0) {
+                target.removeHealth(playerAttackDamage);
+            } else {
+                // Delete the target
+                
+                //target = null; // idk if this works
+            }
+            if(player.getHealth() - enemyAttackDamage <= 0)
+            {
+                player.respawn();
+            } else {
+                player.removeHealth(enemyAttackDamage);
+            }
+
+            // Send damage stats
+            System.out.println(target.getName() + ": -" + playerAttackDamage + "hp");
+            System.out.println("You: -" + enemyAttackDamage + "hp");
+        } else {
+            System.out.println("Enemy not found.");
+        }
     }
 }

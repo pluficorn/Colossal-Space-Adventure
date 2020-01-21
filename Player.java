@@ -23,40 +23,75 @@ import java.util.ArrayDeque;
  */
 
 public class Player {
-    private ArrayList<Item> inventory;
+    // General player info
     private int maxWeight;
     private Room currentRoom;
+    private Room respawnLocation;
     private int health;
+
+    // damage the player can deal. attackModifier is added or removed from attackDamage when attacking for randomness
+    private int attackDamage, attackModifier;
+
+    // Inventory
+    private ArrayList<Item> inventory;
+
+    // Location/Room history
     private Deque<Room> history;
+
+    // Phase (for storyline progress)
     private int phase;
 
     /**
      * Constructor voor objects van class Player
      */
-    public Player(int maxWeight, Room currentRoom) {
+    public Player(int maxWeight, Room spawn) {
         this.maxWeight = maxWeight;
-        this.currentRoom = currentRoom;
+        this.currentRoom = spawn;
+
+        // set respawnlocation to initial spawn location
+        this.respawnLocation = spawn;
 
         inventory = new ArrayList<>();
         history = new ArrayDeque<>();
 
-        this.phase = 0; // start at phase 0
+        this.phase = 0; // Start at phase 0
+    }
+
+    public void respawn()
+    {
+        // Print dramatic message
+        System.out.println();
+        System.out.println();
+        System.out.println("You died.");
+        System.out.println();
+        System.out.println();
+        
+        // Teleport player to spawn location
+        setRoom(respawnLocation);
     }
 
     /**
      * Moves player to specified room
+     * 
+     * @param room to move to
      */
     public void setRoom(Room room) {
+        // Check if player has access to specified room
         if (room.getRequiredKey() == null || hasRequiredKey(room)) {
             this.currentRoom = room;
 
-            // If the room is a trapdoor, set trapdoor
+            // If the room is a trapdoor, perform trapdoor method
             if (room.isTrapdoor()) {
                 goTrapdoor();
             }
         }else{
             System.out.println("The room is locked, you need a(n) " + room.getRequiredKey().getName());
         }
+    }
+
+    public int getHealth()
+    {
+        return health;
     }
 
     /**
@@ -109,8 +144,7 @@ public class Player {
             setRoom(randomRoom);
             history.clear();
         } else {
-            System.out.println(
-                "Well, the hole ends up leading nowhere. Awkward. Maybe the game developers should add some trapdoor locations...");
+            System.out.println("Well, the hole ends up leading nowhere. Awkward. Maybe the game developers should add some trapdoor locations...");
         }
     }
 
@@ -221,7 +255,7 @@ public class Player {
     public void addHealth(int health) {
         this.health += health;
     }
-    
+
     /**
      * move the phase up,incrementing it with 1
      */
@@ -229,7 +263,7 @@ public class Player {
     {
         phase += 1;
     }
-    
+
     /**
      * @return current phase
      */
@@ -237,5 +271,35 @@ public class Player {
     {
         return phase;
     }
-}
 
+    /**
+     * @return players attack damage (without random modifier)
+     */
+    public int getAttackDamage()
+    {
+        return attackDamage;
+    }
+
+    /**
+     * Set the new attack damage
+     * 
+     * @param new attack damage
+     */
+    public void setAttackDamage(int attackDamage)
+    {
+        this.attackDamage = attackDamage;
+    }
+
+    /**
+     * get the attackModifier (used to randomize damage - is added or removed from attackDamage)
+     */
+    public int getAttackModifier()
+    {
+        return attackModifier;
+    }
+
+    public void setAttackModifier(int modifier)
+    {
+        attackModifier = modifier;
+    }
+}

@@ -8,19 +8,19 @@ import java.lang.Math;
  */
 public class Enemy extends Actor
 {
-    int health;
-    int attackDamage;
-    int randomPlusMinDmg;
+    private int health;
+    private int attackDamage, attackModifier;
 
     /**
      * Constructor for objects of class Ally
      */
-    public Enemy(String name, String description, int health, int attackDamage, int randomPlusMinDmg)
+    public Enemy(String name, String description, int health, int attackDamage, int attackModifier)
     {
         // Super provides the necessary variables to the constructor of the parent class; see Actor.class
         super(name, description);
         this.health = health;
-        this.randomPlusMinDmg = randomPlusMinDmg;
+        this.attackDamage = attackDamage;
+        this.attackModifier = attackModifier;
     }
 
     public void removeHealth(int damage)
@@ -28,30 +28,22 @@ public class Enemy extends Actor
         health -= damage;
     }
 
-    /**
-     * Returns an int between the given range (inclusive)
-     * 
-     * @param low first value
-     * @param high second value
-     * @return int between the range of low and high
-     */
-    private int randomRange(int value1, int value2)
+    public int getHealth()
     {
-        // Make sure value1 is always the lower number
-        if(value1 > value2)
-        {
-            // Swap value1 and value2
-            int tempHigh = value1;
-            value1 = value2;
-            value2 = tempHigh;
-        }
-
-        // Calculate a random number between the range
-        return (int)(Math.random()*(value2-value1)+value1);
+        return health;
+    }
+    
+    public int getAttackDamage()
+    {
+        return attackDamage;
     }
 
-    public void attack(Player attacker)
+    public int getAttackModifier()
     {
-        attacker.removeHealth(attackDamage + randomRange(-randomPlusMinDmg, randomPlusMinDmg));
+        return attackModifier;
+    }
+    public void terminate()
+    {
+    
     }
 }

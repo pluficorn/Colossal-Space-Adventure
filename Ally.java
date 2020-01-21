@@ -15,6 +15,7 @@ public class Ally extends Actor
     public Ally(String name, String description)
     {
         super(name, description);
+        phaseMessages = new ArrayList<>();
     }
 
     public void setMessage(int phase, String message)
