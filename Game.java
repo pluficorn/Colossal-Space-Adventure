@@ -13,7 +13,7 @@
  * 
  * @author Michael Kölling, David J. Barnes, N.Verkade, M.Kok, E.Zigterman
  *         Rustenburg
- * @version 2020.01.20
+ * @version 2020.01.21
  */
 
 public class Game {
@@ -162,7 +162,6 @@ public class Game {
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", ""));
 
-        landing_gear = new Item(1, 5000, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
         landing_gear.setItemLocation(tree2);
         landing_gear.setItemLocation(tree3);
@@ -206,13 +205,13 @@ public class Game {
         tolk.setMessage(1, "You will be able to talk to the merchant with the translator.");
         Item translator = new Item(1, 2000, "translator", "Translates alien languages");
         tolk.addItem(translator);
-
+        
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", ""));
     }
 
     /**
-     * Add starter items to players' inventory
+     * Add starter items to players' inventory.
      */
     private void createInventoryItems() {
         // new item(count, wheight, name, description, *possible picked up *random
@@ -321,7 +320,7 @@ public class Game {
     // implementations of user commands:
 
     /**
-     * Print out some help information. Here we print some stupid, cryptic message
+     * Print out some help information. Here we print some stupid, cryptic message.
      * and a list of the command words.
      */
     private void printHelp(Command command) {
@@ -400,7 +399,7 @@ public class Game {
     }
 
     /**
-     * Look around the room. Get the current description
+     * Look around the room. Get the current description.
      */
     private void look() {
         System.out.println(player.getRoom().getLongDescription());
@@ -410,7 +409,7 @@ public class Game {
      * Take an item from the ground, removing it from the room and adding it to the
      * inventory.
      *
-     * @param command that was executed
+     * @param command that was executed.
      */
     private void take(Command command) {
         if (!command.hasSecondWord()) {
@@ -442,7 +441,7 @@ public class Game {
 
     /**
      * Method used to drop an item from the players' inventory.
-     * @param command that was executed
+     * @param command that was executed.
      */
     private void drop(Command command) {
         if (!command.hasSecondWord()) {
@@ -474,7 +473,7 @@ public class Game {
     }
 
     /**
-     * method that starts the outro of the game and after this quits the game, the payer has won
+     * method that starts the outro of the game and after this quits the game, the payer has won.
      */
     private void win()
     {
@@ -494,7 +493,7 @@ public class Game {
     }
 
     /**
-     * method for the player to see what he has in his inventory
+     * method for the player to see what he has in his inventory.
      */
     private void inventory()
     {
@@ -514,7 +513,7 @@ public class Game {
 
     /**
      * Method used to talk to actors in the game.
-     * @param command that was executed
+     * @param command that was executed.
      */
     private void talk(Command command) {
         if (!command.hasSecondWord()) {
@@ -582,8 +581,8 @@ public class Game {
     }
 
     /**
-     * method to use items however the item can be used
-     * @param command that was executed
+     * method to use items however the item can be used.
+     * @param command that was executed.
      */
     private void use(Command command) {
         if (!command.hasSecondWord()) {
@@ -617,8 +616,8 @@ public class Game {
 
     /**
      * Method used to use the menu Command. Second word selects the command available within the menu.
-     * @param command that was executed
-     * @return true, false if the game should stop
+     * @param command that was executed.
+     * @return true, false if the game should stop.
      */
     private boolean menu(Command command)
     {
@@ -662,7 +661,7 @@ public class Game {
     }
 
     /**
-     * method that gives the about information
+     * method that gives the about information.
      */
     private void about()
     {
@@ -676,6 +675,9 @@ public class Game {
         System.out.println("Copyrights 2020");
     }
 
+    /**
+     * method that makes it possbile to give/trade with actors in the game.
+     */
     private void give(Command command)
     {
         if (!command.hasSecondWord() || !command.hasThirdWord()) {
@@ -701,6 +703,7 @@ public class Game {
         }
 
         Item specifiedItem = player.getInventoryItemFromString(command.getThirdWord());
+        
         if(specifiedItem == null && !specifiedItem.getName().equals("coins")){
             System.out.println("Item does not exist" );
             return;
@@ -709,6 +712,10 @@ public class Game {
         if(player.getPhase() == 1 && player.getInventoryItemFromString("coins").getCount() == 50) {
             Item coin = player.getInventoryItemFromString("coins");
             player.dropItem(coin, 50);
+            merchant.addItem(new Item(50, 1, "coins", ""));
+            merchant.removeItem(motor);
+            player.pickUpItem(motor);
+            player.incrementPhase();
         }
     }
 }

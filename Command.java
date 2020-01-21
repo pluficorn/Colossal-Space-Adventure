@@ -11,10 +11,11 @@
  * command words. If the user entered an invalid command (a word that is not
  * known) then the CommandWord is UNKNOWN.
  *
- * If the command had only one word, then the second word is <null>.
+ * If the command had only one word, then the second word is <null> and the third word is <null>.
+ * If the command only has two words, then the third word is <null>.
  * 
- * @author  Michael Kölling, David J. Barnes, E. Zigterman Rustenburg
- * @version 2020.01.13
+ * @author  Michael Kölling, David J. Barnes, E. Zigterman Rustenburg, N. Verkade
+ * @version 2020.01.21
  */
 
 public class Command
@@ -57,7 +58,7 @@ public class Command
 
     /**
      * @return The third word of this command. Returns null if there was no
-     * second word.
+     * third word.
      */
     public String getThirdWord()
     {
@@ -88,4 +89,3 @@ public class Command
         return (thirdWord != null);
     }
 }
-

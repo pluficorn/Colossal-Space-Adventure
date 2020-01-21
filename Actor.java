@@ -3,7 +3,7 @@ import java.util.ArrayList;
  * Class to create actors.
  *
  * @author M. Kok, N. Verkade, E. Zigterman Rustenburg
- * @version 2020.21.01
+ * @version 2020.01.21
  */
 public class Actor
 {
