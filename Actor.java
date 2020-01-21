@@ -24,6 +24,16 @@ public class Actor
         inventory.add(item);
     }
     
+    public void removeItem(Item item)
+    {
+        inventory.remove(item);
+    }
+    
+    public ArrayList<Item> getInventory()
+    {
+        return inventory;
+    }
+    
     /**
      * method to get the name of an actor
      */
@@ -39,6 +49,15 @@ public class Actor
     public String getDescription()
     {
         return description;
+    }
+    
+    /**
+     * method to set the description of the room
+     * @param description to be set to an actor
+     */
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
     
     /**

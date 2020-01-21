@@ -147,6 +147,15 @@ public class Room {
     }
 
     /**
+     * method to set a descripion of a room
+     * @param description the description to be set.
+     */
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+
+    /**
      * Return a description of the room in the form: You are in the kitchen. Exits:
      * north west
      * 
@@ -250,10 +259,10 @@ public class Room {
     {
         // Get actor by name
         Actor actor = actorList.get(actorName);
-        
+
         // Check if actor exists
         if(actor instanceof Actor) {
-            actorList.remove(actor);
+            actorList.remove(actor.getName());
             room.setActor(actor);
         }
     }

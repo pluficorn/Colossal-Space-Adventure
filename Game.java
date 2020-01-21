@@ -203,7 +203,7 @@ public class Game {
         cell2.setRequiredKey(golden_key);
         cell2.setActor(tolk);
         tolk.setMessage(0, "Hello there! Thank you for freeing me. It's dangerous to go alone... without a translator. Take this.");
-        tolk.setMessage(1, "You will be able to talk to the merchant with it.");
+        tolk.setMessage(1, "You will be able to talk to the merchant with the translator.");
         Item translator = new Item(1, 2000, "translator", "Translates alien languages");
         tolk.addItem(translator);
 
@@ -458,7 +458,7 @@ public class Game {
         if (item instanceof Item) {
             // check if item can be dropped
             if (item.canBeDropped()) {
-                player.dropItem(item);
+                player.dropItem(item, 1);
                 player.getRoom().addItem(item);
                 System.out.println("You've dropped " + itemName);
             } else {
@@ -528,10 +528,47 @@ public class Game {
         Ally actor = (Ally) player.getRoom().getActor(actorName);
 
         if (actor != null) {
+            
+            //check if actor has anything to say
+            if(actor.hasMessage())
+            {
+                String message = actor.getMessage(player.getPhase());
 
-            String message = actor.getMessage(player.getPhase());
+                //print the message of the actor
+                actor.talk(message);
 
-            actor.talk(message);
+                if(!actor.getInventory().isEmpty())
+
+                {
+                    // If the actor has an item. it will give it to you. this will put the player in the next phase
+                    while(actor.getInventory().size() > 0)
+                    {
+                        Item item  = actor.getInventory().get(0);
+                        actor.removeItem(item);
+                        player.pickUpItem(item);
+
+                        System.out.println( "The " + actor.getName() + " gave you " + item.getCount() + " " + item.getName());
+                    }
+
+                    // Moving player to next phase
+                    player.incrementPhase();
+
+                    if(actor.getName() == "tolk")
+                    {
+                        player.getRoom().moveActor(actor.getName(), cellblock);
+
+                        // Updating the descriptions for the story
+                        actor.setDescription("The tolk is hanging around here. He seems quite relaxed now.");
+                        cell2.setDescription("in cell 2. It's empty now that you've freed the tolk");
+                        cellblock.setDescription("entering the cellblock.");
+                        prison_entrance.setDescription("at the prison, watch out for criminals!");
+                        prison_cafeteria.setDescription("at the cafetaria in the prison");
+
+                    }
+                }
+                return;
+            }
+            System.out.println("He doesn't seem to want to talk to you.");
             return;
         }
 
