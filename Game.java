@@ -458,7 +458,7 @@ public class Game {
         if (item instanceof Item) {
             // check if item can be dropped
             if (item.canBeDropped()) {
-                player.dropItem(item);
+                player.dropItem(item, 1);
                 player.getRoom().addItem(item);
                 System.out.println("You've dropped " + itemName);
             } else {
