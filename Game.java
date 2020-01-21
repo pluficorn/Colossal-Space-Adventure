@@ -24,15 +24,21 @@ public class Game {
     private Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5,
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
     village_entrance, marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
-    private Item item, landing_gear, lasersword, book;
+    private Item item, landing_gear, lasersword, book, hyperdrive, motor, metal_shielding;
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() {
+        hyperdrive = new Item(1, 10000, "hyperdrive", "Crucial part of the ship engine");
+        metal_shielding = new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"); 
+        landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
+        motor = new Item(1, 10000, "motor", "Engines the spaceship");
+
         createRooms();
         parser = new Parser();
         player = new Player(50000, crater);
+
         createInventoryItems();
     }
 
@@ -93,7 +99,8 @@ public class Game {
         crater.addItem(new Item(3, 1, "coins", ""));
 
         open_field.setExit("west", crater);
-        open_field.addItem(new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"));
+
+        open_field.addItem(metal_shielding);
         open_field.addItem(new Item(4, 1, "coins", ""));
 
         cave_entrance.setExit("north", crater);
@@ -121,11 +128,8 @@ public class Game {
         cave_area5.setExit("south", cave_area6);
         cave_area5.setExit("west", cave_area3);
         cave_area5.addItem(new Item(3, 1, "coins", ""));
-
-        cave_area6.setExit("north", cave_area5);
-        Enemy worm = new Enemy("Worm", "A massive worm. He seems angry");
+        Enemy worm = new Enemy("worm", "a massive worm, he seems angry", 5, 2, 1);
         cave_area6.setActor(worm);
-        Item hyperdrive = new Item(1, 10000, "hyperdrive", "Crucial part of the ship engine");
         worm.addItem(hyperdrive);
 
         forest_entrance.setExit("east", crater);
@@ -140,7 +144,7 @@ public class Game {
 
         forest_field2.setExit("north", forest_field1);
         forest_field2.setExit("east", forest_field3);
-        forest_field2.setExit("up", tree2);
+        forest_field2.setExit("up", tree2);        
         forest_field2.addItem(new Item(6, 1, "coins", ""));
 
         forest_field3.setExit("north", forest_entrance);
@@ -154,7 +158,6 @@ public class Game {
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", ""));
 
-        landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
         landing_gear.setItemLocation(tree2);
         landing_gear.setItemLocation(tree3);
@@ -170,14 +173,13 @@ public class Game {
 
         marketplace.setExit("west", village_entrance);
         marketplace.addItem(new Item(5, 1, "coins", ""));
-        Ally merchant = new Ally("Merchant", "He can trade coins for usefull items");
+        Ally merchant = new Ally("merchant", "He can trade coins for usefull items");
         marketplace.setActor(merchant);
         merchant.setMessage(0, "Uryyb gurer! V'z gur zrepunag naq lbh pna genqr lbhe fuval pbvaf sbe orngvshy vgrzf. Evtug abj V bssre n fcnprfuvc zbgbe sbe 50 pbvaf! Vs lbh jnag gb genqr, glcr tvir zrepunag pbvaf.");
         merchant.setMessage(1, "Hello there! I'm the merchant and you can trade your shiny coins for beatiful items. Right now I offer a spaceship motor for 50 coins! If you want to trade, type give merchant coins.");
         merchant.setMessage(2, "Right now I don't have anything to trade, come back later!");
-        Item motor = new Item(1, 10000, "motor", "Engines the spaceship");
         merchant.addItem(motor);
-        
+
         prison_entrance.setExit("east", village_entrance);
         prison_entrance.setExit("south", prison_cafeteria);
         prison_entrance.setExit("west", cellblock);
@@ -193,8 +195,8 @@ public class Game {
         cellblock.setExit("west", cell2);
 
         cell1.setExit("south", cellblock);
-        
-        Ally tolk = new Ally("Tolk", "He is desperate to talk to you.");
+
+        Ally tolk = new Ally("tolk", "He is desperate to talk to you.");
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
         cell2.setActor(tolk);
@@ -458,6 +460,32 @@ public class Game {
                 System.out.println("This item can't be dropped");
             }
         }
+
+        if(player.getRoom()  == crater) {
+            if(player.getRoom().getItems().contains(hyperdrive) && player.getRoom().getItems().contains(motor) && player.getRoom().getItems().contains(metal_shielding) && player.getRoom().getItems().contains(landing_gear)){
+                win();
+            }
+        }
+    }
+
+    /**
+     * method that starts the outro of the game and after this quits the game, the payer has won
+     */
+    private void win()
+    {
+        System.out.println("You have all the parts you need to fix the spaceship");
+        System.out.println();
+        System.out.println("2 hours later...");
+        System.out.println("You step into the spaceship, turn the key and it works!");
+        System.out.println("You set off into the galaxy to save the universe, everythins will be fine!");
+        System.out.println();
+        System.out.println("Thanks for playing!");
+        
+        CommandWord commandWord = new CommandWords().getCommandWord("quit");
+
+        Command newCommand = new Command(commandWord, null);
+        
+        quit(newCommand);
     }
 
     /**
