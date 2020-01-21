@@ -123,7 +123,7 @@ public class Game {
         cave_area5.addItem(new Item(3, 1, "coins", ""));
 
         cave_area6.setExit("north", cave_area5);
-        Enemy worm = new Enemy("Worm", "A massive worm. He seems angry");
+        Enemy worm = new Enemy("worm", "A massive worm. He seems angry", 5, 2, 1);
 
         forest_entrance.setExit("east", crater);
         forest_entrance.setExit("south", forest_field3);
@@ -151,7 +151,7 @@ public class Game {
         tree3.setExit("down", forest_field3);
         tree3.addItem(new Item(7, 1, "coins", ""));
 
-        landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
+        landing_gear = new Item(1, 5000, "landing_gear", "a part of a landing gear", true, true);
         landing_gear.setItemLocation(tree1);
         landing_gear.setItemLocation(tree2);
         landing_gear.setItemLocation(tree3);
@@ -184,7 +184,7 @@ public class Game {
 
         cell1.setExit("south", cellblock);
         
-        Ally tolk = new Ally("Tolk", "He is desperate to talk to you.");
+        Ally tolk = new Ally("tolk", "He is desperate to talk to you.");
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
         cell2.setActor(tolk);
@@ -477,16 +477,24 @@ public class Game {
             System.out.println("Talk to whom?");
             return;
         }
-
         // Specifying the actor
         String actorName = command.getSecondWord();
-        Actor actor = player.getRoom().getActor(actorName);
+        
+        System.out.println(actorName);
+        
+        Ally actor = (Ally) player.getRoom().getActor(actorName);
 
-        if (actor instanceof Actor) {
-            //String message = actor.getMessage(player.getPhase());
-            //actor.talk(message);
-            System.out.println("TODO");
+        System.out.println(actor);
+
+        if (actor != null) {
+            
+            String message = actor.getMessage(player.getPhase());
+            
+            System.out.println(message);
+            return;
         }
+        
+        System.out.println("That person is not in this room.");
     }
 
     /**

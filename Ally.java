@@ -26,6 +26,11 @@ public class Ally extends Actor
 
     public String getMessage(int index)
     {
+        while(phaseMessages.size() <= index)
+        {
+            index--;
+        }
+
         return phaseMessages.get(index);
     }
 }
