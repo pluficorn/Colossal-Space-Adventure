@@ -6,7 +6,7 @@ import java.util.Scanner;
  * 
  * This parser reads user input and tries to interpret it as an "Adventure"
  * command. Every time it is called it reads a line from the terminal and
- * tries to interpret the line as a two-word command. It returns the command
+ * tries to interpret the line as a three-word command. It returns the command
  * as an object of class Command.
  *
  * The parser has a set of known command words. It checks user input against
@@ -40,22 +40,26 @@ public class Parser
         String inputLine;   // will hold the full input line
         String word1 = null;
         String word2 = null;
+        String word3 = null;
 
         System.out.print("> ");     // print prompt
 
         inputLine = reader.nextLine();
 
-        // Find up to two words on the line.
+        // Find up to three words on the line.
         Scanner tokenizer = new Scanner(inputLine);
         if(tokenizer.hasNext()) {
             word1 = tokenizer.next();      // get first word
             if(tokenizer.hasNext()) {
                 word2 = tokenizer.next();      // get second word
                 // note: we just ignore the rest of the input line.
+                if(tokenizer.hasNext()) {
+                    word3 = tokenizer.next();
+                }
             }
         }
 
-        return new Command(commands.getCommandWord(word1), word2);
+        return new Command(commands.getCommandWord(word1), word2, word3);
     }
 
     /**
@@ -92,7 +96,7 @@ public class Parser
     {
         menus.showAll();
     }
-    
+
     /**
      * shows the descriptions of the commands
      */

@@ -311,6 +311,9 @@ public class Game {
             case MENU:
             wantToQuit = menu(command);
             break;
+            
+            case GIVE:
+            break;
 
         }
         return wantToQuit;
@@ -486,7 +489,7 @@ public class Game {
         
         CommandWord commandWord = new CommandWords().getCommandWord("quit");
 
-        Command newCommand = new Command(commandWord, null);
+        Command newCommand = new Command(commandWord, null, null);
         
         quit(newCommand);
     }
@@ -593,7 +596,7 @@ public class Game {
 
         //System.out.println(commandWord);
 
-        Command newCommand = new Command(commandWord, null);
+        Command newCommand = new Command(commandWord, null,null);
 
         //System.out.println(newCommand.getCommandWord() + " " + newCommand.hasSecondWord());
 
