@@ -790,14 +790,10 @@ public class Game {
                     target.removeItem(itemToRemove);
                     player.getRoom().addItem(itemToRemove);
                 }
-
-                /*
-                Kill the target by ehh...
-                 - Teleporting them to a graveyard room (kinda hack-y)
-                 - Adding an isDead boolean and adding checks to look() and attack() (<-this method)
-                 - Something else?
-                 */
-
+                // Remove actor from room
+                player.getRoom().removeActor(target.getName());
+                
+                
                 // Enemy is dead and dropped items; that's all there is to it, thus return
                 return;
             }

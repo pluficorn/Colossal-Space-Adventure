@@ -177,14 +177,15 @@ public class Room {
 
             // Print description, if any
             if(!item.getItemDescription().trim().isEmpty()) {
-                longDescription += ", " + item.getItemDescription() + ".\n";
+                longDescription += " " + item.getItemDescription() + ".\n";
             } else {
-                longDescription += ".\n";
+                longDescription += "\n";
             }
         }
 
         // Print actors, if any
         for (Actor actor : actorList.values()) {
+            // null check?
             longDescription += "A " + actor.getName() + " is in the room. ";
             if(actor.getDescription() != null) {
                 longDescription += actor.getDescription() + "\n";
@@ -252,6 +253,17 @@ public class Room {
     public ArrayList<Actor> getActors()
     {
         return new ArrayList(actorList.values());
+    }
+    
+    /**
+     * Removes an actor from their location, sending them to the shadow realm. Cannot be undone.
+     */
+    public void removeActor(String name) 
+    {
+        // First, set the object to null, freeing memory (right?)
+        actorList.replace(name, null);
+        // Then remove the key (and the null value) from the list
+        actorList.remove(name);
     }
 
     /**
