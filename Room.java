@@ -249,8 +249,13 @@ public class Room {
         return actorList.get(name);
     }
 
+    public ArrayList<Actor> getActors()
+    {
+        return new ArrayList(actorList.values());
+    }
+
     /**
-     * Move the specified actor to the specified room. Will not move the actor if the actor wasn't found in the room.
+     * Move the specified actor to the specified room. Will not move the actor if the actor or the room does not exist.
      * 
      * @param actorName the name of the actor.
      * @param room The room to move to.
@@ -260,10 +265,12 @@ public class Room {
         // Get actor by name
         Actor actor = actorList.get(actorName);
 
-        // Check if actor exists
-        if(actor instanceof Actor) {
+        // Check if actor exists and the room is not a null
+        if(actor instanceof Actor && room != null) {
             actorList.remove(actor.getName());
             room.setActor(actor);
+        } else {
+            System.out.println("DEBUG: actor or room does not exist");
         }
     }
 }

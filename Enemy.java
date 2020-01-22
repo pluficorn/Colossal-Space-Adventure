@@ -27,7 +27,7 @@ public class Enemy extends Actor
         this.attackDamage = attackDamage;
         this.attackModifier = attackModifier;
     }
-    
+
     /**
      * Method to remove health from enemy actor.
      * @param damage the amount the health will decrease with.
@@ -41,7 +41,7 @@ public class Enemy extends Actor
     {
         return health;
     }
-    
+
     public int getAttackDamage()
     {
         return attackDamage;
@@ -50,9 +50,5 @@ public class Enemy extends Actor
     public int getAttackModifier()
     {
         return attackModifier;
-    }
-    public void terminate()
-    {
-        // felt WIP, might delete later
     }
 }

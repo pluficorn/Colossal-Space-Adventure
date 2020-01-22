@@ -44,9 +44,12 @@ public class Player {
     /**
      * Constructor voor objects van class Player
      */
-    public Player(int maxWeight, Room spawn) {
+    public Player(int maxWeight, Room spawn, int health, int attackDamage, int attackModifier) {
         this.maxWeight = maxWeight;
         this.currentRoom = spawn;
+        this.health = health;
+        this.attackDamage = attackDamage;
+        this.attackModifier = attackModifier;
 
         // set respawnlocation to initial spawn location
         this.respawnLocation = spawn;
@@ -65,9 +68,10 @@ public class Player {
         System.out.println("You died.");
         System.out.println();
         System.out.println();
-        
+
         // Teleport player to spawn location
         setRoom(respawnLocation);
+        history.clear();
     }
 
     /**
@@ -165,7 +169,7 @@ public class Player {
             }
 
         }
-        
+
     }
 
     /**

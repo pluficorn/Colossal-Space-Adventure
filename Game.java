@@ -36,12 +36,12 @@ public class Game {
         landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
         motor = new Item(1, 10000, "motor", "Engines the spaceship");
         merchant = new Ally("merchant", "He can trade coins for usefull items");
-        worm = new Enemy("worm", "A massive worm. He seems angry", 5, 2, 1);
+        worm = new Enemy("worm", "A massive worm. He seems angry", 10, 2, 1);
         tolk = new Ally("tolk", "He is desperate to talk to you.");
 
         createRooms();
         parser = new Parser();
-        player = new Player(50000, crater);
+        player = new Player(50000, crater, 10, 3, 2);
 
         createInventoryItems();
     }
@@ -205,7 +205,7 @@ public class Game {
         tolk.setMessage(1, "You will be able to talk to the merchant with the translator.");
         Item translator = new Item(1, 2000, "translator", "Translates alien languages");
         tolk.addItem(translator);
-        
+
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", ""));
     }
@@ -534,6 +534,7 @@ public class Game {
                 }
             }
             System.out.println("The total weight is: " + player.calculateTotalWeight());
+            System.out.println("HP: " + player.getHealth());
         }
     }
 
@@ -551,7 +552,7 @@ public class Game {
         String actorName = command.getSecondWord();
         if(player.getRoom().getActor(command.getSecondWord()) instanceof Ally)
         {
-            
+
         } else {
             System.out.println("It doesn't seem to want to talk");
             return;
@@ -559,7 +560,7 @@ public class Game {
         Ally actor = (Ally) player.getRoom().getActor(actorName);
 
         if (actor != null) {
-            
+
             //check if actor has anything to say
             if(actor.hasMessage())
             {
@@ -729,7 +730,7 @@ public class Game {
         }
 
         Item specifiedItem = player.getInventoryItemFromString(command.getThirdWord());
-        
+
         if(specifiedItem == null && !specifiedItem.getName().equals("coins")){
             System.out.println("Item does not exist" );
             return;
@@ -744,6 +745,13 @@ public class Game {
             player.incrementPhase();
         }
     }
+
+    /**
+     * Attacks enemy specified in the second word of the command. If either the player or the enemy health dips below zero,
+     * they respectively respawn or die. TODO: Make Room method dropAllActorItems(of betere methode(s)?)
+     * 
+     * @param command the executed commandatt
+     */
     private void attack(Command command)
     {
         if (!command.hasSecondWord()) {
@@ -756,29 +764,51 @@ public class Game {
             // We know it's an enemy from the previous if-statement, so cast and save it as such
             Enemy target = (Enemy) player.getRoom().getActor(command.getSecondWord());
 
-            // Set attack damage for attack from the player.
+            // Set attack damage for attack from the player
             int playerAttackDamage = player.getAttackDamage() + randomRange(player.getAttackModifier(), -1*player.getAttackModifier());
-            int enemyAttackDamage = target.getAttackDamage() + randomRange(target.getAttackModifier(), -1*target.getAttackModifier());
+            int enemyAttackDamage  = target.getAttackDamage() + randomRange(target.getAttackModifier(), -1*target.getAttackModifier());
 
             // Exchange damages; target loses health, player loses health
+            // Send damage stats
             // If the target or players health dips below or is equal to zero, kill or respawn them respectivelyz
-            if(target.getHealth() - playerAttackDamage <= 0) {
+            if(target.getHealth() - playerAttackDamage >= 0) {
                 target.removeHealth(playerAttackDamage);
+                System.out.println(target.getName() + ": -" + playerAttackDamage + "hp");
             } else {
-                // Delete the target
-                
-                //target = null; // idk if this works
+                // If we get here, drop all items from the enemy and then terminate them
+                System.out.println("You slayed the " + target.getName() + ".");
+
+                // Keep removing items until the inventory is empty.
+
+                //getRoom.dropAllActorItems(target); // Voor morgen
+
+                int i = 0;
+                while(target.getInventory().size() > 0)
+                {
+                    Item itemToRemove = target.getInventory().get(i);
+                    System.out.println(target.getName() + " dropped a(n) " + itemToRemove.getName());
+                    target.removeItem(itemToRemove);
+                    player.getRoom().addItem(itemToRemove);
+                }
+
+                /*
+                Kill the target by ehh...
+                 - Teleporting them to a graveyard room (kinda hack-y)
+                 - Adding an isDead boolean and adding checks to look() and attack() (<-this method)
+                 - Something else?
+                 */
+
+                // Enemy is dead and dropped items; that's all there is to it, thus return
+                return;
             }
+
             if(player.getHealth() - enemyAttackDamage <= 0)
             {
                 player.respawn();
             } else {
+                System.out.println("You: -" + enemyAttackDamage + "hp");
                 player.removeHealth(enemyAttackDamage);
             }
-
-            // Send damage stats
-            System.out.println(target.getName() + ": -" + playerAttackDamage + "hp");
-            System.out.println("You: -" + enemyAttackDamage + "hp");
         } else {
             System.out.println("Enemy not found.");
         }
