@@ -225,10 +225,10 @@ public class Game {
         book.addContent("When arriving on an new planet, it's best to always check your environment. You never know what you might find.");
         book.addContent("It is always good to find a way to communicate with the locals.");
         
-        player.pickUpItem(landing_gear);
-        player.pickUpItem(motor);
-        player.pickUpItem(metal_shielding);
-        player.pickUpItem(hyperdrive);
+        // player.pickUpItem(landing_gear);
+        // player.pickUpItem(motor);
+        // player.pickUpItem(metal_shielding);
+        // player.pickUpItem(hyperdrive);
         
         player.pickUpItem(book);
     }
@@ -296,7 +296,7 @@ public class Game {
             break;
 
             case DROP:
-            drop(command);
+            wantToQuit = drop(command);
             break;
 
             case INVENTORY:
@@ -475,11 +475,12 @@ public class Game {
      * Method used to drop an item from the players' inventory.
      * @param command that was executed.
      */
-    private void drop(Command command) {
+    private boolean drop(Command command) {
+        boolean wantToQuit = false;
         if (!command.hasSecondWord()) {
             // If there's no second word, we don't know what to drop.
             System.out.println("Drop what?");
-            return;
+            return wantToQuit;
         }
 
         // Specifying the item
@@ -499,9 +500,10 @@ public class Game {
 
         if(player.getRoom()  == crater) {
             if(player.getRoom().getItems().contains(hyperdrive) && player.getRoom().getItems().contains(motor) && player.getRoom().getItems().contains(metal_shielding) && player.getRoom().getItems().contains(landing_gear)){
-                win();
+                wantToQuit = win();
             }
         }
+        return wantToQuit;
     }
 
     /**
@@ -752,7 +754,7 @@ public class Game {
         
         if(!specifiedItem.getName().equals("coins"))
             {
-                System.out.println("Item does not exist" );
+                System.out.println("You can only give coins" );
                 return;
             }
 
@@ -763,6 +765,8 @@ public class Game {
             merchant.removeItem(motor);
             player.pickUpItem(motor);
             player.incrementPhase();
+        } else {
+            System.out.println("The merchant doesn't seem to accept the offer. ");
         }
     }
 
