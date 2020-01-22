@@ -252,7 +252,7 @@ public class Room {
 
     public ArrayList<Actor> getActors()
     {
-        return new ArrayList(actorList.values());
+        return new ArrayList<>(actorList.values());
     }
     
     /**
