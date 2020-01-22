@@ -80,7 +80,7 @@ public class Game {
         forest_entrance = new Room("at the entrance of a small forest");
         forest_field1 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree has a low hanging branch");
         forest_field2 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree seems to have a small hole in it");
-        forest_field3 = new Room("You arrive at a small open area within the forest. There is a tree standing in the middle with a small nest on one of its branches");
+        forest_field3 = new Room(" at a small open area within the forest. There is a tree standing in the middle with a small nest on one of its branches");
         tree1 = new Room("sitting on the low hanging branch branch");
         tree2 = new Room("sitting on a branch near the small hole");
         tree3 = new Room("sitting on a branch next to the small nest");
@@ -90,9 +90,9 @@ public class Game {
         prison_entrance = new Room("at the prison, watch out for criminals! You hear a really soft voice screaming for help");
         prison_cafeteria = new Room("at the cafetaria in the prison, the screaming voice gets a little louder");
         cellblock = new Room("entering the cellblock, the screaming voice is really loud");
-        cell1 = new Room("entered cell 1, an unknown prisoner is sitting in his cell. But does not pay any attention to you");
-        cell2 = new Room("entered cell 2. A human man is standing in the cell desperate to get your attention", false);
-        cell3 = new Room("entered cell 3, the cell is empty");
+        cell1 = new Room("entering cell 1, an unknown prisoner is sitting in his cell. But does not pay any attention to you");
+        cell2 = new Room("entering cell 2. A human man is standing in the cell desperate to get your attention", false);
+        cell3 = new Room("entering cell 3, the cell is empty");
 
         // Initialize room exits and add items/coins
         crater.setExit("north", road);
@@ -224,7 +224,12 @@ public class Game {
         // adding content to the book
         book.addContent("When arriving on an new planet, it's best to always check your environment. You never know what you might find.");
         book.addContent("It is always good to find a way to communicate with the locals.");
-
+        
+        player.pickUpItem(landing_gear);
+        player.pickUpItem(motor);
+        player.pickUpItem(metal_shielding);
+        player.pickUpItem(hyperdrive);
+        
         player.pickUpItem(book);
     }
 
@@ -315,6 +320,7 @@ public class Game {
             break;
 
             case GIVE:
+            give(command);
             break;
 
         }
@@ -501,21 +507,28 @@ public class Game {
     /**
      * method that starts the outro of the game and after this quits the game, the payer has won.
      */
-    private void win()
+    private boolean win()
     {
+        boolean wantToQuit = false;
+        
         System.out.println("You have all the parts you need to fix the spaceship");
         System.out.println();
         System.out.println("2 hours later...");
         System.out.println("You step into the spaceship, turn the key and it works!");
-        System.out.println("You set off into the galaxy to save the universe, everythins will be fine!");
+        System.out.println("You set off into the galaxy to save the universe, everything will be fine!");
         System.out.println();
         System.out.println("Thanks for playing!");
 
-        CommandWord commandWord = new CommandWords().getCommandWord("quit");
+        CommandWord commandWord = new CommandWords().getCommandWord("menu");
+        
+        // Manually execute menu quit command
+        Command newCommand = new Command(commandWord, "quit", null);
+        
+        //wantToQuit = menu(newCommand);
+        wantToQuit = processCommand(newCommand);
 
-        Command newCommand = new Command(commandWord, null, null);
+        return wantToQuit;
 
-        quit(newCommand);
     }
 
     /**
@@ -731,10 +744,17 @@ public class Game {
 
         Item specifiedItem = player.getInventoryItemFromString(command.getThirdWord());
 
-        if(specifiedItem == null && !specifiedItem.getName().equals("coins")){
+        if(specifiedItem == null){
+            
             System.out.println("Item does not exist" );
-            return;
+                return;
         }
+        
+        if(!specifiedItem.getName().equals("coins"))
+            {
+                System.out.println("Item does not exist" );
+                return;
+            }
 
         if(player.getPhase() == 1 && player.getInventoryItemFromString("coins").getCount() == 50) {
             Item coin = player.getInventoryItemFromString("coins");
@@ -793,9 +813,9 @@ public class Game {
 
                 /*
                 Kill the target by ehh...
-                 - Teleporting them to a graveyard room (kinda hack-y)
-                 - Adding an isDead boolean and adding checks to look() and attack() (<-this method)
-                 - Something else?
+                - Teleporting them to a graveyard room (kinda hack-y)
+                - Adding an isDead boolean and adding checks to look() and attack() (<-this method)
+                - Something else?
                  */
 
                 // Enemy is dead and dropped items; that's all there is to it, thus return
