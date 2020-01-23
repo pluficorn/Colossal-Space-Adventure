@@ -141,7 +141,7 @@ public class Player {
         // Check if that ArrayList contains at least one item
         if (trapdoorLocations.size() > 0) {
             // Generate a random index for which room to pick. -1 because size is always 1 more than the highest index value
-            int rand = (int) (Math.round(Math.random() * getRoom().getTrapdoorLocations().size()-1));
+            int rand = (int) (Math.round(Math.random() * (getRoom().getTrapdoorLocations().size()-1)));
             
             // Save this room
             Room randomRoom = trapdoorLocations.get(rand);
