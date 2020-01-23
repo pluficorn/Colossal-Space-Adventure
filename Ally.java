@@ -11,6 +11,9 @@ public class Ally extends Actor
 
     /**
      * Constructor for objects of class Ally.
+     * 
+     * @param name        Name of the ally.
+     * @param description Description of the ally.
      */
     public Ally(String name, String description)
     {
@@ -45,15 +48,18 @@ public class Ally extends Actor
 
     /**
      * Returns the message based on the phase.
-     * 
      * @param index phase connected to the message.
-     * 
      * @return returns the message.
      */
     public String getMessage(int index)
     {
         while(phaseMessages.size() <= index)
         {
+            index--;
+        }
+        
+        // If message is empty or null, go back one index.
+        if (phaseMessages.get(index).isEmpty() || phaseMessages.get(index) == null) {
             index--;
         }
 
