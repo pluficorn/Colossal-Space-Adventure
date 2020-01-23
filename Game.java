@@ -24,7 +24,7 @@ public class Game {
     private Room crater, open_field, cave_entrance, cave_area1, cave_area2, cave_area3, cave_area4, cave_area5,
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
     village_entrance, marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
-    private Item item, landing_gear, lasersword, book, hyperdrive, motor, metal_shielding;
+    private Item item, landing_gear, lasersword, book, hyperdrive, motor, metal_shielding, potion;
     private Ally merchant, interpreter;
     private Enemy worm;
     /**
@@ -38,6 +38,7 @@ public class Game {
         merchant = new Ally("merchant", "He can trade coins for usefull items");
         interpreter = new Ally("interpreter", "He is desperate to talk to you.");
         worm = new Enemy("worm", "A massive worm. He seems angry, it looks like he is holding something important, how do we get this?", 10, 2, 1);
+        potion = new Item(1, 500, "potion", "Use to heal the player's HP by 5");
 
         createRooms();
         parser = new Parser();
@@ -158,9 +159,9 @@ public class Game {
         tree1.setExit("down", forest_field1);
 
         tree2.setExit("down", forest_field2);
+        tree2.addItem(potion);
 
         tree3.setExit("down", forest_field3);
-        tree3.addItem(new Item(7, 1, "coins", ""));
 
         landing_gear.setItemLocation(tree1);
         landing_gear.setItemLocation(tree2);
@@ -227,7 +228,7 @@ public class Game {
         book.addContent("It is always good to find a way to communicate with the locals.");
         book.addContent("You will need to get 4 spaceship parts to fix your ship.");
         book.addContent("To fix the spaceship drop the 4 spaceship parts at the place were your spaceship is.");
-        
+
         // player.pickUpItem(landing_gear);
         // player.pickUpItem(motor);
         // player.pickUpItem(metal_shielding);
@@ -644,29 +645,26 @@ public class Game {
         if(item != null) {
             switch (item.getName()) {
                 case "potion":
-                System.out.println("case potion. WIP"); // WORK IN PROGRESS
+                player.addHealth(5);
                 break;
 
                 case "book":
-                System.out.println("case book. WIP"); // WORK IN PROGRESS
+                if (item.hasContent()) {
+                    // read the content of the item
+                    for (Object content : item.getContent()) {
+                        System.out.println(content);
+                    }
+                    return;
+                }
                 break;
             }
-            
-            
-            
+
             if (item.getDamage() > 0) {
                 // Do damage with the item
                 System.out.println("needs to be expanded to work properly");
                 return;
             }
 
-            if (item.hasContent()) {
-                // read the content of the item
-                for (Object content : item.getContent()) {
-                    System.out.println(content);
-                }
-                return;
-            }
         } else {
             System.out.println("The item is not in your inventory. Use " + commandWord.TAKE + " to pick up an item.");
         }
