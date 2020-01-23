@@ -523,7 +523,6 @@ public class Game {
         System.out.println("You step into the spaceship, turn the key and it works!");
         System.out.println("You set off into the galaxy to save the universe, everything will be fine!");
         System.out.println();
-        System.out.println("Thanks for playing!");
 
         CommandWord commandWord = new CommandWords().getCommandWord("menu");
         
