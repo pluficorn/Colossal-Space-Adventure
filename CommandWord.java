@@ -10,29 +10,29 @@ public enum CommandWord
 {
     // A value for each command word along with its
     // corresponding user interface string.
-    GO("go", "Move in the direction you chose, must be followed with a direction that has an exit to go somewhere" ), 
+    GO("go", "Move in the direction you chose, must be followed with a direction that has an exit to go somewhere (e.g. go east)" ), 
 
-    HELP("help", "Shows the commando's and their functions" ), 
+    HELP("help", "Shows the commando's and their functions, for more info about the functions type help + function (e.g. help look)" ), 
 
-    UNKNOWN("?", "I don't know what you mean..." ), 
+    UNKNOWN("?", "" ), 
 
     BACK("back", "Go back one room" ),
 
-    LOOK("look", "Looks around the room and shows the items/coins in the room" ),
+    LOOK("look", "Look around the room and show the items/coins in the room" ),
 
-    TAKE("take", "Take an item or coins and put it in the inventory" ),
+    TAKE("take", "Take an item or coins and put it in the inventory (e.g. take item)" ),
 
-    DROP("drop", "Take an item out of the inventory and drops it in the room" ),
+    DROP("drop", "Take an item out of the inventory and drops it in the room (e.g. drop item)" ),
 
     INVENTORY("inventory", "Shows your inventory, which consists of items and coins" ),
 
-    TALK("talk", "Speak to a person or alien" ),
+    TALK("talk", "Speak to a person or alien (e.g. talk personname)" ),
 
-    USE("use", "Used to use a specified item like the sword or the book" ),
+    USE("use", "Used to use a specified item like the sword or the book (e.g. use sword)" ),
 
-    ATTACK("attack", "Attack specified enemy"),
+    ATTACK("attack", "Attack specified enemy (e.g. attack enemyname"),
 
-    GIVE("give", "Give something to an ally"),
+    GIVE("give", "Give something to an ally (e.g. give to allyname)"),
 
     MENU("menu", "Shows a menu with options, like quit and about");
 
