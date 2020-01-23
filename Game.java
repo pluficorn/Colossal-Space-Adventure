@@ -340,7 +340,7 @@ public class Game {
      * @param high second value
      * @return int between the range of low and high
      */
-    public int randomRange(int value1, int value2) // temp public
+    private int randomRange(int value1, int value2)
     {
         // Make sure value1 is always the lower number
         if(value1 > value2)
