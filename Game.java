@@ -339,7 +339,7 @@ public class Game {
      * @param high second value
      * @return int between the range of low and high
      */
-    private int randomRange(int value1, int value2)
+    public int randomRange(int value1, int value2) // temp public
     {
         // Make sure value1 is always the lower number
         if(value1 > value2)
@@ -351,7 +351,9 @@ public class Game {
         }
 
         // Calculate a random number between the range
-        return (int)(Math.random()*(value2-value1)+value1);
+        double randomNumberPrecise = (Math.random()*(value2-value1)+value1);
+        int randomNumber = (int)Math.round(randomNumberPrecise);
+        return randomNumber;
     }
 
     // implementations of user commands:
@@ -805,8 +807,8 @@ public class Game {
             Enemy target = (Enemy) player.getRoom().getActor(command.getSecondWord());
 
             // Set attack damage for attack from the player
-            int playerAttackDamage = player.getAttackDamage() + randomRange(player.getAttackModifier(), -1*player.getAttackModifier());
-            int enemyAttackDamage  = target.getAttackDamage() + randomRange(target.getAttackModifier(), -1*target.getAttackModifier());
+            int playerAttackDamage = player.getAttackDamage() + randomRange(-1*player.getAttackModifier(), player.getAttackModifier());
+            int enemyAttackDamage  = target.getAttackDamage() + randomRange(-1*target.getAttackModifier(), target.getAttackModifier());
 
             // Exchange damages; target loses health, player loses health
             // Send damage stats
