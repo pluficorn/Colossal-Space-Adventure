@@ -31,12 +31,12 @@ public class Game {
      * Create the game and initialise its internal map.
      */
     public Game() {
-        hyperdrive = new Item(1, 10000, "hyperdrive", "Crucial part of the ship engine");
-        metal_shielding = new Item(1, 15000, "metal_shielding", "the outside part of the rocket, also used as shielding"); 
-        landing_gear = new Item(1, 500, "landing_gear", "a part of a landing gear", true, true);
+        hyperdrive = new Item(1, 10000, "hyperdrive", "Crucial part of the ships engine");
+        metal_shielding = new Item(1, 15000, "metal_shielding", "The outside part of the spaceship, also used as shielding"); 
+        landing_gear = new Item(1, 500, "landing_gear", "A crucial part to land the ship", true, true);
         motor = new Item(1, 10000, "motor", "Engines the spaceship");
         merchant = new Ally("merchant", "He can trade coins for usefull items");
-        worm = new Enemy("worm", "A massive worm. He seems angry", 10, 2, 1);
+        worm = new Enemy("worm", "A massive worm. He seems angry, it looks like he is holding something important, how do we get this?", 10, 2, 1);
         tolk = new Ally("tolk", "He is desperate to talk to you.");
 
         createRooms();
@@ -77,7 +77,7 @@ public class Game {
         cave_area4 = new Room("in the cave. I can hear the flapping of batwings");
         cave_area5 = new Room("somewhere in the cave.");
         cave_area6 = new Room("in the cave. I can hear rocks falling");
-        forest_entrance = new Room("at the entrance of a small forest");
+        forest_entrance = new Room("at the entrance of a small forest, your eye catches something shining in one of the trees");
         forest_field1 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree has a low hanging branch");
         forest_field2 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree seems to have a small hole in it");
         forest_field3 = new Room(" at a small open area within the forest. There is a tree standing in the middle with a small nest on one of its branches");
@@ -86,12 +86,12 @@ public class Game {
         tree3 = new Room("sitting on a branch next to the small nest");
         road = new Room("near the village");
         village_entrance = new Room("entering an alien village with weird looking architecture");
-        marketplace = new Room("at the marketplace in the alien village, there is a salesman to who you can talk");
-        prison_entrance = new Room("at the prison, watch out for criminals! You hear a really soft voice screaming for help");
-        prison_cafeteria = new Room("at the cafetaria in the prison, the screaming voice gets a little louder");
-        cellblock = new Room("entering the cellblock, the screaming voice is really loud");
+        marketplace = new Room("at the marketplace in the alien village.");
+        prison_entrance = new Room("at the prison, watch out for criminals!");
+        prison_cafeteria = new Room("at the cafetaria in the prison.");
+        cellblock = new Room("entering the cellblock.");
         cell1 = new Room("entering cell 1, an unknown prisoner is sitting in his cell. But does not pay any attention to you");
-        cell2 = new Room("entering cell 2. A human man is standing in the cell desperate to get your attention", false);
+        cell2 = new Room("entering cell 2", false);
         cell3 = new Room("entering cell 3, the cell is empty");
 
         // Initialize room exits and add items/coins
@@ -100,16 +100,16 @@ public class Game {
         crater.setExit("south", cave_entrance);
         crater.setExit("west", forest_entrance);
         crater.addItem(new Item(1, 200000, "meteorite", "it looks really fragile", false));
-        crater.addItem(new Item(3, 1, "coins", ""));
+        crater.addItem(new Item(4, 1, "coins", ""));
 
         open_field.setExit("west", crater);
 
         open_field.addItem(metal_shielding);
-        open_field.addItem(new Item(4, 1, "coins", ""));
+        open_field.addItem(new Item(5, 1, "coins", ""));
 
         cave_entrance.setExit("north", crater);
         cave_entrance.setExit("south", cave_area1);
-        cave_entrance.addItem(new Item(3, 1, "coins", ""));
+        cave_entrance.addItem(new Item(4, 1, "coins", ""));
 
         cave_area1.setExit("north", cave_entrance);
         cave_area1.setExit("east", cave_area3);
@@ -124,14 +124,14 @@ public class Game {
 
         cave_area3.setExit("east", cave_area5);
         cave_area3.setExit("west", cave_area1);
-        cave_area3.addItem(new Item(4, 1, "coins", ""));
+        cave_area3.addItem(new Item(5, 1, "coins", ""));
 
         cave_area4.setExit("south", cave_area5);
 
         cave_area5.setExit("north", cave_area4);
         cave_area5.setExit("south", cave_area6);
         cave_area5.setExit("west", cave_area3);
-        cave_area5.addItem(new Item(3, 1, "coins", ""));
+        cave_area5.addItem(new Item(4, 1, "coins", ""));
         cave_area6.setExit("north", cave_area5);
         cave_area6.setActor(worm);
         worm.addItem(hyperdrive);
@@ -169,7 +169,7 @@ public class Game {
 
         road.setExit("north", village_entrance);
         road.setExit("south", crater);
-        road.addItem(new Item(4, 1, "coins", ""));
+        road.addItem(new Item(6, 1, "coins", ""));
 
         village_entrance.setExit("east", marketplace);
         village_entrance.setExit("south", road);
@@ -190,7 +190,7 @@ public class Game {
         prison_cafeteria.setExit("north", prison_entrance);
         Item golden_key = new Item(1, 300, "golden_key", "a golden key used to get in to a closed room", true);
         prison_cafeteria.addItem(golden_key);
-        prison_cafeteria.addItem(new Item(2, 1, "coins", ""));
+        prison_cafeteria.addItem(new Item(7, 1, "coins", ""));
 
         cellblock.setExit("north", cell1);
         cellblock.setExit("east", prison_entrance);
@@ -198,6 +198,7 @@ public class Game {
         cellblock.setExit("west", cell2);
 
         cell1.setExit("south", cellblock);
+        cell1.addItem(new Item(2, 1, "coins", ""));
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
         cell2.setActor(tolk);
@@ -224,6 +225,8 @@ public class Game {
         // adding content to the book
         book.addContent("When arriving on an new planet, it's best to always check your environment. You never know what you might find.");
         book.addContent("It is always good to find a way to communicate with the locals.");
+        book.addContent("You will need to get 4 spaceship parts to fix your ship.");
+        book.addContent("To fix the spaceship drop the 4 spaceship parts at the place were your spaceship is.");
         
         // player.pickUpItem(landing_gear);
         // player.pickUpItem(motor);
@@ -252,7 +255,8 @@ public class Game {
         //Thread.sleep(4000);
 
         System.out.println();
-        System.out.println("You wake up. You are lost and your space ship is broken. You must try to find all missing spaceship parts to fix it.");
+        System.out.println("You wake up. You are lost and your space ship is broken. You must try to find the 4 missing spaceship parts to fix it.");
+        System.out.println("To fix the spaceship drop the 4 spaceship parts at the place were your spaceship is.");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println("Type '" + CommandWord.USE + " book' if you need tips/tricks.");
         System.out.println();
