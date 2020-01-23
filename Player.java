@@ -140,11 +140,14 @@ public class Player {
 
         // Check if that ArrayList contains at least one item
         if (trapdoorLocations.size() > 0) {
-            int rand = (int) (Math.random() * getRoom().getTrapdoorLocations().size());
+            // Generate a random index for which room to pick
+            int rand = (int) (Math.round(Math.random() * getRoom().getTrapdoorLocations().size()));
+            
+            // Save this room
             Room randomRoom = trapdoorLocations.get(rand);
             System.out.println("Wow, you tripped and fell in a hole! You are all turned around.");
 
-            // Teleport player to room and clear players history
+            // Teleport player to the randomly picked room and clear players history (so they can't use back)
             setRoom(randomRoom);
             history.clear();
         } else {
