@@ -34,7 +34,7 @@ public enum CommandWord
 
     GIVE("give", "Give something to an ally (e.g. give to allyname)"),
 
-    MENU("menu", "Shows a menu with options, like quit and about");
+    MENU("menu", "Shows a menu with options, like quit and about (menu quit / menu about to access them");
 
     // The command string.
     private String commandString;
