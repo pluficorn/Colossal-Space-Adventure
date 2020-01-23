@@ -28,6 +28,7 @@ public class Player {
     private Room currentRoom;
     private Room respawnLocation;
     private int health;
+    private int initialHealth;
 
     // damage the player can deal. attackModifier is added or removed from attackDamage when attacking for randomness
     private int attackDamage, attackModifier;
@@ -52,6 +53,7 @@ public class Player {
         this.attackModifier = attackModifier;
 
         // set respawnlocation to initial spawn location
+        this.initialHealth = health;
         this.respawnLocation = spawn;
 
         inventory = new ArrayList<>();
@@ -71,6 +73,7 @@ public class Player {
 
         // Teleport player to spawn location
         setRoom(respawnLocation);
+        sethealth(initialHealth);
         history.clear();
     }
 
@@ -96,6 +99,11 @@ public class Player {
     public int getHealth()
     {
         return health;
+    }
+    
+    public void sethealth(int health)
+    {
+        this.health = health;
     }
 
     /**
