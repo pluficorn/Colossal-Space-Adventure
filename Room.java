@@ -186,7 +186,7 @@ public class Room {
         // Print actors, if any
         for (Actor actor : actorList.values()) {
             // null check?
-            longDescription += "A " + actor.getName() + " is in the room. ";
+            longDescription += "A(n) " + actor.getName() + " is in the room. ";
             if(actor.getDescription() != null) {
                 longDescription += actor.getDescription() + "\n";
             } else {

@@ -100,7 +100,7 @@ public class Game {
         crater.setExit("east", open_field);
         crater.setExit("south", cave_entrance);
         crater.setExit("west", forest_entrance);
-        crater.addItem(new Item(1, 200000, "meteorite", "it looks really fragile", false));
+        crater.addItem(new Item(1, 200000, "meteorite", "It looks really fragile", false));
         crater.addItem(new Item(4, 1, "coins", ""));
 
         open_field.setExit("west", crater);
@@ -189,7 +189,7 @@ public class Game {
         prison_entrance.setExit("west", cellblock);
 
         prison_cafeteria.setExit("north", prison_entrance);
-        Item golden_key = new Item(1, 300, "golden_key", "a golden key used to get in to a closed room", true);
+        Item golden_key = new Item(1, 300, "golden_key", "A golden key used to get in to a closed room", true);
         prison_cafeteria.addItem(golden_key);
         prison_cafeteria.addItem(new Item(7, 1, "coins", ""));
 
