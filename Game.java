@@ -13,7 +13,7 @@
  * 
  * @author Michael Kölling, David J. Barnes, N.Verkade, M.Kok, E.Zigterman
  *         Rustenburg
- * @version 2020.01.21
+ * @version 2020.01.23
  */
 
 public class Game {
@@ -364,7 +364,7 @@ public class Game {
             System.out.println("You are lost. You are alone. You wander");
             System.out.println("around on an unknown planet.");
             System.out.println();
-            System.out.println("Type help commandword for information about the commandwords. Your command words are:");
+            System.out.println("Type help commandword for information about the commandwords (e.g. help look). Your command words are:");
             parser.showCommands();
             return;
         }
