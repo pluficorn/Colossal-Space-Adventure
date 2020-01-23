@@ -76,7 +76,7 @@ public class Game {
         cave_area2 = new Room("moving further into the dark cave", true);
         cave_area3 = new Room("somewhere in the cave. It's still dark");
         cave_area4 = new Room("in the cave. I can hear the flapping of batwings");
-        cave_area5 = new Room("somewhere in the cave.");
+        cave_area5 = new Room("somewhere in the cave");
         cave_area6 = new Room("in the cave. I can hear rocks falling");
         forest_entrance = new Room("at the entrance of a small forest, your eye catches something shining in one of the trees");
         forest_field1 = new Room("at a small open area within the forest with a tree in the centre of the area. The tree has a low hanging branch");
@@ -87,10 +87,10 @@ public class Game {
         tree3 = new Room("sitting on a branch next to the small nest");
         road = new Room("near the village");
         village_entrance = new Room("entering an alien village with weird looking architecture");
-        marketplace = new Room("at the marketplace in the alien village.");
+        marketplace = new Room("at the marketplace in the alien village");
         prison_entrance = new Room("at the prison, watch out for criminals!");
-        prison_cafeteria = new Room("at the cafetaria in the prison.");
-        cellblock = new Room("entering the cellblock.");
+        prison_cafeteria = new Room("at the cafetaria in the prison");
+        cellblock = new Room("entering the cellblock");
         cell1 = new Room("entering cell 1, an unknown prisoner is sitting in his cell. But does not pay any attention to you");
         cell2 = new Room("entering cell 2", false);
         cell3 = new Room("entering cell 3, the cell is empty");
