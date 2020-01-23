@@ -25,7 +25,7 @@ public class Game {
     cave_area6, forest_entrance, forest_field1, forest_field2, forest_field3, tree1, tree2, tree3, road,
     village_entrance, marketplace, prison_entrance, prison_cafeteria, cellblock, cell1, cell2, cell3;
     private Item item, landing_gear, lasersword, book, hyperdrive, motor, metal_shielding;
-    private Ally merchant, tolk;
+    private Ally merchant, interpreter;
     private Enemy worm;
     /**
      * Create the game and initialise its internal map.
@@ -37,7 +37,7 @@ public class Game {
         motor = new Item(1, 10000, "motor", "Engines the spaceship");
         merchant = new Ally("merchant", "He can trade coins for usefull items");
         worm = new Enemy("worm", "A massive worm. He seems angry", 10, 2, 1);
-        tolk = new Ally("tolk", "He is desperate to talk to you.");
+        interpreter = new Ally("interpreter", "He is desperate to talk to you.");
 
         createRooms();
         parser = new Parser();
@@ -200,11 +200,11 @@ public class Game {
         cell1.setExit("south", cellblock);
         cell2.setExit("east", cellblock);
         cell2.setRequiredKey(golden_key);
-        cell2.setActor(tolk);
-        tolk.setMessage(0, "Hello there! Thank you for freeing me. It's dangerous to go alone... without a translator. Take this.");
-        tolk.setMessage(1, "You will be able to talk to the merchant with the translator.");
+        cell2.setActor(interpreter);
+        interpreter.setMessage(0, "Hello there! Thank you for freeing me. It's dangerous to go alone... without a translator. Take this.");
+        interpreter.setMessage(1, "You will be able to talk to the merchant with the translator.");
         Item translator = new Item(1, 2000, "translator", "Translates alien languages");
-        tolk.addItem(translator);
+        interpreter.addItem(translator);
 
         cell3.setExit("north", cellblock);
         cell3.addItem(new Item(6, 1, "coins", ""));
@@ -224,12 +224,12 @@ public class Game {
         // adding content to the book
         book.addContent("When arriving on an new planet, it's best to always check your environment. You never know what you might find.");
         book.addContent("It is always good to find a way to communicate with the locals.");
-        
+
         // player.pickUpItem(landing_gear);
         // player.pickUpItem(motor);
         // player.pickUpItem(metal_shielding);
         // player.pickUpItem(hyperdrive);
-        
+
         player.pickUpItem(book);
     }
 
@@ -512,7 +512,7 @@ public class Game {
     private boolean win()
     {
         boolean wantToQuit = false;
-        
+
         System.out.println("You have all the parts you need to fix the spaceship");
         System.out.println();
         System.out.println("2 hours later...");
@@ -522,10 +522,10 @@ public class Game {
         System.out.println("Thanks for playing!");
 
         CommandWord commandWord = new CommandWords().getCommandWord("menu");
-        
+
         // Manually execute menu quit command
         Command newCommand = new Command(commandWord, "quit", null);
-        
+
         //wantToQuit = menu(newCommand);
         wantToQuit = processCommand(newCommand);
 
@@ -563,49 +563,48 @@ public class Game {
             System.out.println("Talk to whom?");
             return;
         }
+
         // Specifying the actor
         String actorName = command.getSecondWord();
-        if(player.getRoom().getActor(command.getSecondWord()) instanceof Ally)
+
+        // Check if actor is an ally
+        if(player.getRoom().getActor(actorName) instanceof Ally)
         {
+            // It's an ally; save it as such
+            Ally ally = (Ally) player.getRoom().getActor(actorName);
 
-        } else {
-            System.out.println("It doesn't seem to want to talk");
-            return;
-        }
-        Ally actor = (Ally) player.getRoom().getActor(actorName);
-
-        if (actor != null) {
-
-            //check if actor has anything to say
-            if(actor.hasMessage())
+            //check if ally has anything to say
+            if(ally.hasMessage())
             {
-                String message = actor.getMessage(player.getPhase());
+                // Save the message
+                String message = ally.getMessage(player.getPhase());
 
                 //print the message of the actor
-                actor.talk(message);
+                ally.talk(message);
 
-                if(!actor.getInventory().isEmpty())
-
+                // Check whether their inventory is not empty and that they are the interpreter
+                if(!ally.getInventory().isEmpty() && ally.getName().equals("interpreter"))
                 {
                     // If the actor has an item. it will give it to you. this will put the player in the next phase
-                    while(actor.getInventory().size() > 0)
+                    while(ally.getInventory().size() > 0)
                     {
-                        Item item  = actor.getInventory().get(0);
-                        actor.removeItem(item);
+                        Item item  = ally.getInventory().get(0);
+                        ally.removeItem(item);
                         player.pickUpItem(item);
 
-                        System.out.println( "The " + actor.getName() + " gave you " + item.getCount() + " " + item.getName());
+                        System.out.println( "The " + ally.getName() + " gave you " + item.getCount() + " " + item.getName());
                     }
 
                     // Moving player to next phase
                     player.incrementPhase();
 
-                    if(actor.getName() == "tolk")
+                    // Check if character is an interpreter
+                    if(ally.getName().equals("interpreter"))
                     {
-                        player.getRoom().moveActor(actor.getName(), cellblock);
+                        player.getRoom().moveActor(ally.getName(), cellblock);
 
                         // Updating the descriptions for the story
-                        actor.setDescription("The tolk is hanging around here. He seems quite relaxed now.");
+                        ally.setDescription("The tolk is hanging around here. He seems quite relaxed now.");
                         cell2.setDescription("in cell 2. It's empty now that you've freed the tolk");
                         cellblock.setDescription("entering the cellblock.");
                         prison_entrance.setDescription("at the prison, watch out for criminals!");
@@ -617,9 +616,11 @@ public class Game {
             }
             System.out.println("He doesn't seem to want to talk to you.");
             return;
-        }
 
-        System.out.println("That person is not in this room.");
+        } else {
+            System.out.println("I don't know what you mean...");
+            return;
+        }
     }
 
     /**
@@ -635,7 +636,21 @@ public class Game {
 
         String itemName = command.getSecondWord();
         Item item = player.getInventoryItemFromString(itemName);
+
+        // Check item
         if(item != null) {
+            switch (item.getName()) {
+                case "potion":
+                System.out.println("case potion. WIP"); // WORK IN PROGRESS
+                break;
+
+                case "book":
+                System.out.println("case book. WIP"); // WORK IN PROGRESS
+                break;
+            }
+            
+            
+            
             if (item.getDamage() > 0) {
                 // Do damage with the item
                 System.out.println("needs to be expanded to work properly");
@@ -747,16 +762,16 @@ public class Game {
         Item specifiedItem = player.getInventoryItemFromString(command.getThirdWord());
 
         if(specifiedItem == null){
-            
+
             System.out.println("Item does not exist" );
-                return;
+            return;
         }
-        
+
         if(!specifiedItem.getName().equals("coins"))
-            {
-                System.out.println("You can only give coins" );
-                return;
-            }
+        {
+            System.out.println("You can only give coins" );
+            return;
+        }
 
         if(player.getPhase() == 1 && player.getInventoryItemFromString("coins").getCount() == 50) {
             Item coin = player.getInventoryItemFromString("coins");
@@ -817,8 +832,7 @@ public class Game {
                 // Remove actor from room
 
                 player.getRoom().removeActor(target.getName());
-                
-                
+
                 // Enemy is dead and dropped items; that's all there is to it, thus return
                 return;
             }

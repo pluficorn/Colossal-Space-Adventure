@@ -258,10 +258,8 @@ public class Room {
     /**
      * Removes an actor from their location, sending them to the shadow realm. Cannot be undone.
      */
-    public void removeActor(String name) 
+    public void removeActor(String name)
     {
-        // First, set the object to null, freeing memory (right?)
-        actorList.replace(name, null);
         // Then remove the key (and the null value) from the list
         actorList.remove(name);
     }
