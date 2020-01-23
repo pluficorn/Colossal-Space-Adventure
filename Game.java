@@ -600,6 +600,7 @@ public class Game {
                         player.pickUpItem(item);
 
                         System.out.println( "The " + ally.getName() + " gave you " + item.getCount() + " " + item.getName());
+                        System.out.println("The " + ally.getName() + " left the room.");
                     }
 
                     // Moving player to next phase
