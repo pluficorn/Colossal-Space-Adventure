@@ -232,6 +232,7 @@ public class Game {
         // player.pickUpItem(motor);
         // player.pickUpItem(metal_shielding);
         // player.pickUpItem(hyperdrive);
+        player.pickUpItem(new Item (50, 1, "coins", ""));
 
         player.pickUpItem(book);
     }
@@ -651,14 +652,6 @@ public class Game {
                 System.out.println("case book. WIP"); // WORK IN PROGRESS
                 break;
             }
-            
-            
-            
-            if (item.getDamage() > 0) {
-                // Do damage with the item
-                System.out.println("needs to be expanded to work properly");
-                return;
-            }
 
             if (item.hasContent()) {
                 // read the content of the item
@@ -776,13 +769,15 @@ public class Game {
             return;
         }
 
-        if(player.getPhase() == 1 && player.getInventoryItemFromString("coins").getCount() == 50) {
+        if(player.getPhase() == 1 && player.getInventoryItemFromString("coins").getCount() >= 50) {
             Item coin = player.getInventoryItemFromString("coins");
             player.dropItem(coin, 50);
             merchant.addItem(new Item(50, 1, "coins", ""));
             merchant.removeItem(motor);
             player.pickUpItem(motor);
             player.incrementPhase();
+            
+            System.out.println( "The " + merchant.getName() + " gave you " + motor.getCount() + " " + motor.getName());
         } else {
             System.out.println("The merchant doesn't seem to accept the offer. ");
         }
